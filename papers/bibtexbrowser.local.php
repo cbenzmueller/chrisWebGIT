@@ -41,7 +41,7 @@ define('BIBTEXBROWSER','v20130328');
 // if you disable the Javascript progressive enhancement, 
 // you may want the links to be open in a new window/tab
 // if yes, add in bibtexbrowser.local.php  define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
-@define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',false);
+@define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
 // can we load bibtex files on external servers?
