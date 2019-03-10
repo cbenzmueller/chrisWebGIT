@@ -1,0 +1,4 @@
+AuthName "Giraffenklasse Tagebuch 2018/19"
+AuthType Basic
+AuthUserFile /path/to/your/directory/.htpasswd
+require valid-user
