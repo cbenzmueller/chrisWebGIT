@@ -37,18 +37,18 @@ define('BIBTEXBROWSER','v20130328');
 // see http://en.wikipedia.org/wiki/Progressive_enhancement
 // if you don't like it, you can be disable it by adding in bibtexbrowser.local.php
 // @define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
-@define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
+@define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',true);
 // if you disable the Javascript progressive enhancement, 
 // you may want the links to be open in a new window/tab
 // if yes, add in bibtexbrowser.local.php  define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
-@define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
+@define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',false);
 @define('BIBLIOGRAPHYSTYLE','DefaultBibliographyStyle');// this is the name of a function
 @define('BIBLIOGRAPHYSECTIONS','DefaultBibliographySections');// this is the name of a function
 // can we load bibtex files on external servers?
-@define('BIBTEXBROWSER_LOCAL_BIB_ONLY', true);
+@define('BIBTEXBROWSER_LOCAL_BIB_ONLY',true);
 
 // the default view in {SimpleDisplay,AcademicDisplay,RSSDisplay,BibtexDisplay}
-@define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay');
+@define('BIBTEXBROWSER_DEFAULT_DISPLAY','AcademicDisplay');
 
 // the target frame of menu links
 @define('BIBTEXBROWSER_MENU_TARGET','main'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
