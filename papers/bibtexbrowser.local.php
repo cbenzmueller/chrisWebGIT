@@ -37,7 +37,7 @@ define('BIBTEXBROWSER','v20130328');
 // see http://en.wikipedia.org/wiki/Progressive_enhancement
 // if you don't like it, you can be disable it by adding in bibtexbrowser.local.php
 // @define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
-@define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',true);
+@define('BIBTEXBROWSER_USE_PROGRESSIVE_ENHANCEMENT',false);
 // if you disable the Javascript progressive enhancement, 
 // you may want the links to be open in a new window/tab
 // if yes, add in bibtexbrowser.local.php  define('BIBTEXBROWSER_BIB_IN_NEW_WINDOW',true);
