@@ -1442,7 +1442,7 @@ class BibEntry {
     $str .= $this->getUrlLink();
 
     if ($this->hasField('doi')) {
-      $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').$this->getField("doi").'">[doi]</a>';
+      $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getField("doi").'">[doi]</a>';
     }
 
     // Google Scholar ID
