@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Bitte melden Sie sich an"
-AuthUserFile /kompletter/server/pfad/zu/dem/verzeichnis/.htpasswd
-require valid-user 
