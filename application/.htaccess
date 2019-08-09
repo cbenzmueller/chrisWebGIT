@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Bitte melden Sie sich an"
+AuthUserFile /Users/cbenzmueller/GITHUBS/chrisWebGIT/application/.htpasswd
+require valid-user 
