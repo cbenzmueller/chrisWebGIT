@@ -51,7 +51,7 @@ define('BIBTEXBROWSER','v20130328');
 @define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay');
 
 // the target frame of menu links
-@define('BIBTEXBROWSER_MENU_TARGET','main'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
+@define('BIBTEXBROWSER_MENU_TARGET','_blank'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
 
 @define('ABBRV_TYPE','index');// may be year/x-abbrv/key/none/index
 
@@ -1944,7 +1944,6 @@ class IndependentYearMenu  {
   function IndependentYearMenu() { 
     if (!isset($_GET[Q_DB])) {die('Did you forget to call setDB() before instantiating this class?');}
     $yearIndex = $_GET[Q_DB]->yearIndex();
-    echo '<div id="yearmenu">  Year: ';
     $formatedYearIndex = array();
     $formatedYearIndex[] = '<a '.makeHref(array(Q_YEAR=>'.*')).'>All</a>';    
     foreach($yearIndex as $year) {
@@ -2039,13 +2038,27 @@ class MenuManager {
   }
 
   function getTitle() {
-    return 'Publications of C.B.';
+    return 'Publications of <br> C. Benzm&uuml;ller';
   } 
   
   
   /** function called back by HTMLWrapper */
   function display() {
-  echo $this->searchView().'<br/>';
+  echo $this->searchView().'<br/> 
+    <a href="http://www.ki2019.de" target="_blank"><img src="../images/KI2019.png" style="width: 150px;"></a> <br> <br>
+    <a href="https://www.doi.org/10.1007/978-3-319-99906-7" target="_blank"><img src="../images/RuleML+RR2018.png" style="width: 150px;"></a> <br> <br>
+    <a href="https://easychair.org/publications/volume/GCAI_2017" target="_blank"><img src="../images/GCAI2017.png" style="width: 150px;"></a> <br> <br>
+    <a href="https://easychair.org/publications/volume/GCAI_2016" target="_blank"><img src="../images/GCAI2016.png" style="width: 150px;"></a> <br> <br>
+    <a href="http://www.collegepublications.co.uk/logic/mlf/?00010" target="_blank"><img src="../images/FestschriftAndrews.png" style="width: 150px;"></a> <br> <br>
+    <a href="https://www.sciencedirect.com/journal/journal-of-applied-logic/vol/4/issue/4" target="_blank"><img src="../images/JAL2006.png" style="width: 150px;"></a> <br> <br>
+    <a href="http://ceur-ws.org/Vol-2095/" target="_blank"><img src="../images/ARQNL2018.png" style="width: 150px;"></a> <br> <br>
+    <a href="http://ceur-ws.org/Vol-1770/" target="_blank"><img src="../images/ARQNL2016.png" style="width: 150px;"></a> <br> <br>
+    <a href="https://easychair.org/publications/volume/ARQNL_2014/" target="_blank"><img src="../images/ARQNL2014.png" style="width: 150px;"></a> <br> <br>
+    <a href="http://eptcs.web.cse.unsw.edu.au/content.cgi?UITP2014" target="_blank"><img src="../images/UITP2014.png" style="width: 150px;"></a> <br> <br>
+    <a href="https://www.sciencedirect.com/journal/electronic-notes-in-theoretical-computer-science/vol/226" target="_blank"><img src="../images/UITP2008.png" style="width: 150px;"></a> <br> <br>
+    <a href="http://www.sciencedirect.com/science/journal/15710661/174/2" target="_blank"><img src="../images/UITP2006.png" style="width: 150px;"></a> <br> <br>
+    <a href="http://page.mi.fu-berlin.de/cbenzmueller/papers/R36.pdf" target="_blank"><img src="../images/CALCULEMUS.png" style="width: 150px;"></a> <br> <br>
+<br/>';
   echo $this->typeVC().'<br/>';
   echo $this->tagVC().'<br/>';
   echo $this->yearVC().'<br/>';
@@ -2077,18 +2090,6 @@ class MenuManager {
 
   /** Displays and controls the types menu in a table. */
   function typeVC() {
-    $types = array();
-    foreach ($this->db->getTypes() as $type) {
-      $types[$type] = $type;
-    }
-    $types['.*'] = 'all types';
-    // retreive or calculate page number to display
-    if (isset($_GET[Q_TYPE_PAGE])) {
-      $page = $_GET[Q_TYPE_PAGE];
-    }
-    else $page = 1;
-
-    $this->displayMenu('Types', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
   }
 
   /** Displays and controls the authors menu in a table. */
@@ -2119,18 +2120,6 @@ class MenuManager {
 
   /** Displays and controls the tag menu in a table. */
   function yearVC() {
-    // retrieve authors list to display
-      $years = $this->db->yearIndex();
-
-    // determine the authors page to display
-    if (isset($_GET[Q_YEAR_PAGE])) {
-      $page = $_GET[Q_YEAR_PAGE];
-    }
-else $page = 1;
-
-
-    $this->displayMenu('Years', $years, $page, $this->year_size, Q_YEAR_PAGE,
-         Q_YEAR);
   }
 
   /** Displays the main contents . */

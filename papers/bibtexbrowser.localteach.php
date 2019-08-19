@@ -2039,7 +2039,7 @@ class MenuManager {
   }
 
   function getTitle() {
-    return 'Teaching of C.B.';
+    return 'Teaching of <br> C. Benzm&uuml;ller';
   } 
   
   
