@@ -1959,11 +1959,6 @@ class IndependentYearMenu  {
 
 /** Returns the powered by part. @nodoc */
 function poweredby() {
-  $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
-  $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v20130328-->';
-  $poweredby .= '</div>'."\n";
-  return $poweredby;
   }
 
 
@@ -2045,7 +2040,9 @@ class MenuManager {
   
   /** function called back by HTMLWrapper */
   function display() {
-  echo $this->searchView().'<br/>';
+  echo $this->searchView().'<br>
+    <a href="https://www.fu-berlin.de/campusleben/lernen-und-lehren/2016/160428-lehrpreis/index.html" target="_blank"><img src="../images/Lehrpreis.png" style="width: 99%;"></a> <br> <br>
+<br/>';
   echo $this->tagVC().'<br/>';
   echo $this->yearVC().'<br/>';
   }
@@ -3687,7 +3684,7 @@ class Dispatcher {
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
       <title>Teaching of Christoph Benzm&uuml;ller</title>
     </head>
-    <frameset cols="15%,*">
+    <frameset cols="20%,*">
     <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; ?>" />
     <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;year=.*'?>" />
     </frameset>

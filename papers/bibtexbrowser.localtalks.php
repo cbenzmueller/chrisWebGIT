@@ -1959,11 +1959,6 @@ class IndependentYearMenu  {
 
 /** Returns the powered by part. @nodoc */
 function poweredby() {
-  $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
-  $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v20130328-->';
-  $poweredby .= '</div>'."\n";
-  return $poweredby;
   }
 
 
@@ -2045,7 +2040,19 @@ class MenuManager {
   
   /** function called back by HTMLWrapper */
   function display() {
-  echo $this->searchView().'<br/>';
+  echo $this->searchView().'<br>
+    <a href="https://www.youtube.com/watch?v=rXvboBiz7co&feature=youtu.be" target="_blank"><img src="../images/SO36.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://lecturenet.uu.nl/Site1/Play/6e679ba9960a48c28b9e86688b57351f1d?catalog=5f595ae1-b213-456b-af3d-5248da311475" target="_blank"><img src="../images/DEON2018.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://podcasts.apple.com/de/podcast/ki-und-ethik-recht-was-geht-das-die-industrie-an/id1451196082?i=1000443633873" target="_blank"><img src="../images/Podcast.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.youtube.com/watch?v=_ceTZ2jehT4&list=PLMK_P-_jhhHtgGTomPNKYIY0mRb4tYrQM&index=1" target="_blank"><img src="../images/AISSQ2018.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.youtube.com/watch?v=zGXgBYxADwU&list=PLMK_P-_jhhHtgGTomPNKYIY0mRb4tYrQM&index=2" target="_blank"><img src="../images/AISSQ2018-2.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.youtube.com/watch?v=ytnD-3q8ays" target="_blank"><img src="../images/OEB2016.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.presseportal.de/pm/107804/3296279" target="_blank"><img src="../images/NatGeographic.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.youtube.com/watch?v=Y6-iVbD7Jq4" target="_blank"><img src="../images/AITP2018.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.youtube.com/watch?v=0i8IPeJi7wM" target="_blank"><img src="../images/AISSQ2015.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.spiegel.de/international/germany/scientists-use-computer-to-mathematically-prove-goedel-god-theorem-a-928668.html" target="_blank"><img src="../images/Spiegel.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://page.mi.fu-berlin.de/cbenzmueller/papers/2011_NCMPL_presentation.mov" target="_blank"><img src="../images/China2011.png" style="width: 99%;"></a> <br> <br>
+<br/>';
   echo $this->tagVC().'<br/>';
   echo $this->yearVC().'<br/>';
   }
@@ -3688,7 +3695,7 @@ class Dispatcher {
     <meta http-equiv="Content-Type" content="text/html; charset=<?php echo ENCODING ?>"/>
       <title>Presentations of Christoph Benzm&uuml;ller</title>
     </head>
-    <frameset cols="15%,*">
+    <frameset cols="20%,*">
     <frame name="menu" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;menu'; ?>" />
     <frame name="main" src="<?php echo '?'.Q_FILE.'='. urlencode($_GET[Q_FILE]).'&amp;year=.*'?>" />
     </frameset>

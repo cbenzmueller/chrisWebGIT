@@ -1958,11 +1958,6 @@ class IndependentYearMenu  {
 
 /** Returns the powered by part. @nodoc */
 function poweredby() {
-  $poweredby = "\n".'<div style="text-align:right;font-size: xx-small;opacity: 0.6;" class="poweredby">';
-  $poweredby .= '<!-- If you like bibtexbrowser, thanks to keep the link :-) -->';
-  $poweredby .= 'Powered by <a href="http://www.monperrus.net/martin/bibtexbrowser/">bibtexbrowser</a><!--v20130328-->';
-  $poweredby .= '</div>'."\n";
-  return $poweredby;
   }
 
 
@@ -2045,21 +2040,25 @@ class MenuManager {
   /** function called back by HTMLWrapper */
   function display() {
   echo $this->searchView().'<br/> 
-    <a href="http://www.ki2019.de" target="_blank"><img src="../images/KI2019.png" style="width: 150px;"></a> <br> <br>
-    <a href="https://www.doi.org/10.1007/978-3-319-99906-7" target="_blank"><img src="../images/RuleML+RR2018.png" style="width: 150px;"></a> <br> <br>
-    <a href="https://easychair.org/publications/volume/GCAI_2017" target="_blank"><img src="../images/GCAI2017.png" style="width: 150px;"></a> <br> <br>
-    <a href="https://easychair.org/publications/volume/GCAI_2016" target="_blank"><img src="../images/GCAI2016.png" style="width: 150px;"></a> <br> <br>
-    <a href="http://www.collegepublications.co.uk/logic/mlf/?00010" target="_blank"><img src="../images/FestschriftAndrews.png" style="width: 150px;"></a> <br> <br>
-    <a href="https://www.sciencedirect.com/journal/journal-of-applied-logic/vol/4/issue/4" target="_blank"><img src="../images/JAL2006.png" style="width: 150px;"></a> <br> <br>
-    <a href="http://ceur-ws.org/Vol-2095/" target="_blank"><img src="../images/ARQNL2018.png" style="width: 150px;"></a> <br> <br>
-    <a href="http://ceur-ws.org/Vol-1770/" target="_blank"><img src="../images/ARQNL2016.png" style="width: 150px;"></a> <br> <br>
-    <a href="https://easychair.org/publications/volume/ARQNL_2014/" target="_blank"><img src="../images/ARQNL2014.png" style="width: 150px;"></a> <br> <br>
-    <a href="http://eptcs.web.cse.unsw.edu.au/content.cgi?UITP2014" target="_blank"><img src="../images/UITP2014.png" style="width: 150px;"></a> <br> <br>
-    <a href="https://www.sciencedirect.com/journal/electronic-notes-in-theoretical-computer-science/vol/226" target="_blank"><img src="../images/UITP2008.png" style="width: 150px;"></a> <br> <br>
-    <a href="http://www.sciencedirect.com/science/journal/15710661/174/2" target="_blank"><img src="../images/UITP2006.png" style="width: 150px;"></a> <br> <br>
-    <a href="http://page.mi.fu-berlin.de/cbenzmueller/papers/R36.pdf" target="_blank"><img src="../images/CALCULEMUS.png" style="width: 150px;"></a> <br> <br>
+    <a href="http://www.ki2019.de" target="_blank"><img src="../images/KI2019.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.doi.org/10.1007/978-3-319-99906-7" target="_blank"><img src="../images/RuleML+RR2018.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://plato.stanford.edu/entries/type-theory-church/" target="_blank"><img src="../images/SEP2019.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://easychair.org/publications/volume/GCAI_2017" target="_blank"><img src="../images/GCAI2017.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://easychair.org/publications/volume/GCAI_2016" target="_blank"><img src="../images/GCAI2016.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://www.collegepublications.co.uk/logic/mlf/?00010" target="_blank"><img src="../images/FestschriftAndrews.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.sciencedirect.com/science/article/pii/B9780444516244500058?via%3Dihub" target="_blank"><img src="../images/HOLATP2014.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.sciencedirect.com/journal/journal-of-applied-logic/vol/4/issue/4" target="_blank"><img src="../images/JAL2006-2.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://ceur-ws.org/Vol-2095/" target="_blank"><img src="../images/ARQNL2018.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://ceur-ws.org/Vol-1770/" target="_blank"><img src="../images/ARQNL2016.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://easychair.org/publications/volume/ARQNL_2014/" target="_blank"><img src="../images/ARQNL2014.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://doi.org/10.1016/S1874-5857(09)70009-3" target="_blank"><img src="../images/Herbrand.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://eptcs.web.cse.unsw.edu.au/content.cgi?UITP2014" target="_blank"><img src="../images/UITP2014.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.sciencedirect.com/journal/electronic-notes-in-theoretical-computer-science/vol/226" target="_blank"><img src="../images/UITP2008.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://www.sciencedirect.com/science/journal/15710661/174/2" target="_blank"><img src="../images/UITP2006.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://dx.doi.org/10.2178/jsl/1102022211" target="_blank"><img src="../images/JSL2004.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://page.mi.fu-berlin.de/cbenzmueller/papers/R36.pdf" target="_blank"><img src="../images/CALCULEMUS.png" style="width: 99%;"></a> <br> 
 <br/>';
-  echo $this->typeVC().'<br/>';
+  echo $this->typeVC().'';
   echo $this->tagVC().'<br/>';
   echo $this->yearVC().'<br/>';
   echo $this->authorVC().'<br/>';
@@ -2088,8 +2087,22 @@ class MenuManager {
     <?php
   }
 
+
+
   /** Displays and controls the types menu in a table. */
   function typeVC() {
+    $types = array();
+    foreach ($this->db->getTypes() as $type) {
+      $types[$type] = $type;
+    }
+    $types['.*'] = 'all types';
+    // retreive or calculate page number to display
+    if (isset($_GET[Q_TYPE_PAGE])) {
+      $page = $_GET[Q_TYPE_PAGE];
+    }
+    else $page = 1;
+
+    $this->displayMenu('Types', $types, $page, $this->type_size, Q_TYPE_PAGE, Q_INNER_TYPE);
   }
 
   /** Displays and controls the authors menu in a table. */
@@ -2104,7 +2117,10 @@ class MenuManager {
     else $page = 1;
 
 
+    $this->displayMenu('Authors', $authors, $page, $this->author_size, Q_AUTHOR_PAGE,
+         Q_AUTHOR);
   }
+
 
   /** Displays and controls the tag menu in a table. */
   function tagVC() {
@@ -2120,7 +2136,20 @@ class MenuManager {
 
   /** Displays and controls the tag menu in a table. */
   function yearVC() {
+    // retrieve authors list to display
+      $years = $this->db->yearIndex();
+
+    // determine the authors page to display
+    if (isset($_GET[Q_YEAR_PAGE])) {
+      $page = $_GET[Q_YEAR_PAGE];
+    }
+else $page = 1;
+
+
+    $this->displayMenu('Years', $years, $page, $this->year_size, Q_YEAR_PAGE,
+         Q_YEAR);
   }
+
 
   /** Displays the main contents . */
   function mainVC() {
@@ -2140,7 +2169,7 @@ class MenuManager {
          $targetKey) {
     $numEntries = count($list);
     $startIndex = ($page - 1) * $pageSize;
-    $endIndex = $startIndex + $pageSize;
+    $endIndex = $numEntries;
     ?>
     <table style="width:100%"  class="menu">
       <tr>
