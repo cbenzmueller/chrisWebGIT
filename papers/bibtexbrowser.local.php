@@ -2040,7 +2040,7 @@ class MenuManager {
   /** function called back by HTMLWrapper */
   function display() {
   echo $this->searchView().'<br/> 
-    <a href="http://www.ki2019.de" target="_blank"><img src="../images/KI2019.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://dx.doi.org/10.1007/978-3-030-30179-8" target="_blank"><img src="../images/KI2019.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.doi.org/10.1007/978-3-319-99906-7" target="_blank"><img src="../images/RuleML+RR2018.png" style="width: 99%;"></a> <br> <br>
     <a href="https://plato.stanford.edu/entries/type-theory-church/" target="_blank"><img src="../images/SEP2019.png" style="width: 99%;"></a> <br> <br>
     <a href="https://easychair.org/publications/volume/GCAI_2017" target="_blank"><img src="../images/GCAI2017.png" style="width: 99%;"></a> <br> <br>
