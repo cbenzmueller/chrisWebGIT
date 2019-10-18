@@ -2043,6 +2043,7 @@ class MenuManager {
   echo $this->searchView().'<br>
     <a href="https://www.fu-berlin.de/campusleben/lernen-und-lehren/2016/160428-lehrpreis/index.html" target="_blank"><img src="../images/Lehrpreis.png" style="width: 99%;"></a> <br> <br>
     <a href="http://christoph-benzmueller.de/2019-Goedel/" target="_blank"><img src="../images/GoedelSeminar2019.png" style="width: 99%;"></a> <br> <br>
+    <a href="https://www.alexandersteen.de/lehre/compmeta/" target="_blank"><img src="../images/CompMeta2016.png" style="width: 99%;"></a> <br> <br>
 <br/>';
   echo $this->tagVC().'<br/>';
   echo $this->yearVC().'<br/>';
