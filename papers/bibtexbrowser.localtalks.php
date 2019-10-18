@@ -2046,6 +2046,7 @@ class MenuManager {
     <a href="https://podcasts.apple.com/de/podcast/ki-und-ethik-recht-was-geht-das-die-industrie-an/id1451196082?i=1000443633873" target="_blank"><img src="../images/Podcast.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.youtube.com/watch?v=_ceTZ2jehT4&list=PLMK_P-_jhhHtgGTomPNKYIY0mRb4tYrQM&index=1" target="_blank"><img src="../images/AISSQ2018.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.youtube.com/watch?v=zGXgBYxADwU&list=PLMK_P-_jhhHtgGTomPNKYIY0mRb4tYrQM&index=2" target="_blank"><img src="../images/AISSQ2018-2.png" style="width: 99%;"></a> <br> <br>
+    <a href="http://www.pucrs.br/en/blog/school-of-computer-science-40th-anniversary-celebrations-come-to-close-with-lecture-by-christoph-benzmuller/" target="_blank"><img src="../images/PUCRS2017.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.youtube.com/watch?v=ytnD-3q8ays" target="_blank"><img src="../images/OEB2016.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.presseportal.de/pm/107804/3296279" target="_blank"><img src="../images/NatGeographic.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.youtube.com/watch?v=Y6-iVbD7Jq4" target="_blank"><img src="../images/AITP2018.png" style="width: 99%;"></a> <br> <br>
