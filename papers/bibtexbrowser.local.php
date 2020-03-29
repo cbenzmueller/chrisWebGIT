@@ -3089,11 +3089,11 @@ dd {
 }
 .result a {
   text-decoration: none;
-  color: #469AF8;
+  color: #000000;
 }
 
 .result a:hover {
-  color: #ff6633;
+  color: #000000;
 }
 
 .input_box{
@@ -3105,13 +3105,13 @@ dd {
   height: 1px;
 }
 .a_name a {
-  color:#469AF8;
+  color: #000000;
   width:130px;
 }
 
 .rsslink {
   text-decoration: none;
-  color:#F88017;
+  color: #000000;
 /* could be fancy, see : http://www.feedicons.com/ for icons*/
   /*background-image: url("rss.png"); text-indent: -9999px;*/
 }
