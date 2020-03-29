@@ -1446,7 +1446,7 @@ class BibEntry {
     }
 
     if ($this->hasField('url')) {
-      $str .= ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField("url").'">[url]</a>';
+      $str .= ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField("url").'" style=\"color:red; font-weight:400\">[url]</a>';
     }
 
     // Google Scholar ID
