@@ -3027,7 +3027,7 @@ function bibtexbrowserDefaultCSS() {
 
 /* 1st level headers, equivalent H1  */
 .rheader {
-  color: gray;
+  color: black;
   font-size: large;
   font-weight: bold;
 }
