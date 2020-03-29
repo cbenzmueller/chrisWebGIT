@@ -3063,7 +3063,7 @@ function bibtexbrowserDefaultCSS() {
   color: #000000;
 }
 .menu a:hover {
-  color: #ff6633;
+  color: #000000;
 }
 
 dd {
