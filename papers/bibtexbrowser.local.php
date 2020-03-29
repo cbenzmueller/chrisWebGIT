@@ -3027,7 +3027,7 @@ function bibtexbrowserDefaultCSS() {
 
 /* 1st level headers, equivalent H1  */
 .rheader {
-  color: #000000;
+  color: gray;
   font-size: large;
   font-weight: bold;
 }
@@ -3035,7 +3035,7 @@ function bibtexbrowserDefaultCSS() {
 /* 2nd level headers, equivalent H2  */
 .sheader {
   font-weight: bold;
-  background-color: #000000;
+  background-color: gray;
   color: #ffffff;
   padding: 2px;
   margin-bottom: 0px;
@@ -3044,7 +3044,7 @@ function bibtexbrowserDefaultCSS() {
 
 /* 3rd level headers, equivalent H3  */
 .theader {
-  background-color: #000000;
+  background-color: gray;
   color: #FFFFFF;
   padding: 1px 2px 1px 2px;
 }
