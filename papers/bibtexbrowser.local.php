@@ -3089,7 +3089,7 @@ dd {
 }
 .result a {
   text-decoration: none;
-  color: #469AF8;
+  color: #000000;
 }
 
 .result a:hover {
