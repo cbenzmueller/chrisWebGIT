@@ -3060,10 +3060,10 @@ function bibtexbrowserDefaultCSS() {
 }
 .menu a {
   text-decoration: none;
-  color: #003366;
+  color: #000000;
 }
 .menu a:hover {
-  color: #ff6633;
+  color: #000000;
 }
 
 dd {
