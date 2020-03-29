@@ -1435,14 +1435,14 @@ class BibEntry {
     if (BIBTEXBROWSER_BIBTEX_LINKS) {
       // we add biburl and title to be able to retrieve this important information
       // using Xpath expressions on the XHTML source
-      $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}>[bibtex]</a>";
+      $str .= " <a".(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'')." class=\"biburl\" title=\"".$this->getKey()."\" {$href}   style="color:red; font-weight:400">[bibtex]</a>";
     }
 
     // returns an empty string if no url present
     $str .= $this->getUrlLink();
 
     if ($this->hasField('doi')) {
-      $str .= ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
+      $str .= ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://dx.doi.org/'.$this->getField("doi").'" style="color:red; font-weight:400">[doi]</a>';
     }
 
     if ($this->hasField('url')) {
