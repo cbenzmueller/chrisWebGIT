@@ -3093,7 +3093,7 @@ dd {
 }
 
 .result a:hover {
-  color: #000000;
+  color: #ff6633;
 }
 
 .input_box{
