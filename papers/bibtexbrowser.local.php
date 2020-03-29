@@ -1445,6 +1445,10 @@ class BibEntry {
       $str .= ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="http://dx.doi.org/'.$this->getField("doi").'">[doi]</a>';
     }
 
+    if ($this->hasField('url')) {
+      $str .= ' <a'.(BIBTEXBROWSER_BIB_IN_NEW_WINDOW?' target="_blank" ':'').' href="'.$this->getField("url").'">[url]</a>';
+    }
+
     // Google Scholar ID
     if ($this->hasField('gsid')) {
       $str .= ' <a href="http://scholar.google.com/scholar?cites='.$this->getField("gsid").'">[cites]</a>';
