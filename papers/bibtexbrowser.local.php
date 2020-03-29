@@ -3023,7 +3023,7 @@ function bibtexbrowserDefaultCSS() {
 
 /* 1st level headers, equivalent H1  */
 .rheader {
-  color: #006699;
+  color: #000000;
   font-size: large;
   font-weight: bold;
 }
@@ -3031,7 +3031,7 @@ function bibtexbrowserDefaultCSS() {
 /* 2nd level headers, equivalent H2  */
 .sheader {
   font-weight: bold;
-  background-color: #006699;
+  background-color: #000000;
   color: #ffffff;
   padding: 2px;
   margin-bottom: 0px;
@@ -3040,13 +3040,13 @@ function bibtexbrowserDefaultCSS() {
 
 /* 3rd level headers, equivalent H3  */
 .theader {
-  background-color: #006699;
+  background-color: #000000;
   color: #FFFFFF;
   padding: 1px 2px 1px 2px;
 }
 
 .btb-nav-title {   
-  background-color: #006699;
+  background-color: #000000;
   color: #FFFFFF;
   padding: 1px 2px 1px 2px;
 }
