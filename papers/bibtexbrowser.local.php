@@ -3063,7 +3063,7 @@ function bibtexbrowserDefaultCSS() {
   color: #000000;
 }
 .menu a:hover {
-  color: #000000;
+  color: #ff6633;
 }
 
 dd {
@@ -3089,7 +3089,7 @@ dd {
 }
 .result a {
   text-decoration: none;
-  color: #000000;
+  color: #469AF8;
 }
 
 .result a:hover {
@@ -3105,13 +3105,13 @@ dd {
   height: 1px;
 }
 .a_name a {
-  color: #000000;
+  color:#469AF8;
   width:130px;
 }
 
 .rsslink {
   text-decoration: none;
-  color: #000000;
+  color:#F88017;
 /* could be fancy, see : http://www.feedicons.com/ for icons*/
   /*background-image: url("rss.png"); text-indent: -9999px;*/
 }
