@@ -3064,10 +3064,10 @@ function bibtexbrowserDefaultCSS() {
 }
 .menu a {
   text-decoration: none;
-  color: #000000;
+  color: gray;
 }
 .menu a:hover {
-  color: #000000;
+  color: red;
 }
 
 dd {
@@ -3093,11 +3093,11 @@ dd {
 }
 .result a {
   text-decoration: none;
-  color: #000000;
+  color: gray;
 }
 
 .result a:hover {
-  color: #ff6633;
+  color: red;
 }
 
 .input_box{
