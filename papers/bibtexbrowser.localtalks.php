@@ -970,6 +970,7 @@ class BibEntry {
     if ($name!='url' && $name!='comment') { 
       $value = xtrim($value); 
       $value = latex2html($value);
+      $value = "<font color=\"red\">".$value."</font>";
     } else {
       //echo "xx".$value."xx\n";
     }
