@@ -3082,11 +3082,11 @@ dd {
 }
 .result a {
   text-decoration: none;
-  color: red;
+  color: gray;
 }
 
 .result a:hover {
-  color: gray;
+  color: red;
 }
 
 .input_box{
