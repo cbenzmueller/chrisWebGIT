@@ -809,7 +809,7 @@ function latex2html($line) {
 
   // handling \url{....}
   // often used in howpublished for @misc
-  $line = preg_replace('/\\\\url\{(.*)\}/U','<a href="\\1" style="color:red; font-weight:400">\\1</a>', $line);
+  $line = preg_replace('/\\\\url\{(.*)\}/U','<a href="\\1" style="color:gray; font-weight:400">\\1</a>', $line);
 
   // Friday, April 01 2011
   // added support for accented i
