@@ -970,7 +970,6 @@ class BibEntry {
     if ($name!='url' && $name!='comment') { 
       $value = xtrim($value); 
       $value = latex2html($value);
-      $value = "<font color=\"red\">".$value."</font>";
     } else {
       //echo "xx".$value."xx\n";
     }
@@ -3087,7 +3086,7 @@ dd {
 }
 
 .result a:hover {
-  color: #ff6633;
+  color: gray;
 }
 
 .input_box{
