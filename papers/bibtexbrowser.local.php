@@ -1757,6 +1757,9 @@ function DefaultBibliographyStyle(&$bibentry) {
   if ($bibentry->hasField('note')) {
       $result .=  " (".$bibentry->getField("note").")";
   }
+   if ($bibentry->hasField('addendum')) {
+      $result .=  " (".$bibentry->getField("addendum").")";
+  }
 
   // add the Coin URL
   $result .=  $bibentry->toCoins();
