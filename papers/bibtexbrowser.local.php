@@ -2046,7 +2046,8 @@ class MenuManager {
   
   /** function called back by HTMLWrapper */
   function display() {
-  echo $this->searchView().'<br/> 
+    echo $this->searchView().'<br/>';
+  echo $this->typeVC().'<br/> 
     <a href="http://dx.doi.org/10.1007/978-3-030-30179-8" target="_blank"><img src="../images/KI2019.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.doi.org/10.1007/978-3-319-99906-7" target="_blank"><img src="../images/RuleML+RR2018.png" style="width: 99%;"></a> <br> <br>
     <a href="https://plato.stanford.edu/entries/type-theory-church/" target="_blank"><img src="../images/SEP2019.png" style="width: 99%;"></a> <br> <br>
@@ -2065,7 +2066,7 @@ class MenuManager {
     <a href="http://dx.doi.org/10.2178/jsl/1102022211" target="_blank"><img src="../images/JSL2004.png" style="width: 99%;"></a> <br> <br>
     <a href="http://page.mi.fu-berlin.de/cbenzmueller/papers/R36.pdf" target="_blank"><img src="../images/CALCULEMUS.png" style="width: 99%;"></a> <br> 
 <br/>';
-  echo $this->typeVC().'';
+
   echo $this->tagVC().'<br/>';
   echo $this->yearVC().'<br/>';
   echo $this->authorVC().'<br/>';
