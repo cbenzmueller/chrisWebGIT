@@ -2048,6 +2048,7 @@ class MenuManager {
   function display() {
     echo $this->searchView().'<br/>';
   echo $this->typeVC().'<br/> 
+    <a href="https://doi.org/10.1007/978-3-030-53518-6" target="_blank"><img src="../images/CICM2020.png" style="width: 99%;"></a> <br> <br>
     <a href="http://dx.doi.org/10.1007/978-3-030-30179-8" target="_blank"><img src="../images/KI2019.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.doi.org/10.1007/978-3-319-99906-7" target="_blank"><img src="../images/RuleML+RR2018.png" style="width: 99%;"></a> <br> <br>
     <a href="https://plato.stanford.edu/entries/type-theory-church/" target="_blank"><img src="../images/SEP2019.png" style="width: 99%;"></a> <br> <br>
