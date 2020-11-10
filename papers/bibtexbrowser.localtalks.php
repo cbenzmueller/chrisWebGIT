@@ -2041,6 +2041,7 @@ class MenuManager {
   /** function called back by HTMLWrapper */
   function display() {
   echo $this->searchView().'<br>
+    <a href="https://www.youtube.com/watch?v=e8FobDu77VI&feature=youtu.be&t=2742" target="_blank"><img src="../images/UnaEuropaTalk.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.youtube.com/watch?v=rXvboBiz7co&feature=youtu.be" target="_blank"><img src="../images/SO36.png" style="width: 99%;"></a> <br> <br>
     <a href="https://lecturenet.uu.nl/Site1/Play/6e679ba9960a48c28b9e86688b57351f1d?catalog=5f595ae1-b213-456b-af3d-5248da311475" target="_blank"><img src="../images/DEON2018.png" style="width: 99%;"></a> <br> <br>
     <a href="https://podcasts.apple.com/de/podcast/ki-und-ethik-recht-was-geht-das-die-industrie-an/id1451196082?i=1000443633873" target="_blank"><img src="../images/Podcast.png" style="width: 99%;"></a> <br> <br>
