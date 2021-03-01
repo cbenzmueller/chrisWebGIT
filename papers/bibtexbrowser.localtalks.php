@@ -2040,6 +2040,7 @@ class MenuManager {
   /* /\** function called back by HTMLWrapper *\/ */
   function display() { 
     echo $this->searchView().'<br> 
+    <a href="https://youtu.be/Nzk-48zr1nA?t=59" target="_blank"><img src="../images/hq720.jpg" style="width: 99%;"></a> <br> <br>
     <a href="https://www.youtube.com/watch?v=cLrjmCb96Jc&feature=youtu.be&t=2124" target="_blank"><img src="../images/UnaEuropaTalk.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.youtube.com/watch?v=rXvboBiz7co&feature=youtu.be" target="_blank"><img src="../images/SO36.png" style="width: 99%;"></a> <br> <br>
     <a href="https://lecturenet.uu.nl/Site1/Play/6e679ba9960a48c28b9e86688b57351f1d?catalog=5f595ae1-b213-456b-af3d-5248da311475" target="_blank"><img src="../images/DEON2018.png" style="width: 99%;"></a> <br> <br>
