@@ -2048,6 +2048,7 @@ class MenuManager {
   function display() {
     echo $this->searchView().'<br/>';
   echo $this->typeVC().'<br/> 
+    <a href="https://www.springer.com/de/book/9783030893903" target="_blank"><img src="../images/CLAR2021.png" style="width: 99%;"></a> <br> <br>
     <a href="https://www.springer.com/de/book/9783662631867" target="_blank"><img src="../images/WiderDenReduktionismus.png" style="width: 99%;"></a> <br> <br>
     <a href="https://link.springer.com/book/10.1007/978-3-030-53518-6" target="_blank"><img src="../images/CICM2020.png" style="width: 99%;"></a> <br> <br>
     <a href="http://dx.doi.org/10.1007/978-3-030-30179-8" target="_blank"><img src="../images/KI2019.png" style="width: 99%;"></a> <br> <br>
