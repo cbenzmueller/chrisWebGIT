@@ -24,8 +24,9 @@ define('BIBTEXBROWSER','v20130328');
 // I recommend to put your changes in bibtexbrowser.local.php
 // it will help you to upgrade the script with a new version
 // the changes that require existing bibtexbrowser symbols should be in bibtexbrowser.after.php (included at the end of this file)
-@include(preg_replace('/\.php$/','.local.php',__FILE__));
-
+// The following line has been changed as instructed at https://github.com/monperrus/bibtexbrowser/issues/115
+@include('bibtexbrowser.localteach.php',__FILE__));
+    
 // there is no encoding transformation from the bibtex file to the html file
 // if your bibtex file contains 8 bits characters in utf-8
 // change the following parameter
