@@ -50,7 +50,7 @@ define('BIBTEXBROWSER','v20130328');
 @define('BIBTEXBROWSER_LOCAL_BIB_ONLY',true);
 
 // the default view in {SimpleDisplay,AcademicDisplay,RSSDisplay,BibtexDisplay}
-@define('BIBTEXBROWSER_DEFAULT_DISPLAY','AcademicDisplay');
+@define('BIBTEXBROWSER_DEFAULT_DISPLAY','SimpleDisplay');
 
 // the target frame of menu links
 @define('BIBTEXBROWSER_MENU_TARGET','_blank'); // might be define('BIBTEXBROWSER_MENU_TARGET','_self'); in bibtexbrowser.local.php 
