@@ -166,6 +166,28 @@
   .act-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .act-link.slides-link { border-color: rgba(44,95,138,.35); color: var(--accent); }
   .act-link.slides-link:hover { background: var(--accent-soft); }
+  .act-link.bib-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  /* BibTeX dropdown */
+  .bib-box {
+    display: none; margin-top: .35rem; position: relative;
+    background: #f8f7f4; border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .bib-box.open { display: block; }
+  .bib-pre {
+    font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+    line-height: 1.55; color: var(--text-muted);
+    padding: .6rem .8rem; overflow-x: auto; white-space: pre;
+    max-height: 260px; overflow-y: auto;
+  }
+  .bib-copy {
+    position: absolute; top: .35rem; right: .45rem;
+    font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    color: var(--text-dim); padding: .1rem .45rem; cursor: pointer; transition: all .12s;
+  }
+  .bib-copy:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ── STATUS ── */
   .status-box { text-align: center; padding: 5rem 2rem; color: var(--text-muted); }
@@ -300,6 +322,35 @@ function extractValue(src, pos) {
   return { val: src.slice(start, pos), end: pos };
 }
 
+// Fields to suppress from displayed BibTeX
+const SKIP_FIELDS_TALKS = new Set(['keywords','bibsource','addendum','copyright','abstract','isbn','issn','urn','adress','month','venue']);
+function isTalkSkipped(name) {
+  const lo = name.toLowerCase();
+  return lo.startsWith('opt') || (lo.startsWith('ot') && lo !== 'other') || SKIP_FIELDS_TALKS.has(lo);
+}
+
+function sanitizeTalkBib(type, key, rest) {
+  const lines = [];
+  const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
+  let fm;
+  while ((fm = fnRe.exec(rest)) !== null) {
+    const fname = fm[1];
+    if (isTalkSkipped(fname)) continue;
+    const eqPos = fm.index + fm[0].length;
+    try {
+      const { val } = extractValue(rest, eqPos);
+      const trimmed = val.trim();
+      // Strip embedded HTML from note before storing in bibtex
+      const clean = trimmed.replace(/<[^>]+>/g, '').trim();
+      if (!clean) continue;
+      const needsBraces = isNaN(clean) || clean !== String(parseInt(clean, 10));
+      const formatted = needsBraces ? `{${clean}}` : clean;
+      lines.push(`  ${fname.toLowerCase().padEnd(12)} = ${formatted}`);
+    } catch(_) {}
+  }
+  return `@${type}{${key},\n${lines.join(',\n')}\n}`;
+}
+
 // Determine talk category from the Keywords field
 function categorize(keywords) {
   if (!keywords) return 'other';
@@ -353,7 +404,7 @@ function parseTalks(raw) {
       try {
         const { val } = extractValue(rest, eqPos);
         if (fname === 'note') rawNote = val; // keep raw for HTML link extraction
-        if (!fname.startsWith('opt') && !(fname.startsWith('ot') && fname !== 'other') && val) {
+        if (!isTalkSkipped(fname) && val) {
           entry[fname] = cleanLatex(val);
         }
       } catch(_) {}
@@ -363,6 +414,7 @@ function parseTalks(raw) {
 
     entry.cat = categorize(entry.keywords);
     entry.slideLinks = extractSlideLinks(rawNote);
+    entry._raw = sanitizeTalkBib(type, key, rest);
     entries.push(entry);
   }
   return entries;
@@ -414,6 +466,9 @@ function talkRow(t) {
     const label = /slide/i.test(l.label) ? 'Slides ↗' : l.label + ' ↗';
     acts.push(`<a class="act-link slides-link" href="${l.url}" target="_blank" rel="noopener">${label}</a>`);
   });
+  // BibTeX toggle
+  const bibId = 'bib-' + t.key.replace(/[^a-zA-Z0-9]/g,'_');
+  acts.push(`<button class="act-link bib-toggle" onclick="toggleBib('${bibId}',this)">BibTeX</button>`);
 
   return `
   <div class="talk-row" data-cat="${t.cat}">
@@ -424,9 +479,31 @@ function talkRow(t) {
     <div class="talk-body">
       <div class="talk-title">${title}</div>
       ${t.publisher ? `<div class="talk-venue">${t.publisher}</div>` : ''}
-      ${acts.length ? `<div class="talk-actions">${acts.join('')}</div>` : ''}
+      <div class="talk-actions">${acts.join('')}</div>
+      <div class="bib-box" id="${bibId}">
+        <pre class="bib-pre">${escHtml(t._raw)}</pre>
+        <button class="bib-copy" onclick="copyBib('${bibId}')">Copy</button>
+      </div>
     </div>
   </div>`;
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function toggleBib(id, btn) {
+  const box = document.getElementById(id);
+  const open = box.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+function copyBib(id) {
+  const text = document.getElementById(id).querySelector('.bib-pre').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(id).querySelector('.bib-copy');
+    const prev = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = prev, 1500);
+  });
 }
 
 function updateStats() {
