@@ -524,14 +524,7 @@ document.getElementById('sortBtn').addEventListener('click', () => {
   render();
 });
 document.getElementById('refreshBtn').addEventListener('click', loadBib);
-document.getElementById('typeFilters').addEventListener('click', e => {
-  const chip = e.target.closest('.chip');
-  if (!chip) return;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-  activeCat = chip.dataset.cat;
-  render();
-});
+
 
 loadBib();
 </script>
