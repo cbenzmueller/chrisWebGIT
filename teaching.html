@@ -57,15 +57,6 @@
     font-weight: 500; line-height: 1.1; color: var(--text); margin-bottom: .4rem;
   }
   .subtitle { color: var(--text-muted); font-size: .92rem; margin-bottom: 1.8rem; }
-  .stats-row {
-    display: inline-flex; border: 1px solid var(--border);
-    border-radius: 10px; overflow: hidden; background: var(--bg);
-  }
-  .stat { padding: .55rem 1.3rem; text-align: center; border-right: 1px solid var(--border); }
-  .stat:last-child { border-right: none; }
-  .stat-n { font-family: 'EB Garamond', serif; font-size: 1.75rem; font-weight: 500; color: var(--accent); line-height: 1; display: block; }
-  .stat-label { font-size: .68rem; color: var(--text-dim); letter-spacing: .04em; text-transform: uppercase; }
-
   /* ── TOOLBAR ── */
   .toolbar {
     position: sticky; top: 0; z-index: 100;
@@ -97,23 +88,6 @@
   .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── CHIPS ── */
-  .type-filters { max-width: 980px; margin: 1rem auto 0; padding: 0 2rem; display: flex; gap: .35rem; flex-wrap: wrap; }
-  .chip {
-    display: inline-flex; align-items: center; gap: .3rem;
-    padding: .22rem .7rem; border-radius: 999px; border: 1px solid var(--border);
-    font-size: .74rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
-    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
-  }
-  .chip:hover { border-color: var(--border2); color: var(--text); }
-  .chip.active { font-weight: 600; border-width: 1.5px; }
-  .chip[data-cat="all"].active     { background: var(--text);       border-color: var(--text);    color: #fff; }
-  .chip[data-cat="lecture"].active { background: var(--lecture-bg); border-color: var(--lecture); color: var(--lecture); }
-  .chip[data-cat="seminar"].active { background: var(--seminar-bg); border-color: var(--seminar); color: var(--seminar); }
-  .chip[data-cat="project"].active { background: var(--project-bg); border-color: var(--project); color: var(--project); }
-  .chip[data-cat="bundle"].active  { background: var(--bundle-bg);  border-color: var(--bundle);  color: var(--bundle); }
-  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
-
   /* ── MAIN ── */
   main { max-width: 980px; margin: 1.5rem auto; padding: 0 2rem 5rem; }
   .year-group { margin-bottom: 2rem; }
@@ -126,8 +100,7 @@
 
   /* ── COURSE ROW ── */
   .course-row {
-    display: grid; grid-template-columns: auto 1fr;
-    gap: 0 .7rem; padding: .35rem 0 .35rem .6rem;
+    padding: .35rem 0 .35rem .6rem;
     border-left: 3px solid transparent; margin-bottom: .15rem;
   }
   .course-row[data-cat="lecture"] { border-left-color: var(--lecture); }
@@ -135,23 +108,11 @@
   .course-row[data-cat="project"] { border-left-color: var(--project); }
   .course-row[data-cat="bundle"]  { border-left-color: var(--bundle); }
   .course-row[data-cat="other"]   { border-left-color: var(--other); }
-
-  .course-left {
-    display: flex; flex-direction: column; align-items: flex-end;
-    gap: .15rem; padding-top: .1rem; min-width: 0;
-  }
-  .type-badge {
-    font-size: .6rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
-    padding: .08rem .4rem; border-radius: 3px; white-space: nowrap;
-  }
-  [data-cat="lecture"] .type-badge { background: var(--lecture-bg); color: var(--lecture); }
-  [data-cat="seminar"] .type-badge { background: var(--seminar-bg); color: var(--seminar); }
-  [data-cat="project"] .type-badge { background: var(--project-bg); color: var(--project); }
-  [data-cat="bundle"]  .type-badge { background: var(--bundle-bg);  color: var(--bundle); }
-  [data-cat="other"]   .type-badge { background: var(--other-bg);   color: var(--other); }
-
-  .course-key { font-family: 'JetBrains Mono', monospace; font-size: .58rem; color: var(--text-dim); white-space: nowrap; }
-
+  [data-cat="lecture"]
+  [data-cat="seminar"]
+  [data-cat="project"]
+  [data-cat="bundle"]
+  [data-cat="other"]
   .course-body { min-width: 0; }
   .course-title {
     font-family: 'EB Garamond', serif; font-size: 1rem; font-weight: 500;
@@ -213,16 +174,9 @@
 
   @media (max-width: 580px) {
     header { padding: 2rem 1rem 1.5rem; }
-    main, .type-filters { padding-left: 1rem; padding-right: 1rem; }
+    main { padding-left: 1rem; padding-right: 1rem; }
     .toolbar { padding: .5rem 1rem; }
-    .course-row { grid-template-columns: 1fr; }
-    .course-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
-    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; border-radius: 8px; }
-    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: .4rem .5rem; }
-    .stat:nth-child(3n+1), .stat:nth-child(3n+2) { border-right: 1px solid var(--border); }
-    .stat:last-child { border-bottom: none; }
-    .stat-n { font-size: 1.3rem; }
-    .stat-label { font-size: .58rem; }
+  .stat:nth-child(3n+1), .stat:nth-child(3n+2) { border-right: 1px solid var(--border); }
   }
 </style>
 </head>
@@ -232,12 +186,6 @@
   <div class="header-kicker">Teaching Activities</div>
   <h1>Christoph Benzmüller</h1>
   <p class="subtitle">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</p>
-  <div class="stats-row">
-    <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
-    <div class="stat"><span class="stat-n" id="stat-lectures">—</span><span class="stat-label">Lecture Courses</span></div>
-    <div class="stat"><span class="stat-n" id="stat-seminars">—</span><span class="stat-label">Seminars</span></div>
-    <div class="stat"><span class="stat-n" id="stat-projects">—</span><span class="stat-label">Projects</span></div>
-    <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
   </div>
 </header>
 
@@ -256,13 +204,6 @@
   </div>
 </div>
 
-<div class="type-filters" id="typeFilters">
-  <button class="chip active" data-cat="all"><span class="chip-dot"></span>All</button>
-  <button class="chip" data-cat="lecture"><span class="chip-dot" style="background:var(--lecture)"></span>Lecture Course</button>
-  <button class="chip" data-cat="seminar"><span class="chip-dot" style="background:var(--seminar)"></span>Seminar</button>
-  <button class="chip" data-cat="project"><span class="chip-dot" style="background:var(--project)"></span>Project / Practicum</button>
-  <button class="chip" data-cat="bundle"><span class="chip-dot" style="background:var(--bundle)"></span>Semester Bundle</button>
-</div>
 
 <main id="main">
   <div class="status-box"><div class="loading-ring"></div><p>Loading teaching activities…</p></div>
@@ -540,10 +481,6 @@ function courseRow(c) {
 
   return `
   <div class="course-row" data-cat="${c.cat}">
-    <div class="course-left">
-      <span class="type-badge">${catLabel(c.cat)}</span>
-      <span class="course-key">${c.key}</span>
-    </div>
     <div class="course-body">
       <div class="course-title">${titleHtml}</div>
       ${meta ? `<div class="course-meta">${meta}</div>` : ''}
@@ -556,13 +493,6 @@ function courseRow(c) {
   </div>`;
 }
 
-function updateStats() {
-  document.getElementById('stat-total').textContent    = allCourses.length;
-  document.getElementById('stat-years').textContent    = new Set(allCourses.map(c=>c.year)).size;
-  document.getElementById('stat-lectures').textContent = allCourses.filter(c=>c.cat==='lecture').length;
-  document.getElementById('stat-seminars').textContent = allCourses.filter(c=>c.cat==='seminar').length;
-  document.getElementById('stat-projects').textContent = allCourses.filter(c=>['project','bundle'].includes(c.cat)).length;
-}
 
 function updateYearFilter() {
   const years = [...new Set(allCourses.map(c=>c.year))].sort((a,b)=>+b-+a);
@@ -578,8 +508,7 @@ async function loadBib() {
   try {
     const res = await fetch(BIB_URL + '?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    allCourses = parseCourses(await res.text());
-    updateStats(); updateYearFilter(); render();
+    allCourses = parseCourses(await res.text()); updateYearFilter(); render();
     document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
   } catch(err) {
     document.getElementById('main').innerHTML =
