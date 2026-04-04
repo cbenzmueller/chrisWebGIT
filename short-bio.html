@@ -1,103 +1,343 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
-<html> <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="Content-Style-Type" content="text/css">
-<title>Short Biography: Christoph Benzm&uuml;ller</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christoph Benzmüller — Short Biography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f5f4f0;
+    --surface:     #ffffff;
+    --border:      #dedad4;
+    --border2:     #c8c3bb;
+    --accent:      #2c5f8a;
+    --accent-soft: rgba(44,95,138,.09);
+    --text:        #1a1a1a;
+    --text-muted:  #5a5550;
+    --text-dim:    #9a948d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    line-height: 1.65;
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 200;
+  }
+  .nav-inner {
+    max-width: 980px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 3rem;
+  }
+  .nav-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem; font-weight: 500;
+    color: var(--text); text-decoration: none; white-space: nowrap;
+  }
+  .nav-links { display: flex; gap: .15rem; flex-wrap: wrap; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .67rem; letter-spacing: .04em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: .35rem .65rem; border-radius: 6px; transition: all .15s;
+  }
+  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
+
+  /* ── PAGE ── */
+  .page {
+    max-width: 980px; margin: 0 auto;
+    padding: 2.5rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* ── HEADINGS ── */
+  .page-title {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 500; line-height: 1.1;
+    color: var(--text); margin-bottom: 2rem;
+  }
+
+  .lang-section { margin-bottom: 2.5rem; }
+  .lang-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .lang-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  .bio-text p {
+    font-size: .95rem; color: var(--text-muted);
+    margin-bottom: .9rem; line-height: 1.75;
+  }
+  .bio-text p:last-child { margin-bottom: 0; }
+  .bio-text em { font-style: italic; }
+  .bio-text .footnote {
+    font-size: .82rem; color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    padding-top: .75rem; margin-top: 1.2rem;
+  }
+
+  /* ── SIDEBAR ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: .75rem;
+  }
+  .card-links { list-style: none; }
+  .card-links li { padding: .2rem 0; }
+  .card-links a {
+    font-size: .88rem; color: var(--accent); text-decoration: none;
+    display: flex; align-items: center; gap: .35rem;
+  }
+  .card-links a:hover { text-decoration: underline; }
+  .card-links a::before { content: '↗'; font-size: .7rem; color: var(--text-dim); }
+
+  .career-list { list-style: none; }
+  .career-list li {
+    font-size: .82rem; color: var(--text-muted);
+    padding: .22rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: .6rem;
+  }
+  .career-list li:last-child { border-bottom: none; }
+  .career-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem; color: var(--text-dim);
+    white-space: nowrap; padding-top: .15rem; min-width: 80px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 1.3rem 2rem;
+    color: var(--text-dim); font-size: .76rem;
+    border-top: 1px solid var(--border); background: var(--surface);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 .75rem; }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .4rem 0; gap: .25rem; }
+    .nav-name { font-size: .9rem; }
+    .nav-link { padding: .25rem .45rem; font-size: .6rem; }
+    .page { grid-template-columns: 1fr; padding: 1.5rem .75rem 3rem; gap: 1.5rem; }
+  }
+</style>
 </head>
+<body>
 
+<nav>
+  <div class="nav-inner">
+    <a class="nav-name" href="index.html">Christoph Benzmüller</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="publications.html">Publications</a>
+      <a class="nav-link" href="talks.html">Presentations</a>
+      <a class="nav-link" href="teaching.html">Teaching</a>
+      <a class="nav-link" href="papers/CV_Benzmueller.pdf" target="_blank">CV</a>
+      <a class="nav-link active" href="short-bio.html">Bio</a>
+    </div>
+  </div>
+</nav>
 
-<body style="font-family: 'Helvetica', 'Arial', 'sans-serif'; color:black">
+<div class="page">
 
-<TABLE BORDER=0 WIDTH=95% ALIGN=center>
+  <!-- MAIN: both bios -->
+  <div>
+    <h1 class="page-title">Short Biography</h1>
 
-<p style="font-size:110% ; font-weight:900"> Kurzbiographie </p>
+    <!-- English -->
+    <div class="lang-section">
+      <div class="lang-label">English</div>
+      <div class="bio-text">
+        <p>
+          Prof. Dr. Christoph Benzmüller holds the Chair of AI Systems Engineering at the
+          University of Bamberg, is an adjunct (apl.) professor at the Freie Universität Berlin,
+          and works closely with the University of Luxembourg, among others. He is a member of
+          numerous scientific organisations such as the Association of German Scientists (VDW)
+          and Sigma Xi (USA), and is the national contact for the Confederation of Laboratories
+          for Artificial Intelligence Research in Europe (CLAIRE).
+        </p>
+        <p>
+          For Benzmüller, AI is less a technology than a scientific discipline that should
+          conceptually focus more on the exploration and experimentation with the abstract
+          representation of objects.<sup>*</sup> For Benzmüller, the exploration and flexible
+          processing of abstract representational objects within hybrid (or neuro-symbolic) AI
+          architectures that merge symbolic and sub-symbolic techniques is a key challenge and
+          opportunity for modelling (strongly) intelligent AI systems. Explicit, declarative
+          representations are also particularly relevant for the realisation of trusted,
+          controllable AI systems, since they not only make (normative and other) knowledge
+          transparent and justifiable, but also enable efficient and precise communication
+          between humans and machines.
+        </p>
+        <p>
+          Benzmüller's research therefore addresses topics such as the automation of rational
+          and normative reasoning in computers, universal knowledge representation,
+          computational metaphysics, and the mechanisation of mathematical reasoning. A
+          particular research focus is on higher-order interactive and automated theorem proving
+          as a backbone for the above activities.
+        </p>
+        <p>
+          Benzmüller has conducted research as a visiting professor/scholar at numerous
+          prestigious universities in Germany and abroad and has established a close research
+          network. Stations in his career include: BITS Pilani Dubai (UAE), Freie Universität
+          Berlin (DE), University of Luxembourg (LU), Stanford University (USA), International
+          University in Germany, Cambridge University (UK), University of Birmingham (UK),
+          University of Edinburgh (UK) and Carnegie Mellon University (USA). Benzmüller studied
+          (1989–1995), received his PhD (1999) and habilitated (2006) at Saarland University (DE).
+        </p>
+        <p>
+          Benzmüller's research activities have been funded by the DFG (Heisenberg Fellowship,
+          Research Stipend, Research Grant, Collaborative Research Center), EPSRC/UK (Research
+          Grant), Volkswagen Foundation (Experiment!), Studienstiftung des Deutschen Volkes
+          (Doctoral Scholarship), ERC (Research Training Network), FNR/Luxembourg, and BMBF,
+          among others.
+        </p>
+        <p>
+          Prior to his academic career, Christoph Benzmüller was a successful long-distance
+          runner at German national level.
+        </p>
+        <p class="footnote">
+          <sup>*</sup> The term "representing objects" goes back to the AI pioneer Wolfgang Bibel.
+        </p>
+      </div>
+    </div>
 
-  <p style="font-size:90%">
+    <!-- German -->
+    <div class="lang-section">
+      <div class="lang-label">Deutsch</div>
+      <div class="bio-text">
+        <p>
+          Prof. Dr. Christoph Benzmüller hat den Lehrstuhl für KI-Systementwicklung an der
+          Universität Bamberg inne, ist außerplanmäßiger Professor an der Freien Universität
+          Berlin und arbeitet unter anderem eng mit der Universität Luxemburg zusammen. Er ist
+          Mitglied zahlreicher wissenschaftlicher Vereinigungen wie der Vereinigung Deutscher
+          Wissenschaftler (VDW) und Sigma Xi (USA) und nationaler Ansprechpartner der
+          Confederation of Laboratories for Artificial Intelligence Research in Europe (CLAIRE).
+        </p>
+        <p>
+          Benzmüller sieht KI weniger als Technologie, sondern vielmehr als wissenschaftliche
+          Disziplin, die sich stärker auf die Erforschung und das Experimentieren mit
+          repräsentierenden Objekten konzentrieren sollte.<sup>*</sup> Für Benzmüller ist die
+          Erforschung und flexible Verarbeitung repräsentierender Objekte innerhalb hybrider
+          (oder neurosymbolischer) KI-Architekturen, die symbolische und subsymbolische
+          Techniken miteinander verbinden, eine zentrale Herausforderung und Chance für die
+          Modellierung (stark) intelligenter KI-Systeme. Explizite, deklarative Repräsentationen
+          sind auch für die Realisierung vertrauenswürdiger, kontrollierbarer KI-Systeme
+          besonders relevant, da sie nicht nur (normatives und anderes) Wissen transparent und
+          begründbar machen, sondern auch eine effiziente und präzise Kommunikation zwischen
+          Mensch und Maschine ermöglichen.
+        </p>
+        <p>
+          Benzmüllers Forschung befasst sich daher mit Themen wie der Automatisierung rationalen
+          und normativen Schließens in Computern, universeller Wissensrepräsentation,
+          Computationaler Metaphysik und der Mechanisierung mathematischen Schließens. Ein
+          besonderer Forschungsschwerpunkt liegt auf dem interaktiven und automatischen
+          Theorembeweisen höherer Stufe als Rückgrat für die oben genannten Aktivitäten.
+        </p>
+        <p>
+          Benzmüller hat als Gastprofessor/Wissenschaftler an zahlreichen renommierten
+          Universitäten im In- und Ausland geforscht und dabei ein enges Forschungsnetzwerk
+          aufgebaut. Zu den Stationen seiner Karriere gehören: BITS Pilani Dubai (UAE), Freie
+          Universität Berlin (DE), Universität Luxemburg (LU), Stanford University (USA),
+          International University in Germany, Cambridge University (UK), University of
+          Birmingham (UK), University of Edinburgh (UK) und Carnegie Mellon University (USA).
+          Benzmüller studierte (1989–1995), promovierte (1999) und habilitierte (2006) an der
+          Universität des Saarlandes (DE).
+        </p>
+        <p>
+          Benzmüllers Forschungsaktivitäten wurden gefördert u.a. von DFG (u.a.
+          Heisenbergstipendium, Forschungsstipendium, Sachbeihilfe, Sonderforschungsbereich),
+          EPSRC/UK (Forschungsprojekt), Volkswagenstiftung (Experiment!), Studienstiftung des
+          Deutschen Volkes (Promotionsstipendium), ERC (Research Training Network),
+          FNR/Luxemburg und BMBF.
+        </p>
+        <p>
+          Vor seiner akademischen Laufbahn war Christoph Benzmüller ein erfolgreicher
+          Langstreckenläufer auf nationaler Ebene.
+        </p>
+        <p class="footnote">
+          <sup>*</sup> Der Begriff „repräsentierende Objekte" geht auf den KI-Pionier Wolfgang Bibel zurück.
+        </p>
+      </div>
+    </div>
+  </div>
 
-Prof. Dr. Christoph Benzmüller hat den Lehrstuhl für KI-Systementwicklung an der Universität Bamberg inne, ist außerplanmäßiger Professor an der Freien Universität Berlin und arbeitet unter anderem eng mit der Universität Luxemburg zusammen. Er ist Mitglied zahlreicher wissenschaftlicher Vereinigungen wie der Vereinigung Deutscher Wissenschaftler (VDW) und Sigma Xi (USA) und nationaler Ansprechpartner der Confederation of Laboratories for Artificial Intelligence Research in Europe (CAIRNE).<br><br>
+  <!-- SIDEBAR -->
+  <div>
+    <div class="card">
+      <div class="card-title">Links</div>
+      <ul class="card-links">
+        <li><a href="index.html">Homepage</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="talks.html">Presentations</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="papers/CV_Benzmueller.pdf" target="_blank">Curriculum Vitae (PDF)</a></li>
+      </ul>
+    </div>
 
-Benzmüller sieht KI weniger als Technologie, sondern vielmehr als
-wissenschaftliche Disziplin, die sich stärker auf die Erforschung und
-das Experimentieren mit repräsentierenden Objekten konzentrieren
-sollte.*
+    <div class="card">
+      <div class="card-title">Career</div>
+      <ul class="career-list">
+        <li><span class="career-year">2022–present</span>Full Professor, U Bamberg</li>
+        <li><span class="career-year">2021–present</span>apl. Professor, FU Berlin</li>
+        <li><span class="career-year">2012</span>DFG Heisenberg Fellowship</li>
+        <li><span class="career-year">2009–2021</span>Research stays: Stanford, Luxembourg, FU Berlin</li>
+        <li><span class="career-year">2008–2009</span>Full Professor, IU Bruchsal</li>
+        <li><span class="career-year">2006–2007</span>Research stay, Cambridge (EPSRC)</li>
+        <li><span class="career-year">2001–2008</span>Lecturer, Saarland University</li>
+        <li><span class="career-year">2006</span>Habilitation, Saarland University</li>
+        <li><span class="career-year">1999</span>PhD, Saarland University</li>
+        <li><span class="career-year">1989–1995</span>Studies, Saarland University</li>
+      </ul>
+    </div>
 
-Für Benzmüller ist die Erforschung und flexible Verarbeitung
-repräsentierenden Objekte innerhalb hybrider (oder neurosymbolischer)
-KI-Architekturen, die symbolische und subsymbolische Techniken
-miteinander verbinden, eine zentrale Herausforderung und Chance für
-die Modellierung (stark) intelligenter KI-Systeme. Explizite,
-deklarative Repräsentationen sind auch für die Realisierung
-vertrauenswürdiger, kontrollierbarer KI-Systeme besonders relevant, da
-sie nicht nur (normatives und anderes) Wissen transparent und
-begründbar machen, sondern auch eine effiziente und präzise
-Kommunikation zwischen Mensch und Maschine ermöglichen.<br><br>
+    <div class="card">
+      <div class="card-title">Memberships</div>
+      <ul class="career-list">
+        <li><span class="career-year"></span>VDW — Vereinigung Deutscher Wissenschaftler</li>
+        <li><span class="career-year"></span>Sigma Xi (USA)</li>
+        <li><span class="career-year"></span>CLAIRE — National Contact (Germany)</li>
+        <li><span class="career-year"></span>CADE Trustee &amp; Vice-President</li>
+        <li><span class="career-year"></span>AAR Board Member</li>
+      </ul>
+    </div>
+  </div>
 
-Benzmüllers Forschung befasst sich daher mit Themen wie der
-  Automatisierung rationalen und normativen Schließens in Computern,
-  universeller Wissensrepräsentation, Computationaler Metaphysik und der
-  Mechanisierung mathematischen Schließens. Ein besonderer
-  Forschungsschwerpunkt liegt auf dem interaktiven und automatischen
-  Theorembeweisen höherer Stufe als Rückgrat für die oben genannten
-  Aktivitäten.<br><br>
+</div>
 
-Benzmüller hat als Gastprofessor/Wissenschaftler an zahlreichen
-renommierten Universitäten im In- und Ausland geforscht und dabei ein
-enges Forschungsnetzwerk aufgebaut. Zu den Stationen seiner Karriere
-gehören: BITS Pilani Dubai (UAE), Freie Universität Berlin (DE), Universität Luxemburg (LU), Stanford
-University (USA), International University in Germany, Cambridge
-University (UK), University of Birmingham (UK), University of
-Edinburgh (UK) und Carnegie Mellon University (USA). Benzmüller
-studierte (1989-1995), promovierte (1999) und habilitierte (2006) an
-der Universität des Saarlandes (DE).<br><br>
+<footer>
+  Christoph Benzmüller &nbsp;·&nbsp;
+  <a href="https://www.uni-bamberg.de/aise/" target="_blank">AISE @ U Bamberg</a> &nbsp;·&nbsp;
+  <a href="http://www.mi.fu-berlin.de/en/" target="_blank">MI @ FU Berlin</a>
+</footer>
 
-Benzmüller’s Forschungsaktivitäten wurden gefördert u.a. von DFG
-(u.a. Heisenbergstipendium, Forschungstipendium, Sachbeihilfe,
-Sonderforschungsbereich), EPSRC/UK (Forschungsprojekt),
-Volkswagenstiftung (Experiment!), Studienstiftung des Deutschen Volkes
-(Promotionsstipendium), ERC (Research Training Network), FNR/Luxemburg
-und BMBF.<br><br>
-
-Vor seiner akademischen Laufbahn war Christoph Benzmüller ein
-erfolgreicher Langstreckenläufer auf nationaler Ebene.<br><br>
-
-(*Der Begriff ,,repräsentative Objekte'' geht auf den KI-Pionier Wolfgang Bibel zurück.) <br>
-
-<p style="font-size:110% ; font-weight:900"> Short Biography </p>
-
-<p style="font-size:90%">
-
-Prof. Dr. Christoph Benzmüller holds the Chair of AI System Development at the University of Bamberg, is an adjunct professor at the Free University of Berlin and works closely with the University of Luxembourg, among others. He is a member of numerous scientific organisations such as the Association of German Scientists (VDW) and Sigma Xi (USA) and he is the national contact for the Confederation of Laboratories for Artificial Intelligence Research in Europe (CAIRNE).<br><br>
-
-For Benzmüller, AI is less a technology than a scientific discipline that should conceptually focus more on the exploration and experimentation with the abstract representation of objects. For Benzmüller, the exploration and flexible processing of abstract representational objects within hybrid (or neuro-symbolic) AI architectures that merge symbolic and sub-symbolic techniques is a key challenge and opportunity for modelling (strongly) intelligent AI systems. Explicit, declarative representations are also particularly relevant for the realisation of trusted, controllable AI systems, since they not only make (normative and other) knowledge transparent and justifiable, but also enable efficient and precise communication between humans and machines. <br><br>
-
-Benzmüller's research therefore addresses topics such as the automation of rational and normative reasoning in computers, universal knowledge representation, computational metaphysics, and the mechanisation of mathematical reasoning. A particular research focus is on higher-order interactive and automated theorem proving as a backbone for the above activities. <br><br>
-
-Benzmüller has conducted research as a visiting professor/scholar at
-numerous prestigious universities in Germany and abroad and has
-established a close research network. Stations in his career include: BITS Pilani Dubai (UAE),
-Free University of Berlin (DE), University of Luxembourg (LU), Stanford
-University (USA), International University in Germany, Cambridge
-University (UK), University of Birmingham (UK), University of
-Edinburgh (UK) and Carnegie Mellon University (USA). Benzmüller
-studied (1989-1995), received his PhD (1999) and habilitated (2006) at
-Saarland University (DE). <br><br>
-
-Benzmüller's research activities have been funded by the DFG
-(Heisenberg Fellowship, Research Stipend, Research Grant,
-Collaborative Research Center), EPSRC/UK (Research Grant), Volkswagen
-Foundation (Experiment!), Studienstiftung des Deutschen Volkes (Doctoral Scholarship), ERC (Research
-Training Network), FNR/Luxembourg, BMBF, among others. <br><br>
-
-Prior to his academia career, Christoph Benzmüller was a successful
-long-distance runner at German national level. <br><br>
-
-(*The term "representing objects" goes back to the AI pioneer Wolfgang
- Bibel.) <br><br> 
-
-</TABLE>
-<br>
-
-
-<hr>
-<address style="font-size:70%">C. Benzm&uuml;ller (<!-- hhmts start -->Last modified: Mon Oct 28 12:26:11 CET 2024 <!-- hhmts end -->)</address>
-</body> </html>
+</body>
+</html>
