@@ -330,22 +330,51 @@ function isTalkSkipped(name) {
 }
 
 function sanitizeTalkBib(type, key, rest) {
+  // Fields to always drop from talk BibTeX display
+  const DROP = new Set(['keywords','bibsource','optauthor','addendum','copyright',
+                        'abstract','isbn','issn','urn','adress','month','venue']);
   const lines = [];
   const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
   let fm;
   while ((fm = fnRe.exec(rest)) !== null) {
     const fname = fm[1];
-    if (isTalkSkipped(fname)) continue;
+    const flo = fname.toLowerCase();
+    // Drop OPT-prefixed, OT-prefixed (except 'other'), and noise fields
+    if (flo.startsWith('opt') || (flo.startsWith('ot') && flo !== 'other') || DROP.has(flo)) {
+      // Still need to advance past the value
+      const eqPos = fm.index + fm[0].length;
+      try { const {end} = extractValue(rest, eqPos); fnRe.lastIndex = end; } catch(_) {}
+      continue;
+    }
     const eqPos = fm.index + fm[0].length;
     try {
-      const { val } = extractValue(rest, eqPos);
-      const trimmed = val.trim();
-      // Strip embedded HTML from note before storing in bibtex
-      const clean = trimmed.replace(/<[^>]+>/g, '').trim();
-      if (!clean) continue;
-      const needsBraces = isNaN(clean) || clean !== String(parseInt(clean, 10));
-      const formatted = needsBraces ? `{${clean}}` : clean;
-      lines.push(`  ${fname.toLowerCase().padEnd(12)} = ${formatted}`);
+      const { val, end } = extractValue(rest, eqPos);
+      fnRe.lastIndex = end;
+      let trimmed = val.trim();
+      if (!trimmed) continue;
+
+      // For Note: convert HTML links to plain text "label: url" pairs
+      if (flo === 'note') {
+        const linkRe = /<a\s+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
+        const parts = [];
+        let lm;
+        while ((lm = linkRe.exec(trimmed)) !== null) {
+          const label = lm[2].trim();
+          const url = lm[1].trim();
+          parts.push(label + ': ' + url);
+        }
+        if (parts.length > 0) {
+          trimmed = parts.join('; ');
+        } else {
+          // Strip any remaining HTML tags
+          trimmed = trimmed.replace(/<[^>]+>/g, '').trim();
+        }
+        if (!trimmed) continue;
+      }
+
+      const needsBraces = isNaN(trimmed) || trimmed !== String(parseInt(trimmed, 10));
+      const formatted = needsBraces ? `{${trimmed}}` : trimmed;
+      lines.push(`  ${flo.padEnd(12)} = ${formatted}`);
     } catch(_) {}
   }
   return `@${type}{${key},\n${lines.join(',\n')}\n}`;
