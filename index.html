@@ -81,8 +81,9 @@
     flex-shrink: 0;
   }
   .hero-text {}
-  .hero-top { display: contents; } /* transparent on desktop, grid handles layout */
-  .hero-text-top { display: contents; } /* transparent on desktop */
+  /* hero-top and hero-text-top are layout-neutral on desktop */
+  .hero-top { display: contents; }
+  .hero-text-top { display: contents; }
   .hero-kicker {
     font-family: 'JetBrains Mono', monospace;
     font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
@@ -233,9 +234,9 @@
 
     /* Hero: top row = photo + (kicker above name); below = positions full width */
     .hero { padding: 1.2rem .75rem 1rem; }
-    .hero-inner { display: flex; flex-direction: column; gap: .75rem; }
-    .hero-top { display: flex; flex-direction: row; align-items: center; gap: .85rem; }
-    .hero-text-top { display: flex; flex-direction: column; }
+    .hero-inner { display: flex !important; flex-direction: column; gap: .75rem; }
+    .hero-top { display: flex !important; flex-direction: row; align-items: center; gap: .85rem; }
+    .hero-text-top { display: flex !important; flex-direction: column; }
     .hero-photo { width: 68px; height: 68px; font-size: 1.3rem; flex-shrink: 0; }
     .hero-kicker { font-size: .58rem; margin-bottom: .25rem; }
     .hero-name { font-size: 1.35rem; margin-bottom: 0; }
