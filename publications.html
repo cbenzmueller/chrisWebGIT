@@ -255,11 +255,8 @@
     .pub-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
     .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; border-radius: 8px; }
     .stat { border-right: none; border-bottom: 1px solid var(--border); padding: .4rem .5rem; }
-    .stat:nth-child(1), .stat:nth-child(2) { border-right: 1px solid var(--border); }
-    .stat:nth-child(4), .stat:nth-child(5) { border-right: 1px solid var(--border); }
-    .stat:nth-last-child(-n+1) { border-bottom: none; }
-    .stat:nth-last-child(-n+2) { border-bottom: none; }
-    .stat:nth-last-child(-n+3) { border-bottom: none; }
+    .stat:nth-child(3n+1), .stat:nth-child(3n+2) { border-right: 1px solid var(--border); }
+    .stat:last-child { border-bottom: none; }
     .stat-n { font-size: 1.3rem; }
     .stat-label { font-size: .58rem; }
   }
