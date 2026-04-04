@@ -463,10 +463,9 @@
 </footer>
 
 <script>
-// ── CORS PROXY ──────────────────────────────────────────────────────────────
-// The BibTeX file is on a different origin, so we use a public CORS proxy.
-const BIB_URL = 'https://page.mi.fu-berlin.de/cbenzmueller/papers/chris.bib';
-const PROXY   = 'https://corsproxy.io/?url=';
+// The .bib file lives on the same server, so we fetch it with a relative path.
+// No CORS proxy needed.
+const BIB_URL = '../papers/chris.bib';
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let allPubs    = [];
@@ -649,7 +648,7 @@ async function loadBib() {
   document.getElementById('main').innerHTML =
     '<div class="status-box"><div class="loading-ring"></div><p>Fetching latest publications…</p></div>';
   try {
-    const res = await fetch(PROXY + encodeURIComponent(BIB_URL));
+    const res = await fetch(BIB_URL);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const raw = await res.text();
     allPubs = parseBib(raw);
