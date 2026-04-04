@@ -458,7 +458,7 @@ function parseBib(raw) {
     while ((fm = fnRe.exec(rest)) !== null) {
       const fname = fm[1].toLowerCase();
       if (/^opt|^ot[^h]|^keywords|^bibsource|^addendum/.test(fname)) continue;
-      const eqPos = fm.index + fm[0].length - 1;
+      const eqPos = fm.index + fm[0].length;
       try {
         const { val } = extractValue(rest, eqPos);
         if (val) entry[fname] = cleanLatex(val);
