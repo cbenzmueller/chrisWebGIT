@@ -404,7 +404,9 @@ function parseTalks(raw) {
       try {
         const { val } = extractValue(rest, eqPos);
         if (fname === 'note') rawNote = val; // keep raw for HTML link extraction
-        if (!isTalkSkipped(fname) && val) {
+        if (fname === 'keywords') {
+          entry[fname] = cleanLatex(val); // needed for categorize(), excluded from BibTeX by isTalkSkipped
+        } else if (!isTalkSkipped(fname) && val) {
           entry[fname] = cleanLatex(val);
         }
       } catch(_) {}
