@@ -221,14 +221,26 @@
   }
 
   @media (max-width: 720px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-photo { width: 90px; height: 90px; font-size: 1.8rem; }
+    /* Nav: stack name above links, links wrap */
+    nav { padding: 0 .75rem; height: auto; }
+    .nav-inner { flex-direction: column; align-items: flex-start; height: auto; padding: .5rem 0; gap: .3rem; }
+    .nav-name { font-size: .95rem; }
+    .nav-links { flex-wrap: wrap; gap: .2rem; }
+    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
+
+    /* Hero: single column, smaller photo */
+    .hero { padding: 1.5rem .75rem 1.2rem; }
+    .hero-inner { grid-template-columns: 1fr; gap: 1rem; }
+    .hero-photo { width: 80px; height: 80px; font-size: 1.6rem; }
+    .hero-name { font-size: 1.7rem; }
+    .hero-kicker { font-size: .62rem; }
+    .hero-position { font-size: .85rem; }
+    .contact-pill { font-size: .6rem; padding: .2rem .55rem; }
+
+    /* Content */
     .layout { grid-template-columns: 1fr; }
-    .page { padding: 1.5rem 1rem 3rem; }
-    nav { padding: 0 1rem; }
-    .hero { padding: 2rem 1rem 1.5rem; }
-    .nav-name { font-size: 1rem; }
-    .nav-link { padding: .35rem .5rem; font-size: .65rem; }
+    .page { padding: 1.2rem .75rem 3rem; }
+    .athletics-grid { grid-template-columns: repeat(3, 1fr); }
   }
 </style>
 </head>
@@ -253,7 +265,7 @@
 <div class="hero">
   <div class="hero-inner">
     <img class="hero-photo"
-         src="http://page.mi.fu-berlin.de/cbenzmueller/CB.jpg"
+         src="https://www.uni-bamberg.de/fileadmin/_processed_/1/0/csm_Christoph2022-3_89de538f5b.webp"
          alt="Christoph Benzmüller"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
     <div class="hero-photo" style="display:none">CB</div>
@@ -274,9 +286,7 @@
           Scientific Advisor, AI Startup Industry
         </div>
       </div>
-      <div class="hero-contact">
-        <a class="contact-pill" href="/cdn-cgi/l/email-protection#99faf1ebf0eaedf6e9f1b7fbfcf7e3f4ecfcf5f5fcebd9ecf7f0b4fbf8f4fbfcebfeb7fdfc"><span class="__cf_email__" data-cfemail="14777c667d67607b647c3a76717a6e7961717878716654617a7d39767579767166733a7071">[email&#160;protected]</span></a>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -446,7 +456,7 @@
           Arnimallee 7<br>
           14195 Berlin, Germany<br>
           <br>
-          <a href="/cdn-cgi/l/email-protection#b7d4dfc5dec4c3d8c7df99d5d2d9cddac2d2dbdbd2c5f7c2d9de9ad5d6dad5d2c5d099d3d2" style="color:var(--accent);text-decoration:none"><span class="__cf_email__" data-cfemail="a0c3c8d2c9d3d4cfd0c88ec2c5cedacdd5c5ccccc5d2e0d5cec98dc2c1cdc2c5d2c78ec4c5">[email&#160;protected]</span></a>
+          christoph.benzmueller(at)uni-bamberg.de
         </div>
       </div>
 
