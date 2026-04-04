@@ -253,6 +253,15 @@
     .toolbar { padding: .5rem 1rem; }
     .pub-row { grid-template-columns: 1fr; }
     .pub-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; border-radius: 8px; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: .4rem .5rem; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-right: 1px solid var(--border); }
+    .stat:nth-child(4), .stat:nth-child(5) { border-right: 1px solid var(--border); }
+    .stat:nth-last-child(-n+1) { border-bottom: none; }
+    .stat:nth-last-child(-n+2) { border-bottom: none; }
+    .stat:nth-last-child(-n+3) { border-bottom: none; }
+    .stat-n { font-size: 1.3rem; }
+    .stat-label { font-size: .58rem; }
   }
 </style>
 </head>
@@ -261,7 +270,7 @@
 <header>
   <div class="header-kicker">Academic Publications</div>
   <h1>Christoph Benzmüller</h1>
-  <p class="subtitle">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin &nbsp;·&nbsp; Logic, AI &amp; Automated Reasoning</p>
+  <p class="subtitle">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</p>
   <div class="stats-row">
     <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
     <div class="stat"><span class="stat-n" id="stat-journals">—</span><span class="stat-label">Journal Articles</span></div>
