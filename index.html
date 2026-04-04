@@ -221,21 +221,24 @@
   }
 
   @media (max-width: 720px) {
-    /* Nav: stack name above links, links wrap */
+    /* Nav: keep name left, links right but wrap if needed — single row */
     nav { padding: 0 .75rem; height: auto; }
-    .nav-inner { flex-direction: column; align-items: flex-start; height: auto; padding: .5rem 0; gap: .3rem; }
-    .nav-name { font-size: .95rem; }
-    .nav-links { flex-wrap: wrap; gap: .2rem; }
-    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
+    .nav-inner { flex-direction: row; align-items: center; flex-wrap: wrap;
+                 height: auto; padding: .4rem 0; gap: .25rem; }
+    .nav-name { font-size: .85rem; flex-shrink: 0; }
+    .nav-links { flex-wrap: wrap; gap: .15rem; }
+    .nav-link { padding: .22rem .4rem; font-size: .58rem; letter-spacing: .02em; }
 
-    /* Hero: single column, smaller photo */
-    .hero { padding: 1.5rem .75rem 1.2rem; }
-    .hero-inner { grid-template-columns: 1fr; gap: 1rem; }
-    .hero-photo { width: 80px; height: 80px; font-size: 1.6rem; }
-    .hero-name { font-size: 1.7rem; }
-    .hero-kicker { font-size: .62rem; }
-    .hero-position { font-size: .85rem; }
-    .contact-pill { font-size: .6rem; padding: .2rem .55rem; }
+    /* Hero: photo left, text right on mobile too */
+    .hero { padding: 1.2rem .75rem 1rem; }
+    .hero-inner { grid-template-columns: 72px 1fr; gap: 1rem; align-items: center; }
+    .hero-photo { width: 72px; height: 72px; font-size: 1.4rem; }
+    .hero-kicker { font-size: .58rem; margin-bottom: .3rem; }
+    .hero-name { font-size: 1.4rem; margin-bottom: .3rem; }
+    .hero-positions { margin-bottom: .6rem; }
+    .hero-position { font-size: .78rem; line-height: 1.4; }
+    .hero-position::before { font-size: .6rem; }
+    .contact-pill { font-size: .58rem; padding: .18rem .5rem; }
 
     /* Content */
     .layout { grid-template-columns: 1fr; }
