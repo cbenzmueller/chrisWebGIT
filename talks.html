@@ -352,12 +352,12 @@ function sanitizeTalkBib(type, key, rest) {
 }
 
 // Determine talk category from the Keywords field
-function categorize(keywords) {
-  if (!keywords) return 'other';
-  const kw = keywords.toLowerCase();
-  if (kw.includes('invited')) return 'invited';
-  if (kw.includes('conference')) return 'conf';
-  if (kw.includes('workshop')) return 'workshop';
+function categorize(keywords, title) {
+  const kw = (keywords || '').toLowerCase();
+  const ti = (title || '').toLowerCase();
+  if (kw.includes('invited') || ti.match(/^\(invited/)) return 'invited';
+  if (kw.includes('conference') || ti.match(/^\(.*conference/)) return 'conf';
+  if (kw.includes('workshop') || ti.match(/^\(.*workshop/)) return 'workshop';
   return 'other';
 }
 
@@ -416,7 +416,7 @@ function parseTalks(raw) {
 
     if (!entry.title || !entry.year) continue;
 
-    entry.cat = categorize(entry.keywords);
+    entry.cat = categorize(entry.keywords, entry.title);
     entry.slideLinks = extractSlideLinks(rawNote);
     entry._raw = sanitizeTalkBib(type, key, rest);
     entries.push(entry);
