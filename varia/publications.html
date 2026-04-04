@@ -261,7 +261,7 @@
 <header>
   <div class="header-kicker">Academic Publications</div>
   <h1>Christoph Benzmüller</h1>
-  <p class="subtitle">Freie Universität Berlin &nbsp;·&nbsp; Logic, AI &amp; Automated Reasoning</p>
+  <p class="subtitle">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin &nbsp;·&nbsp; Logic, AI &amp; Automated Reasoning</p>
   <div class="stats-row">
     <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
     <div class="stat"><span class="stat-n" id="stat-journals">—</span><span class="stat-label">Journal Articles</span></div>
@@ -533,7 +533,7 @@ function pubRow(p) {
   // Action links
   const acts = [];
   if (p.doi) acts.push(`<a class="act-link doi-link" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">DOI ↗</a>`);
-  if (p.url && !p.doi) acts.push(`<a class="act-link" href="${p.url}" target="_blank" rel="noopener">URL ↗</a>`);
+  if (p.url) acts.push(`<a class="act-link" href="${p.url}" target="_blank" rel="noopener">URL ↗</a>`);
   // BibTeX toggle button
   const bibId = 'bib-' + p.key.replace(/[^a-zA-Z0-9]/g,'_');
   acts.push(`<button class="act-link bib-toggle" onclick="toggleBib('${bibId}',this)">BibTeX</button>`);
