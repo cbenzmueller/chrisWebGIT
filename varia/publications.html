@@ -6,452 +6,347 @@
 <title>Christoph Benzmüller — Publications</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0f14;
-    --surface: #13161e;
-    --surface2: #1a1e2a;
-    --border: #252a38;
-    --accent: #6e9ef5;
-    --accent2: #a78bfa;
-    --accent3: #34d399;
-    --text: #e8ecf4;
-    --text-muted: #7a8299;
-    --text-dim: #4a5068;
-    --journal: #fbbf24;
-    --conference: #6e9ef5;
-    --book: #a78bfa;
-    --preprint: #34d399;
-    --other: #f87171;
+    --bg:          #f5f4f0;
+    --surface:     #ffffff;
+    --border:      #dedad4;
+    --border2:     #c8c3bb;
+    --accent:      #2c5f8a;
+    --accent-soft: rgba(44,95,138,.09);
+    --text:        #1a1a1a;
+    --text-muted:  #5a5550;
+    --text-dim:    #9a948d;
+    --journal:     #b45309;
+    --journal-bg:  rgba(180,83,9,.09);
+    --conf:        #2c5f8a;
+    --conf-bg:     rgba(44,95,138,.09);
+    --book:        #6d28d9;
+    --book-bg:     rgba(109,40,217,.09);
+    --misc:        #1a7a4a;
+    --misc-bg:     rgba(26,122,74,.09);
+    --other:       #b91c1c;
+    --other-bg:    rgba(185,28,28,.09);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Figtree', sans-serif;
-    font-weight: 300;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
     min-height: 100vh;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
-  /* ── HEADER ── */
+  /* HEADER */
   header {
-    position: relative;
-    padding: 5rem 2rem 3rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 2rem 2.5rem;
     text-align: center;
-    overflow: hidden;
   }
-  header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(110,158,245,.13) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 40% at 80% 100%, rgba(167,139,250,.08) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .header-label {
+  .header-kicker {
     font-family: 'JetBrains Mono', monospace;
-    font-size: .75rem;
+    font-size: .68rem;
     letter-spacing: .2em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 1rem;
-    opacity: .8;
+    margin-bottom: .85rem;
   }
   h1 {
     font-family: 'EB Garamond', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
     font-weight: 500;
-    letter-spacing: -.02em;
+    letter-spacing: -.01em;
     line-height: 1.1;
     color: var(--text);
-    margin-bottom: .75rem;
+    margin-bottom: .5rem;
   }
   .subtitle {
     color: var(--text-muted);
-    font-size: 1rem;
-    font-weight: 300;
-    max-width: 500px;
-    margin: 0 auto 2.5rem;
+    font-size: .95rem;
+    margin-bottom: 2.2rem;
   }
   .stats-row {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-    flex-wrap: wrap;
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--bg);
   }
   .stat {
+    padding: .65rem 1.5rem;
     text-align: center;
+    border-right: 1px solid var(--border);
   }
+  .stat:last-child { border-right: none; }
   .stat-n {
     font-family: 'EB Garamond', serif;
-    font-size: 2.2rem;
+    font-size: 1.9rem;
     font-weight: 500;
     color: var(--accent);
     line-height: 1;
     display: block;
   }
   .stat-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .65rem;
-    letter-spacing: .15em;
-    text-transform: uppercase;
+    font-size: .7rem;
     color: var(--text-dim);
+    letter-spacing: .04em;
+    text-transform: uppercase;
   }
 
-  /* ── TOOLBAR ── */
+  /* TOOLBAR */
   .toolbar {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(13,15,20,.9);
-    backdrop-filter: blur(16px);
+    background: rgba(245,244,240,.95);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    padding: .9rem 2rem;
+    padding: .75rem 2rem;
   }
   .toolbar-inner {
-    max-width: 960px;
+    max-width: 980px;
     margin: 0 auto;
     display: flex;
-    gap: 1rem;
+    gap: .65rem;
     align-items: center;
     flex-wrap: wrap;
   }
-  .search-wrap {
-    flex: 1;
-    min-width: 180px;
-    position: relative;
-  }
+  .search-wrap { flex: 1; min-width: 160px; position: relative; }
   .search-wrap svg {
-    position: absolute;
-    left: .8rem;
-    top: 50%;
+    position: absolute; left: .75rem; top: 50%;
     transform: translateY(-50%);
-    color: var(--text-dim);
-    pointer-events: none;
+    color: var(--text-dim); pointer-events: none;
   }
   input[type="search"] {
     width: 100%;
-    background: var(--surface2);
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 7px;
     color: var(--text);
-    font-family: 'Figtree', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
     font-size: .9rem;
-    padding: .55rem .8rem .55rem 2.3rem;
+    padding: .48rem .75rem .48rem 2.1rem;
     outline: none;
-    transition: border-color .2s;
+    transition: border-color .15s, box-shadow .15s;
   }
-  input[type="search"]:focus { border-color: var(--accent); }
+  input[type="search"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
   input[type="search"]::placeholder { color: var(--text-dim); }
-
   select {
-    background: var(--surface2);
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 7px;
     color: var(--text);
-    font-family: 'Figtree', sans-serif;
-    font-size: .85rem;
-    padding: .55rem .9rem;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: .87rem;
+    padding: .48rem .85rem;
     outline: none;
     cursor: pointer;
-    transition: border-color .2s;
   }
-  select:focus { border-color: var(--accent); }
-
-  .sort-toggle {
-    background: var(--surface2);
+  .tb-btn {
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 7px;
     color: var(--text-muted);
     font-family: 'JetBrains Mono', monospace;
-    font-size: .75rem;
-    padding: .55rem .9rem;
+    font-size: .72rem;
+    padding: .48rem .85rem;
     cursor: pointer;
-    transition: all .2s;
+    transition: all .15s;
     white-space: nowrap;
-  }
-  .sort-toggle:hover { border-color: var(--accent); color: var(--accent); }
-
-  .refresh-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text-dim);
-    padding: .55rem .7rem;
-    cursor: pointer;
-    transition: all .2s;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    gap: .3rem;
   }
-  .refresh-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+  .tb-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── TYPE FILTERS ── */
+  /* CHIPS */
   .type-filters {
-    max-width: 960px;
-    margin: 1.5rem auto 0;
+    max-width: 980px;
+    margin: 1.2rem auto 0;
     padding: 0 2rem;
     display: flex;
-    gap: .5rem;
+    gap: .4rem;
     flex-wrap: wrap;
   }
   .chip {
     display: inline-flex;
     align-items: center;
-    gap: .4rem;
-    padding: .3rem .8rem;
+    gap: .35rem;
+    padding: .26rem .75rem;
     border-radius: 999px;
     border: 1px solid var(--border);
-    font-size: .78rem;
-    font-family: 'JetBrains Mono', monospace;
+    font-size: .77rem;
+    font-family: 'Source Sans 3', sans-serif;
     cursor: pointer;
-    transition: all .2s;
+    transition: all .15s;
     color: var(--text-muted);
-    background: transparent;
+    background: var(--surface);
     user-select: none;
   }
-  .chip:hover { border-color: var(--text-muted); color: var(--text); }
-  .chip.active { color: #0d0f14; font-weight: 500; }
-  .chip[data-type="all"].active { background: var(--text); border-color: var(--text); }
-  .chip[data-type="article"].active { background: var(--journal); border-color: var(--journal); }
-  .chip[data-type="inproceedings"].active { background: var(--conference); border-color: var(--conference); }
-  .chip[data-type="incollection"].active { background: var(--book); border-color: var(--book); }
-  .chip[data-type="book"].active { background: var(--book); border-color: var(--book); }
-  .chip[data-type="misc"].active { background: var(--preprint); border-color: var(--preprint); }
-  .chip[data-type="other"].active { background: var(--other); border-color: var(--other); }
-  .chip-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-  }
+  .chip:hover { border-color: var(--border2); color: var(--text); }
+  .chip.active { font-weight: 600; border-width: 1.5px; }
+  .chip[data-type="all"].active      { background: var(--text);       border-color: var(--text);    color: #fff; }
+  .chip[data-type="article"].active  { background: var(--journal-bg); border-color: var(--journal); color: var(--journal); }
+  .chip[data-type="inproceedings"].active { background: var(--conf-bg); border-color: var(--conf); color: var(--conf); }
+  .chip[data-type="incollection"].active,
+  .chip[data-type="book"].active     { background: var(--book-bg);    border-color: var(--book);    color: var(--book); }
+  .chip[data-type="misc"].active     { background: var(--misc-bg);    border-color: var(--misc);    color: var(--misc); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
-  /* ── MAIN CONTENT ── */
-  main {
-    max-width: 960px;
-    margin: 2rem auto;
-    padding: 0 2rem 4rem;
-  }
-
-  .year-group { margin-bottom: 3.5rem; }
+  /* MAIN */
+  main { max-width: 980px; margin: 2rem auto; padding: 0 2rem 5rem; }
+  .year-group { margin-bottom: 2.8rem; }
   .year-heading {
-    font-family: 'EB Garamond', serif;
-    font-size: 1.05rem;
-    font-weight: 400;
-    color: var(--text-dim);
-    letter-spacing: .1em;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: .5rem;
-    margin-bottom: 1.25rem;
     display: flex;
-    align-items: center;
-    gap: .75rem;
+    align-items: baseline;
+    gap: .7rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: .35rem;
+    margin-bottom: .9rem;
   }
-  .year-heading span:first-child {
-    font-size: 1.6rem;
-    color: var(--text-muted);
-    font-weight: 500;
-    letter-spacing: 0;
-  }
-  .year-count {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .68rem;
-    color: var(--text-dim);
-    letter-spacing: .05em;
-  }
+  .yr { font-family: 'EB Garamond', serif; font-size: 1.5rem; font-weight: 500; color: var(--text); line-height: 1; }
+  .year-count { font-size: .78rem; color: var(--text-dim); }
 
-  /* ── PUBLICATION CARD ── */
+  /* PUB CARD */
   .pub-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.25rem 1.4rem;
-    margin-bottom: .75rem;
-    transition: border-color .2s, transform .15s;
+    border-radius: 8px;
+    padding: 1rem 1.25rem 1rem 1.45rem;
+    margin-bottom: .5rem;
     position: relative;
-    overflow: hidden;
+    transition: border-color .15s, box-shadow .15s;
   }
+  .pub-card:hover { border-color: var(--border2); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
   .pub-card::before {
     content: '';
     position: absolute;
-    left: 0; top: 0; bottom: 0;
+    left: 0; top: 7px; bottom: 7px;
     width: 3px;
-    border-radius: 12px 0 0 12px;
+    border-radius: 0 2px 2px 0;
   }
-  .pub-card[data-type="article"]::before { background: var(--journal); }
-  .pub-card[data-type="inproceedings"]::before { background: var(--conference); }
-  .pub-card[data-type="incollection"]::before { background: var(--book); }
-  .pub-card[data-type="book"]::before { background: var(--book); }
-  .pub-card[data-type="misc"]::before { background: var(--preprint); }
-  .pub-card[data-type="other"]::before { background: var(--other); }
-  .pub-card:hover { border-color: #353a52; transform: translateY(-1px); }
+  .pub-card[data-type="article"]::before      { background: var(--journal); }
+  .pub-card[data-type="inproceedings"]::before { background: var(--conf); }
+  .pub-card[data-type="incollection"]::before  { background: var(--book); }
+  .pub-card[data-type="book"]::before          { background: var(--book); }
+  .pub-card[data-type="proceedings"]::before   { background: var(--book); }
+  .pub-card[data-type="misc"]::before          { background: var(--misc); }
+  .pub-card[data-type="techreport"]::before,
+  .pub-card[data-type="phdthesis"]::before     { background: var(--other); }
 
-  .pub-meta {
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    margin-bottom: .55rem;
-    flex-wrap: wrap;
-  }
+  .pub-meta { display: flex; align-items: center; gap: .45rem; margin-bottom: .4rem; flex-wrap: wrap; }
   .type-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .63rem;
-    letter-spacing: .1em;
+    font-size: .65rem;
+    font-weight: 600;
+    letter-spacing: .05em;
     text-transform: uppercase;
-    padding: .15rem .55rem;
+    padding: .1rem .5rem;
     border-radius: 4px;
-    font-weight: 500;
   }
-  [data-type="article"] .type-badge { background: rgba(251,191,36,.12); color: var(--journal); }
-  [data-type="inproceedings"] .type-badge { background: rgba(110,158,245,.12); color: var(--conference); }
-  [data-type="incollection"] .type-badge { background: rgba(167,139,250,.12); color: var(--book); }
-  [data-type="book"] .type-badge { background: rgba(167,139,250,.12); color: var(--book); }
-  [data-type="misc"] .type-badge { background: rgba(52,211,153,.12); color: var(--preprint); }
-  [data-type="other"] .type-badge { background: rgba(248,113,113,.12); color: var(--other); }
+  [data-type="article"]      .type-badge { background: var(--journal-bg); color: var(--journal); }
+  [data-type="inproceedings"] .type-badge { background: var(--conf-bg);    color: var(--conf); }
+  [data-type="incollection"]  .type-badge { background: var(--book-bg);    color: var(--book); }
+  [data-type="book"]          .type-badge { background: var(--book-bg);    color: var(--book); }
+  [data-type="proceedings"]   .type-badge { background: var(--book-bg);    color: var(--book); }
+  [data-type="misc"]          .type-badge { background: var(--misc-bg);    color: var(--misc); }
+  [data-type="techreport"]    .type-badge { background: var(--other-bg);   color: var(--other); }
+  [data-type="phdthesis"]     .type-badge { background: var(--other-bg);   color: var(--other); }
 
-  .pub-key {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .63rem;
-    color: var(--text-dim);
-  }
-  .pub-venue {
-    color: var(--text-muted);
-    font-size: .8rem;
-    margin-left: auto;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 260px;
-  }
-
+  .pub-key { font-family: 'JetBrains Mono', monospace; font-size: .61rem; color: var(--text-dim); }
   .pub-title {
     font-family: 'EB Garamond', serif;
-    font-size: 1.08rem;
+    font-size: 1.07rem;
     font-weight: 500;
     line-height: 1.35;
     color: var(--text);
-    margin-bottom: .4rem;
+    margin-bottom: .28rem;
   }
-  .pub-title a {
-    color: inherit;
-    text-decoration: none;
-    transition: color .2s;
-  }
-  .pub-title a:hover { color: var(--accent); }
-
-  .pub-authors {
-    font-size: .82rem;
-    color: var(--text-muted);
-    margin-bottom: .4rem;
-  }
-
-  .pub-details {
-    font-size: .8rem;
-    color: var(--text-dim);
-    font-style: italic;
-  }
-
-  .pub-links {
-    display: flex;
-    gap: .5rem;
-    margin-top: .7rem;
-    flex-wrap: wrap;
-  }
+  .pub-title a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: color .15s, border-color .15s; }
+  .pub-title a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .pub-authors { font-size: .87rem; color: var(--text-muted); margin-bottom: .22rem; }
+  .pub-venue { font-size: .84rem; color: var(--text-muted); font-style: italic; }
+  .pub-venue .vol-info { font-style: normal; color: var(--text-dim); }
+  .pub-links { display: flex; gap: .4rem; margin-top: .55rem; flex-wrap: wrap; }
   .pub-link {
     font-family: 'JetBrains Mono', monospace;
-    font-size: .67rem;
-    padding: .2rem .6rem;
-    border-radius: 5px;
+    font-size: .63rem;
+    padding: .16rem .52rem;
+    border-radius: 4px;
     border: 1px solid var(--border);
     color: var(--text-dim);
     text-decoration: none;
-    transition: all .18s;
-    letter-spacing: .05em;
+    transition: all .15s;
   }
-  .pub-link:hover { border-color: var(--accent); color: var(--accent); }
-  .pub-link.doi { border-color: rgba(110,158,245,.3); color: var(--accent); }
-  .pub-link.doi:hover { background: rgba(110,158,245,.1); }
+  .pub-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .pub-link.doi { border-color: rgba(44,95,138,.3); color: var(--accent); }
 
-  /* ── EMPTY / LOADING ── */
-  .status-box {
-    text-align: center;
-    padding: 5rem 2rem;
-    color: var(--text-muted);
-  }
-  .status-box .icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    display: block;
-    opacity: .4;
-  }
+  /* STATUS */
+  .status-box { text-align: center; padding: 5rem 2rem; color: var(--text-muted); }
   .loading-ring {
-    display: inline-block;
-    width: 48px; height: 48px;
-    border: 3px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-    margin-bottom: 1.5rem;
+    display: inline-block; width: 40px; height: 40px;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 1.2rem;
   }
 
-  /* ── FOOTER ── */
+  /* FOOTER */
   footer {
-    text-align: center;
-    padding: 2rem;
-    color: var(--text-dim);
-    font-size: .78rem;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: .05em;
-    border-top: 1px solid var(--border);
+    text-align: center; padding: 1.5rem 2rem;
+    color: var(--text-dim); font-size: .78rem;
+    border-top: 1px solid var(--border); background: var(--surface);
   }
   footer a { color: var(--accent); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
-  @media (max-width: 600px) {
-    header { padding: 3rem 1rem 2rem; }
-    .pub-venue { display: none; }
-    .toolbar-inner { gap: .5rem; }
+  @media (max-width: 580px) {
+    header { padding: 2rem 1rem 1.5rem; }
+    .stats-row { flex-wrap: wrap; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: .5rem 1rem; }
+    main, .type-filters { padding-left: 1rem; padding-right: 1rem; }
+    .toolbar { padding: .6rem 1rem; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-label">Academic Publications</div>
+  <div class="header-kicker">Academic Publications</div>
   <h1>Christoph Benzmüller</h1>
-  <p class="subtitle">Freie Universität Berlin — Logic, AI &amp; Automated Reasoning</p>
-  <div class="stats-row" id="stats">
-    <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Publications</span></div>
-    <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
+  <p class="subtitle">Freie Universität Berlin &nbsp;·&nbsp; Logic, AI &amp; Automated Reasoning</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
     <div class="stat"><span class="stat-n" id="stat-journals">—</span><span class="stat-label">Journal Articles</span></div>
     <div class="stat"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Conference Papers</span></div>
+    <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
   </div>
 </header>
 
 <div class="toolbar">
   <div class="toolbar-inner">
     <div class="search-wrap">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="search" id="searchInput" placeholder="Search titles, authors, venues…">
     </div>
     <select id="yearFilter"><option value="">All Years</option></select>
-    <button class="sort-toggle" id="sortBtn">↓ Newest First</button>
-    <button class="refresh-btn" id="refreshBtn" title="Reload from source">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+    <button class="tb-btn" id="sortBtn">↓ Newest first</button>
+    <button class="tb-btn refresh-btn" id="refreshBtn" title="Reload from source">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+      Refresh
     </button>
   </div>
 </div>
 
 <div class="type-filters" id="typeFilters">
-  <button class="chip active" data-type="all"><span class="chip-dot"></span>All</button>
+  <button class="chip active" data-type="all"><span class="chip-dot"></span>All types</button>
   <button class="chip" data-type="article"><span class="chip-dot" style="background:var(--journal)"></span>Journal</button>
-  <button class="chip" data-type="inproceedings"><span class="chip-dot" style="background:var(--conference)"></span>Conference</button>
+  <button class="chip" data-type="inproceedings"><span class="chip-dot" style="background:var(--conf)"></span>Conference</button>
   <button class="chip" data-type="incollection"><span class="chip-dot" style="background:var(--book)"></span>Book Chapter</button>
-  <button class="chip" data-type="misc"><span class="chip-dot" style="background:var(--preprint)"></span>Other/AFP</button>
+  <button class="chip" data-type="book"><span class="chip-dot" style="background:var(--book)"></span>Book / Proceedings</button>
+  <button class="chip" data-type="misc"><span class="chip-dot" style="background:var(--misc)"></span>Preprint / Other</button>
 </div>
 
 <main id="main">
@@ -459,223 +354,238 @@
 </main>
 
 <footer>
-  Live data from <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/chris.bib" target="_blank">chris.bib</a> &nbsp;·&nbsp; <span id="lastUpdated"></span>
+  Live data from <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/chris.bib" target="_blank">chris.bib</a>
+  &nbsp;·&nbsp; <span id="lastUpdated"></span>
 </footer>
 
 <script>
-// The .bib file lives on the same server, so we fetch it with a relative path.
-// No CORS proxy needed.
 const BIB_URL = '../papers/chris.bib';
+let allPubs = [], sortAsc = false, activeType = 'all', activeYear = '', query = '';
 
-// ── STATE ────────────────────────────────────────────────────────────────────
-let allPubs    = [];
-let sortAsc    = false;   // newest first by default
-let activeType = 'all';
-let activeYear = '';
-let query      = '';
+// ── LaTeX cleaner ──────────────────────────────────────────────────────────
+const UMLAUT = {a:'ä',o:'ö',u:'ü',A:'Ä',O:'Ö',U:'Ü',e:'ë',E:'Ë',i:'ï',I:'Ï'};
+const ACUTE  = {a:'á',e:'é',i:'í',o:'ó',u:'ú',A:'Á',E:'É',I:'Í',O:'Ó',U:'Ú',y:'ý',Y:'Ý',c:'ć',C:'Ć',n:'ń',N:'Ń',s:'ś',S:'Ś',z:'ź',Z:'Ź'};
+const GRAVE  = {a:'à',e:'è',i:'ì',o:'ò',u:'ù',A:'À',E:'È',I:'Ì',O:'Ò',U:'Ù'};
+const CIRC   = {a:'â',e:'ê',i:'î',o:'ô',u:'û',A:'Â',E:'Ê',I:'Î',O:'Ô',U:'Û'};
+const TILDE  = {n:'ñ',N:'Ñ',a:'ã',o:'õ',A:'Ã',O:'Õ'};
 
-// ── BIB PARSER ───────────────────────────────────────────────────────────────
+function cleanLatex(s) {
+  if (!s) return '';
+  return s
+    // Umlaut: all forms of \"x
+    .replace(/\{\\"\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => UMLAUT[c]||c)
+    .replace(/\\"\{([a-zA-Z])\}/g,              (_,c) => UMLAUT[c]||c)
+    .replace(/\{"?\\"\s*([a-zA-Z])\}/g,         (_,c) => UMLAUT[c]||c)
+    .replace(/\\"\s*([a-zA-Z])/g,               (_,c) => UMLAUT[c]||c)
+    // Acute: \'x
+    .replace(/\{\\'\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => ACUTE[c]||c)
+    .replace(/\\'\{?\s*([a-zA-Z])\s*\}?/g,      (_,c) => ACUTE[c]||c)
+    // Grave: \`x
+    .replace(/\{\\`\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => GRAVE[c]||c)
+    .replace(/\\`\{?\s*([a-zA-Z])\s*\}?/g,      (_,c) => GRAVE[c]||c)
+    // Circumflex: \^x
+    .replace(/\{\\\^\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c) => CIRC[c]||c)
+    .replace(/\\\^\{?\s*([a-zA-Z])\s*\}?/g,    (_,c) => CIRC[c]||c)
+    // Tilde: \~x
+    .replace(/\{\\~\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => TILDE[c]||c)
+    .replace(/\\~\{?\s*([a-zA-Z])\s*\}?/g,     (_,c) => TILDE[c]||c)
+    // Cedilla
+    .replace(/\\c\{([cCsStT])\}/g, (_,c) => ({c:'ç',C:'Ç',s:'ş',S:'Ş',t:'ţ',T:'Ţ'}[c]||c))
+    // Special letters
+    .replace(/\{?\\ss\}?/g, 'ß')
+    .replace(/\{?\\ae\}?/gi, m => /A/.test(m)?'Æ':'æ')
+    .replace(/\{?\\oe\}?/gi, m => /O/.test(m)?'Œ':'œ')
+    .replace(/\{?\\aa\}?/gi, m => /A/.test(m)?'Å':'å')
+    // Dashes
+    .replace(/---/g,'—').replace(/--/g,'–')
+    // Strip remaining LaTeX
+    .replace(/\\[a-zA-Z]+\s*/g,'')
+    .replace(/\\/g,'')
+    .replace(/\{|\}/g,'')
+    .replace(/~/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+// ── BibTeX parser (brace-counting, handles nesting) ────────────────────────
+function extractValue(src, pos) {
+  // skip whitespace
+  while (pos < src.length && src[pos] === ' ' || src[pos] === '\t') pos++;
+  if (src[pos] === '{') {
+    let depth = 0, start = pos;
+    while (pos < src.length) {
+      if (src[pos] === '{') depth++;
+      else if (src[pos] === '}') { depth--; if (!depth) { pos++; break; } }
+      pos++;
+    }
+    return { val: src.slice(start+1, pos-1), end: pos };
+  }
+  if (src[pos] === '"') {
+    let start = ++pos;
+    while (pos < src.length && src[pos] !== '"') pos++;
+    return { val: src.slice(start, pos), end: pos+1 };
+  }
+  // bare number / token
+  let start = pos;
+  while (pos < src.length && !/[,\s\}]/.test(src[pos])) pos++;
+  return { val: src.slice(start, pos), end: pos };
+}
+
 function parseBib(raw) {
   const entries = [];
-  // Split on @ signs that start entries
-  const chunks = raw.split(/\n@/);
-  for (let chunk of chunks) {
-    chunk = chunk.trim();
-    if (!chunk || chunk.startsWith('%')) continue;
-    // Reconstruct full entry
-    if (!chunk.startsWith('@')) chunk = '@' + chunk;
+  const re = /@(\w+)\s*\{/gi;
+  let m;
+  while ((m = re.exec(raw)) !== null) {
+    const type = m[1].toLowerCase();
+    if (type === 'string' || type === 'comment' || type === 'preamble') continue;
+    let i = m.index + m[0].length;
+    // find outer close brace by depth
+    let depth = 1, bodyStart = i;
+    while (i < raw.length && depth > 0) {
+      if (raw[i] === '{') depth++;
+      else if (raw[i] === '}') depth--;
+      i++;
+    }
+    const body = raw.slice(bodyStart, i-1);
+    const comma = body.indexOf(',');
+    if (comma < 0) continue;
+    const key = body.slice(0, comma).trim();
+    const rest = body.slice(comma+1);
 
-    const typeMatch = chunk.match(/^@(\w+)\s*\{/i);
-    if (!typeMatch) continue;
-    const type = typeMatch[1].toLowerCase();
-
-    // Extract key
-    const keyMatch = chunk.match(/^@\w+\s*\{([^,\s]+)/i);
-    const key = keyMatch ? keyMatch[1] : '';
-
-    // Extract fields using a robust regex
     const entry = { type, key };
-    // Remove outer @type{key, ... }
-    const inner = chunk.replace(/^@\w+\s*\{[^,]+,/, '').replace(/\}\s*$/, '');
-
-    // Field parser: handles {}, "", and bare numbers
-    const fieldRe = /(\w+)\s*=\s*(?:\{([\s\S]*?)\}(?!\s*\w+\s*=)|\{([\s\S]*?\})\}|"([\s\S]*?)"(?=\s*[,\}])|(\d+)(?=\s*[,\}]))/g;
-    let m;
-    while ((m = fieldRe.exec(inner)) !== null) {
-      const fname = m[1].toLowerCase();
-      if (fname.startsWith('opt')) continue; // skip OPT fields
-      const val = (m[2] ?? m[3] ?? m[4] ?? m[5] ?? '').trim();
-      entry[fname] = cleanLatex(val);
+    const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
+    let fm;
+    while ((fm = fnRe.exec(rest)) !== null) {
+      const fname = fm[1].toLowerCase();
+      if (/^opt|^ot[^h]|^keywords|^bibsource|^addendum/.test(fname)) continue;
+      const eqPos = fm.index + fm[0].length - 1;
+      try {
+        const { val } = extractValue(rest, eqPos);
+        if (val) entry[fname] = cleanLatex(val);
+      } catch(_) {}
     }
     if (entry.title && entry.year) entries.push(entry);
   }
   return entries;
 }
 
-function cleanLatex(s) {
-  return s
-    .replace(/\\"\{([aouAOU])\}/g, (_, c) => ({'a':'ä','o':'ö','u':'ü','A':'Ä','O':'Ö','U':'Ü'}[c]||c))
-    .replace(/\{\\"\s*([aouAOUeEiI])\}/g, (_, c) => ({'a':'ä','o':'ö','u':'ü','A':'Ä','O':'Ö','U':'Ü','e':'ë','E':'Ë','i':'ï','I':'Ï'}[c]||c))
-    .replace(/\\"\s*([aouAOU])/g, (_, c) => ({'a':'ä','o':'ö','u':'ü','A':'Ä','O':'Ö','U':'Ü'}[c]||c))
-    .replace(/\{\\ss\}/g, 'ß').replace(/\\ss\b/g, 'ß')
-    .replace(/\\'([aeiouAEIOU])/g, (_, c) => c)
-    .replace(/\\`([aeiouAEIOU])/g, (_, c) => c)
-    .replace(/\\~([nN])/g, (_, c) => c === 'n' ? 'ñ' : 'Ñ')
-    .replace(/\\\^([aeiouAEIOU])/g, (_, c) => c)
-    .replace(/\\c\{([cC])\}/g, (_, c) => c === 'c' ? 'ç' : 'Ç')
-    .replace(/\{([^}]*)\}/g, '$1')
-    .replace(/~/, ' ')
-    .replace(/\\,/g, ' ')
-    .replace(/---/g, '—')
-    .replace(/--/g, '–')
-    .trim();
-}
-
+// ── Helpers ────────────────────────────────────────────────────────────────
 function typeLabel(t) {
-  return { article:'Journal Article', inproceedings:'Conference', incollection:'Book Chapter',
-           book:'Book', phdthesis:'PhD Thesis', mastersthesis:'Master\'s Thesis',
-           misc:'Other', techreport:'Tech Report' }[t] || t.charAt(0).toUpperCase()+t.slice(1);
+  return {article:'Journal Article',inproceedings:'Conference Paper',
+    incollection:'Book Chapter',book:'Book',proceedings:'Proceedings',
+    phdthesis:'PhD Thesis',mastersthesis:"Master's Thesis",
+    misc:'Preprint / Other',techreport:'Tech Report'}[t]
+    || (t ? t[0].toUpperCase()+t.slice(1) : 'Other');
 }
 
-function venueStr(p) {
-  if (p.journal) return p.journal + (p.volume ? ' '+p.volume : '');
-  if (p.booktitle) return p.booktitle.slice(0, 60) + (p.booktitle.length > 60 ? '…' : '');
-  if (p.school) return p.school;
-  if (p.institution) return p.institution;
-  return '';
+function formatVenue(p) {
+  const name = p.journal || p.booktitle;
+  if (!name) return '';
+  let extra = '';
+  if (p.volume) extra += `, vol.\u00a0${p.volume}`;
+  if (p.number) extra += `, no.\u00a0${p.number}`;
+  if (p.pages)  extra += `, pp.\u00a0${p.pages}`;
+  if (p.publisher) extra += ` \u00b7 ${p.publisher}`;
+  if (p.note)   extra += ` \u00b7 <span style="font-style:normal;color:var(--text-dim)">${p.note}</span>`;
+  return `<em>${name}</em><span class="vol-info">${extra}</span>`;
 }
 
-function detailStr(p) {
-  const parts = [];
-  if (p.journal) { parts.push(`<em>${p.journal}</em>`); if (p.volume) parts.push(`vol. ${p.volume}`); if (p.number) parts.push(`no. ${p.number}`); }
-  if (p.booktitle && !p.journal) parts.push(`<em>${p.booktitle}</em>`);
-  if (p.pages) parts.push(`pp. ${p.pages}`);
-  if (p.publisher) parts.push(p.publisher);
-  if (p.note) parts.push(p.note);
-  return parts.join(' · ');
-}
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
+// ── Render ─────────────────────────────────────────────────────────────────
 function render() {
   let pubs = [...allPubs];
-
-  // Filter
-  if (activeType !== 'all') pubs = pubs.filter(p => p.type === activeType);
+  if (activeType !== 'all') {
+    pubs = pubs.filter(p => {
+      if (activeType === 'book') return ['book','proceedings'].includes(p.type);
+      return p.type === activeType;
+    });
+  }
   if (activeYear) pubs = pubs.filter(p => p.year === activeYear);
   if (query) {
     const q = query.toLowerCase();
     pubs = pubs.filter(p =>
-      (p.title||'').toLowerCase().includes(q) ||
-      (p.author||'').toLowerCase().includes(q) ||
-      (p.journal||'').toLowerCase().includes(q) ||
-      (p.booktitle||'').toLowerCase().includes(q)
+      [p.title,p.author,p.editor,p.journal,p.booktitle].some(f => f && f.toLowerCase().includes(q))
     );
   }
-
-  // Sort
   pubs.sort((a,b) => sortAsc ? +a.year - +b.year : +b.year - +a.year);
 
   const main = document.getElementById('main');
   if (!pubs.length) {
-    main.innerHTML = '<div class="status-box"><span class="icon">📭</span><p>No publications match your filters.</p></div>';
+    main.innerHTML = '<div class="status-box"><p>No publications match your current filters.</p></div>';
     return;
   }
-
-  // Group by year
   const byYear = {};
-  for (const p of pubs) {
-    if (!byYear[p.year]) byYear[p.year] = [];
-    byYear[p.year].push(p);
-  }
-  const years = Object.keys(byYear).sort((a,b) => sortAsc ? +a - +b : +b - +a);
+  pubs.forEach(p => (byYear[p.year] = byYear[p.year]||[]).push(p));
+  const years = Object.keys(byYear).sort((a,b) => sortAsc ? +a-+b : +b-+a);
 
   main.innerHTML = years.map(yr => `
     <div class="year-group">
       <div class="year-heading">
-        <span>${yr}</span>
+        <span class="yr">${yr}</span>
         <span class="year-count">${byYear[yr].length} publication${byYear[yr].length>1?'s':''}</span>
       </div>
-      ${byYear[yr].map(p => pubCard(p)).join('')}
-    </div>
-  `).join('');
+      ${byYear[yr].map(pubCard).join('')}
+    </div>`).join('');
 }
 
 function pubCard(p) {
-  const href = p.doi ? `https://doi.org/${p.doi}` : (p.url || null);
-  const titleHtml = href
-    ? `<a href="${href}" target="_blank" rel="noopener">${p.title||'Untitled'}</a>`
-    : (p.title||'Untitled');
-
+  const url = p.doi ? `https://doi.org/${p.doi}` : (p.url || null);
+  const title = p.title || 'Untitled';
+  const titleHtml = url
+    ? `<a href="${url}" target="_blank" rel="noopener">${title}</a>`
+    : title;
   const links = [];
-  if (p.doi) links.push(`<a class="pub-link doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">DOI</a>`);
-  if (p.url && !p.doi) links.push(`<a class="pub-link" href="${p.url}" target="_blank" rel="noopener">URL</a>`);
-
+  if (p.doi) links.push(`<a class="pub-link doi" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">DOI ↗</a>`);
+  if (p.url && !p.doi) links.push(`<a class="pub-link" href="${p.url}" target="_blank" rel="noopener">URL ↗</a>`);
+  const venue = formatVenue(p);
+  const person = p.author || p.editor || '';
   return `
-    <div class="pub-card" data-type="${p.type}">
-      <div class="pub-meta">
-        <span class="type-badge">${typeLabel(p.type)}</span>
-        <span class="pub-key">[${p.key}]</span>
-        <span class="pub-venue">${venueStr(p)}</span>
-      </div>
-      <div class="pub-title">${titleHtml}</div>
-      <div class="pub-authors">${p.author||''}</div>
-      ${detailStr(p) ? `<div class="pub-details">${detailStr(p)}</div>` : ''}
-      ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
+  <div class="pub-card" data-type="${p.type}">
+    <div class="pub-meta">
+      <span class="type-badge">${typeLabel(p.type)}</span>
+      <span class="pub-key">${p.key}</span>
     </div>
-  `;
+    <div class="pub-title">${titleHtml}</div>
+    ${person ? `<div class="pub-authors">${person}</div>` : ''}
+    ${venue  ? `<div class="pub-venue">${venue}</div>` : ''}
+    ${links.length ? `<div class="pub-links">${links.join('')}</div>` : ''}
+  </div>`;
 }
 
-// ── STATS ────────────────────────────────────────────────────────────────────
 function updateStats() {
-  const years = [...new Set(allPubs.map(p => p.year))];
-  document.getElementById('stat-total').textContent = allPubs.length;
-  document.getElementById('stat-years').textContent = years.length;
-  document.getElementById('stat-journals').textContent = allPubs.filter(p => p.type==='article').length;
-  document.getElementById('stat-conf').textContent = allPubs.filter(p => p.type==='inproceedings').length;
+  document.getElementById('stat-total').textContent    = allPubs.length;
+  document.getElementById('stat-years').textContent    = new Set(allPubs.map(p=>p.year)).size;
+  document.getElementById('stat-journals').textContent = allPubs.filter(p=>p.type==='article').length;
+  document.getElementById('stat-conf').textContent     = allPubs.filter(p=>p.type==='inproceedings').length;
 }
 
 function updateYearFilter() {
-  const years = [...new Set(allPubs.map(p => p.year))].sort((a,b)=>+b-+a);
-  const sel = document.getElementById('yearFilter');
-  sel.innerHTML = '<option value="">All Years</option>' +
-    years.map(y => `<option value="${y}">${y}</option>`).join('');
+  const years = [...new Set(allPubs.map(p=>p.year))].sort((a,b)=>+b-+a);
+  document.getElementById('yearFilter').innerHTML =
+    '<option value="">All Years</option>' + years.map(y=>`<option value="${y}">${y}</option>`).join('');
 }
 
-// ── LOAD ─────────────────────────────────────────────────────────────────────
 async function loadBib() {
   const btn = document.getElementById('refreshBtn');
   btn.classList.add('spinning');
   document.getElementById('main').innerHTML =
     '<div class="status-box"><div class="loading-ring"></div><p>Fetching latest publications…</p></div>';
   try {
-    const res = await fetch(BIB_URL);
+    const res = await fetch(BIB_URL + '?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    const raw = await res.text();
-    allPubs = parseBib(raw);
-    updateStats();
-    updateYearFilter();
-    render();
-    const now = new Date();
-    document.getElementById('lastUpdated').textContent =
-      'Last fetched: ' + now.toLocaleString();
+    allPubs = parseBib(await res.text());
+    updateStats(); updateYearFilter(); render();
+    document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
   } catch(err) {
     document.getElementById('main').innerHTML =
-      `<div class="status-box"><span class="icon">⚠️</span><p>Could not load publications.<br><small>${err.message}</small></p></div>`;
-  } finally {
-    btn.classList.remove('spinning');
-  }
+      `<div class="status-box"><p>⚠️ Could not load publications.<br><small>${err.message}</small></p></div>`;
+  } finally { btn.classList.remove('spinning'); }
 }
 
-// ── EVENTS ───────────────────────────────────────────────────────────────────
-document.getElementById('searchInput').addEventListener('input', e => {
-  query = e.target.value; render();
-});
-document.getElementById('yearFilter').addEventListener('change', e => {
-  activeYear = e.target.value; render();
-});
+document.getElementById('searchInput').addEventListener('input', e => { query = e.target.value; render(); });
+document.getElementById('yearFilter').addEventListener('change', e => { activeYear = e.target.value; render(); });
 document.getElementById('sortBtn').addEventListener('click', () => {
   sortAsc = !sortAsc;
-  document.getElementById('sortBtn').textContent = sortAsc ? '↑ Oldest First' : '↓ Newest First';
+  document.getElementById('sortBtn').textContent = sortAsc ? '↑ Oldest first' : '↓ Newest first';
   render();
 });
 document.getElementById('refreshBtn').addEventListener('click', loadBib);
@@ -688,7 +598,6 @@ document.getElementById('typeFilters').addEventListener('click', e => {
   render();
 });
 
-// ── INIT ─────────────────────────────────────────────────────────────────────
 loadBib();
 </script>
 </body>
