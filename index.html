@@ -68,6 +68,7 @@
     max-width: 980px; margin: 0 auto;
     display: grid; grid-template-columns: auto 1fr;
     gap: 2.5rem; align-items: start;
+    position: relative;
   }
   .hero-photo {
     width: 130px; height: 130px;
@@ -81,6 +82,7 @@
     flex-shrink: 0;
   }
   .hero-text {}
+
   .hero-kicker {
     font-family: 'JetBrains Mono', monospace;
     font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
@@ -220,30 +222,42 @@
     border-top: 1px solid var(--border); background: var(--surface);
   }
 
-  @media (max-width: 720px) {
-    /* Nav: keep name left, links right but wrap if needed — single row */
-    nav { padding: 0 .75rem; height: auto; }
-    .nav-inner { flex-direction: row; align-items: center; flex-wrap: wrap;
-                 height: auto; padding: .4rem 0; gap: .25rem; }
-    .nav-name { font-size: .85rem; flex-shrink: 0; }
-    .nav-links { flex-wrap: wrap; gap: .15rem; }
-    .nav-link { padding: .22rem .4rem; font-size: .58rem; letter-spacing: .02em; }
-
-    /* Hero: photo left, text right on mobile too */
-    .hero { padding: 1.2rem .75rem 1rem; }
-    .hero-inner { grid-template-columns: 72px 1fr; gap: 1rem; align-items: center; }
-    .hero-photo { width: 72px; height: 72px; font-size: 1.4rem; }
-    .hero-kicker { font-size: .58rem; margin-bottom: .3rem; }
-    .hero-name { font-size: 1.4rem; margin-bottom: .3rem; }
-    .hero-positions { margin-bottom: .6rem; }
-    .hero-position { font-size: .78rem; line-height: 1.4; }
-    .hero-position::before { font-size: .6rem; }
-    .contact-pill { font-size: .58rem; padding: .18rem .5rem; }
-
-    /* Content */
+  /* Mobile only — desktop/tablet (>=768px) is untouched */
+  @media (max-width: 600px) {
     .layout { grid-template-columns: 1fr; }
     .page { padding: 1.2rem .75rem 3rem; }
     .athletics-grid { grid-template-columns: repeat(3, 1fr); }
+    .hero-inner { grid-template-columns: 1fr; gap: 1rem; }
+    .hero-photo { width: 80px; height: 80px; font-size: 1.6rem; }
+    .hero-name { font-size: 1.7rem; }
+    .hero-position { font-size: .85rem; }
+    .contact-pill { font-size: .6rem; padding: .2rem .55rem; }
+    nav { padding: 0 .75rem; height: auto; }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .5rem 0; gap: .3rem; }
+    .nav-name { font-size: .95rem; }
+    .nav-links { flex-wrap: wrap; gap: .2rem; }
+    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
+    .hero { padding: 1.5rem .75rem 1.2rem; }
+  }
+
+  /* Narrow phone — compact nav + photo beside name */
+  @media (max-width: 420px) {
+    nav { padding: 0 .6rem; }
+    .nav-inner { flex-direction: row; align-items: center; flex-wrap: wrap;
+                 height: auto; padding: .35rem 0; gap: .2rem; justify-content: space-between; }
+    .nav-name { font-size: .8rem; flex-shrink: 0; }
+    .nav-links { flex-wrap: wrap; gap: .1rem; justify-content: flex-end; }
+    .nav-link { padding: .2rem .35rem; font-size: .55rem; letter-spacing: .02em; }
+    .hero { padding: 1rem .6rem .9rem; }
+    .hero-inner { display: grid !important; grid-template-columns: 68px 1fr; gap: .75rem; align-items: start; }
+    .hero-photo { width: 68px; height: 68px; font-size: 1.3rem; }
+    .hero-kicker { font-size: .56rem; margin-bottom: .2rem; }
+    .hero-name { font-size: 1.25rem; margin-bottom: .3rem; }
+    .hero-positions { margin-bottom: .5rem; }
+    .hero-position { font-size: .78rem; line-height: 1.4; }
+    .hero-contact { margin-top: .5rem; }
+    .contact-pill { font-size: .56rem; padding: .15rem .45rem; }
   }
 </style>
 </head>
@@ -271,7 +285,7 @@
          src="https://www.uni-bamberg.de/fileadmin/_processed_/1/0/csm_Christoph2022-3_89de538f5b.webp"
          alt="Christoph Benzmüller"
          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-    <div class="hero-photo" style="display:none">CB</div>
+    <div class="hero-photo" style="display:none;position:absolute">CB</div>
 
     <div class="hero-text">
       <div class="hero-kicker">Professor · Computer Scientist</div>
