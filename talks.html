@@ -394,6 +394,7 @@ function parseTalks(raw) {
     const rest = body.slice(comma+1);
 
     // Parse fields — keep raw note for link extraction before LaTeX cleaning
+    // We advance lastIndex past each value to avoid matching = signs inside field values (e.g. href= in HTML).
     const entry = { type, key };
     let rawNote = '';
     const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
@@ -402,7 +403,8 @@ function parseTalks(raw) {
       const fname = fm[1].toLowerCase();
       const eqPos = fm.index + fm[0].length;
       try {
-        const { val } = extractValue(rest, eqPos);
+        const { val, end } = extractValue(rest, eqPos);
+        fnRe.lastIndex = end; // skip past the value so we don't match inside it
         if (fname === 'note') rawNote = val; // keep raw for HTML link extraction
         if (fname === 'keywords') {
           entry[fname] = cleanLatex(val); // needed for categorize(), excluded from BibTeX by isTalkSkipped
