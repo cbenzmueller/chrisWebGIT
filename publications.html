@@ -301,6 +301,13 @@
     .nav-name { font-size: .9rem; }
     .nav-link { padding: .25rem .45rem; font-size: .6rem; }
   }
+
+    .subtitle .full { display: inline; }
+    .subtitle .short { display: none; }
+    @media (max-width: 480px) {
+      .subtitle .full { display: none; }
+      .subtitle .short { display: inline; }
+    }
 </style>
 </head>
 <body>
@@ -313,7 +320,7 @@
       <a class="nav-link active" href="publications.html">Publications</a>
       <a class="nav-link" href="talks.html">Presentations</a>
       <a class="nav-link" href="teaching.html">Teaching</a>
-      <a class="nav-link" href="papers/CV_Benzmueller.pdf" target="_blank">CV</a>
+      <a class="nav-link" href="cv.html">CV</a>
       <a class="nav-link" href="short-bio.html">Bio</a>
     </div>
   </div>
@@ -322,7 +329,7 @@
 <header>
   <div class="header-kicker">Academic Publications</div>
   <h1>Christoph Benzmüller</h1>
-  <p class="subtitle">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</p>
+  <p class="subtitle"><span class="full">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</span><span class="short">University of Bamberg &amp; FU Berlin</span></p>
   <div class="stats-row">
     <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
     <div class="stat"><span class="stat-n" id="stat-journals">—</span><span class="stat-label">Journal Articles</span></div>

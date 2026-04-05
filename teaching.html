@@ -219,6 +219,13 @@
     .nav-name { font-size: .9rem; }
     .nav-link { padding: .25rem .45rem; font-size: .6rem; }
   }
+
+    .subtitle .full { display: inline; }
+    .subtitle .short { display: none; }
+    @media (max-width: 480px) {
+      .subtitle .full { display: none; }
+      .subtitle .short { display: inline; }
+    }
 </style>
 </head>
 <body>
@@ -231,7 +238,7 @@
       <a class="nav-link" href="publications.html">Publications</a>
       <a class="nav-link" href="talks.html">Presentations</a>
       <a class="nav-link active" href="teaching.html">Teaching</a>
-      <a class="nav-link" href="papers/CV_Benzmueller.pdf" target="_blank">CV</a>
+      <a class="nav-link" href="cv.html">CV</a>
       <a class="nav-link" href="short-bio.html">Bio</a>
     </div>
   </div>
@@ -240,7 +247,8 @@
 <header>
   <div class="header-kicker">Teaching Activities</div>
   <h1>Christoph Benzmüller</h1>
-  <p class="subtitle">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</p>
+  <p class="subtitle"><span class="full">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</span><span class="short">University of Bamberg &amp; FU Berlin</span></p>
+  <p class="subtitle" style="margin-top:.4rem;font-size:.82rem">An overview on the use of LogiKEy in education is provided in <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/LogiKEy_in_Education.pdf" target="_blank" style="color:var(--accent);text-decoration:none">LogiKEy_in_Education</a>.</p>
   </div>
 </header>
 
