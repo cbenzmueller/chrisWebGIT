@@ -196,14 +196,15 @@
     font-family: 'EB Garamond', serif;
     font-size: 1.15rem; font-weight: 500;
     color: var(--text); text-decoration: none;
+    white-space: nowrap; flex-shrink: 0;
   }
-  .nav-links { display: flex; gap: .2rem; }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
   .nav-link {
     font-family: 'JetBrains Mono', monospace;
     font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
     color: var(--text-muted); text-decoration: none;
     padding: .4rem .75rem; border-radius: 6px;
-    transition: all .15s;
+    transition: all .15s; white-space: nowrap;
   }
   .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
   .nav-link.active { color: var(--accent); background: var(--accent-soft); }
@@ -226,193 +227,11 @@
     nav { padding: 0 .75rem; }
     .nav-inner { flex-direction: column; align-items: flex-start;
                  height: auto; padding: .5rem 0; gap: .3rem; }
-    .nav-name { font-size: .95rem; }
+    .nav-name { font-size: .95rem; white-space: nowrap; }
     .nav-links { flex-wrap: wrap; gap: .2rem; }
     .nav-link { padding: .28rem .5rem; font-size: .63rem; }
   }
-</style>
-</head>
-<body>
 
-<nav>
-  <div class="nav-inner">
-    <a class="nav-name" href="index.html">Christoph Benzmüller</a>
-    <div class="nav-links">
-      <a class="nav-link" href="index.html">Home</a>
-      <a class="nav-link" href="publications.html">Publications</a>
-      <a class="nav-link" href="talks.html">Presentations</a>
-      <a class="nav-link active" href="teaching.html">Teaching</a>
-      <a class="nav-link" href="cv.html">CV</a>
-      <a class="nav-link" href="short-bio.html">Bio</a>
-    </div>
-  </div>
-</nav>
-
-<header>
-  <div class="header-kicker">Teaching Activities</div>
-  <h1>Christoph Benzmüller</h1>
-  <p class="subtitle"><span class="full">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</span><span class="short">University of Bamberg &amp; FU Berlin</span></p>
-  <p class="subtitle" style="margin-top:.4rem;font-size:.82rem">An overview on the use of LogiKEy in education is provided in <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/LogiKEy_in_Education.pdf" target="_blank" style="color:var(--accent);text-decoration:none">LogiKEy_in_Education</a>.</p>
-  </div>
-</header>
-
-<div class="toolbar">
-  <div class="toolbar-inner">
-    <div class="search-wrap">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="search" id="searchInput" placeholder="Search titles, institutions…">
-    </div>
-    <select id="yearFilter"><option value="">All Years</option></select>
-    <button class="tb-btn" id="sortBtn">↓ Newest first</button>
-    <button class="tb-btn refresh-btn" id="refreshBtn" title="Reload from source">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
-      Refresh
-    </button>
-  </div>
-</div>
-
-
-<main id="main">
-  <div class="status-box"><div class="loading-ring"></div><p>Loading teaching activities…</p></div>
-</main>
-
-<div style="max-width:980px;margin:0 auto 1.5rem;padding:0 2rem;font-size:.88rem;color:var(--text-muted)">
-  An overview on the use of LogiKEy in education is provided in
-  <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/LogiKEy_in_Education.pdf" target="_blank" style="color:var(--accent);text-decoration:none">LogiKEy_in_Education</a>.
-</div>
-<footer>
-  Live data from <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/teaching.bib" target="_blank">teaching.bib</a>
-  &nbsp;·&nbsp; <span id="lastUpdated"></span>
-</footer>
-
-<script>
-const BIB_URL = 'papers/teaching.bib';
-let allCourses = [], sortAsc = false, activeCat = 'all', activeYear = '', query = '';
-
-// ── LaTeX cleaner ─────────────────────────────────────────────────────────
-const UMLAUT = {a:'ä',o:'ö',u:'ü',A:'Ä',O:'Ö',U:'Ü',e:'ë',E:'Ë',i:'ï',I:'Ï'};
-const ACUTE  = {a:'á',e:'é',i:'í',o:'ó',u:'ú',A:'Á',E:'É',I:'Í',O:'Ó',U:'Ú',y:'ý',Y:'Ý',c:'ć',C:'Ć',n:'ń',N:'Ń',s:'ś',S:'Ś',z:'ź',Z:'Ź'};
-const GRAVE  = {a:'à',e:'è',i:'ì',o:'ò',u:'ù',A:'À',E:'È',I:'Ì',O:'Ò',U:'Ù'};
-const CIRC   = {a:'â',e:'ê',i:'î',o:'ô',u:'û',A:'Â',E:'Ê',I:'Î',O:'Ô',U:'Û'};
-const TILDE  = {n:'ñ',N:'Ñ',a:'ã',o:'õ',A:'Ã',O:'Õ'};
-
-function cleanLatex(s) {
-  if (!s) return '';
-  return s
-    .replace(/\{\\"\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => UMLAUT[c]||c)
-    .replace(/\\"\{([a-zA-Z])\}/g,              (_,c) => UMLAUT[c]||c)
-    .replace(/\{"?\\"\s*([a-zA-Z])\}/g,         (_,c) => UMLAUT[c]||c)
-    .replace(/\\"\s*([a-zA-Z])/g,               (_,c) => UMLAUT[c]||c)
-    .replace(/\{\\'\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => ACUTE[c]||c)
-    .replace(/\\'\{?\s*([a-zA-Z])\s*\}?/g,      (_,c) => ACUTE[c]||c)
-    .replace(/\{\\`\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => GRAVE[c]||c)
-    .replace(/\\`\{?\s*([a-zA-Z])\s*\}?/g,      (_,c) => GRAVE[c]||c)
-    .replace(/\{\\\^\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c) => CIRC[c]||c)
-    .replace(/\\\^\{?\s*([a-zA-Z])\s*\}?/g,    (_,c) => CIRC[c]||c)
-    .replace(/\{\\~\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => TILDE[c]||c)
-    .replace(/\\~\{?\s*([a-zA-Z])\s*\}?/g,     (_,c) => TILDE[c]||c)
-    .replace(/\\c\{([cCsStT])\}/g, (_,c) => ({c:'ç',C:'Ç',s:'ş',S:'Ş',t:'ţ',T:'Ţ'}[c]||c))
-    .replace(/\{?\\ss\}?/g, 'ß')
-    .replace(/\{?\\ae\}?/gi, m => /A/.test(m)?'Æ':'æ')
-    .replace(/\{?\\oe\}?/gi, m => /O/.test(m)?'Œ':'œ')
-    .replace(/\{?\\aa\}?/gi, m => /A/.test(m)?'Å':'å')
-    .replace(/---/g,'—').replace(/--/g,'–')
-    .replace(/\\[a-zA-Z]+\s*/g,'')
-    .replace(/\\/g,'')
-    .replace(/\{|\}/g,'')
-    .replace(/~/g,' ')
-    .replace(/\s+/g,' ')
-    .trim();
-}
-
-// ── BibTeX parser ─────────────────────────────────────────────────────────
-function extractValue(src, pos) {
-  while (pos < src.length && /[ \t]/.test(src[pos])) pos++;
-  if (src[pos] === '{') {
-    let depth = 0, start = pos;
-    while (pos < src.length) {
-      if (src[pos] === '{') depth++;
-      else if (src[pos] === '}') { depth--; if (!depth) { pos++; break; } }
-      pos++;
-    }
-    return { val: src.slice(start+1, pos-1), end: pos };
-  }
-  if (src[pos] === '"') {
-    let start = ++pos;
-    while (pos < src.length && src[pos] !== '"') pos++;
-    return { val: src.slice(start, pos), end: pos+1 };
-  }
-  let start = pos;
-  while (pos < src.length && !/[,\s\}]/.test(src[pos])) pos++;
-  return { val: src.slice(start, pos), end: pos };
-}
-
-// Extract all links from HTML in annote/note fields
-function extractLinks(raw) {
-  if (!raw) return [];
-  const links = [];
-  const re = /<a\s[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
-  let m;
-  while ((m = re.exec(raw)) !== null) {
-    links.push({ url: m[1].trim(), label: m[2].trim() });
-  }
-  return links;
-}
-
-// Categorize from keywords field
-function categorize(kw) {
-  if (!kw) return 'other';
-  const k = kw.toLowerCase();
-  // "Courses..." bundle entries
-  if (k.includes('project practicum') || k.includes('project')) return 'project';
-  if (k.includes('lecture')) return 'lecture';
-  if (k.includes('seminar') || k.includes('bachelor seminar') || k.includes('bachelor project')) return 'seminar';
-  if (k.includes('software project')) return 'project';
-  return 'other';
-}
-
-// Detect semester bundle entries (key starts with "Courses")
-function isBundle(key) {
-  return /^[Cc]ourses/.test(key);
-}
-
-const SKIP = new Set(['keywords','bibsource','addendum','copyright','abstract','isbn','issn','urn','adress']);
-function isSkipped(name) {
-  const lo = name.toLowerCase();
-  return lo.startsWith('opt') || (lo.startsWith('ot') && lo !== 'other') || SKIP.has(lo);
-}
-
-function sanitizeBib(type, key, rest) {
-  const lines = [];
-  const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
-  let fm;
-  while ((fm = fnRe.exec(rest)) !== null) {
-    const fname = fm[1]; const flo = fname.toLowerCase();
-    if (isSkipped(fname)) {
-      const eqPos = fm.index + fm[0].length;
-      try { const {end} = extractValue(rest, eqPos); fnRe.lastIndex = end; } catch(_) {}
-      continue;
-    }
-    const eqPos = fm.index + fm[0].length;
-    try {
-      const { val, end } = extractValue(rest, eqPos);
-      fnRe.lastIndex = end;
-      let trimmed = val.trim();
-      if (!trimmed) continue;
-      // Strip HTML from annote/note
-      if (flo === 'annote' || flo === 'note') {
-        const parts = [];
-        const re = /<a\s[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
-        let m;
-        while ((m = re.exec(trimmed)) !== null) parts.push(m[2].trim() + ': ' + m[1].trim());
-        trimmed = parts.length > 0 ? parts.join('; ') : trimmed.replace(/<[^>]+>/g,'').trim();
-        if (!trimmed) continue;
-      }
-      try { const formatted = String(parseInt(trimmed,10)) === trimmed ? trimmed : '{'+trimmed+'}';
-            lines.push(`  ${flo.padEnd(12)} = ${formatted}`); }
-      catch(_) { lines.push(`  ${flo.padEnd(12)} = {${trimmed}}`); }
-    } catch(_) {}
-  }
   return `@${type}{${key},\n${lines.join(',\n')}\n}`;
 }
 
