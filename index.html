@@ -261,6 +261,13 @@
     .hero-contact { margin-top: .5rem; }
     .contact-pill { font-size: .56rem; padding: .15rem .45rem; }
   }
+
+    .subtitle .full { display: inline; }
+    .subtitle .short { display: none; }
+    @media (max-width: 480px) {
+      .subtitle .full { display: none; }
+      .subtitle .short { display: inline; }
+    }
 </style>
 </head>
 <body>
@@ -274,7 +281,7 @@
       <a class="nav-link" href="publications.html">Publications</a>
       <a class="nav-link" href="talks.html">Presentations</a>
       <a class="nav-link" href="teaching.html">Teaching</a>
-      <a class="nav-link" href="papers/CV_Benzmueller.pdf" target="_blank">CV</a>
+      <a class="nav-link" href="cv.html">CV</a>
       <a class="nav-link" href="short-bio.html">Bio</a>
     </div>
   </div>
@@ -339,7 +346,7 @@
           Together with colleagues and students I have developed the
           <a href="https://github.com/leoprover/Leo-III" target="_blank">Leo theorem provers</a>
           for classical and non-classical higher-order logics (LEO-II world champion 2010, LEO-III world champion 2019), and the
-          <a href="https://www.researchgate.net/publication/342146653" target="_blank">LogiKEy workbench</a>
+          <a href="https://doi.org/10.1016/j.artint.2020.103348" target="_blank">LogiKEy workbench</a>
           for ethical and legal reasoning (an overview on the use of LogiKEy in education is provided in
           <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/LogiKEy_in_Education.pdf" target="_blank">LogiKEy_in_Education</a>).
           Our work on <a href="http://christoph-benzmueller.de/papers/GoedelOntologicalArgument.html" target="_blank">Gödel's ontological argument</a>
@@ -382,12 +389,12 @@
             <span class="proj-funder">FNR Luxembourg</span>
           </li>
           <li>
-            <a href="https://portal.volkswagenstiftung.de/search/projectDetails.do?ref=93678" target="_blank">CRAP</a>
+            <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/2019-poster-VolswagenStiftung.pdf" target="_blank">CRAP</a>
             — Consistent Rational Argumentation in Politics
             <span class="proj-funder">VolkswagenStiftung</span>
           </li>
           <li>
-            <a href="https://www.spaed.phil.fau.de/files/2021/10/petrakip-flyer.pdf" target="_blank">PetraKIP</a>
+            <a href="https://doi.org/10.34657/31447" target="_blank">PetraKIP</a>
             — KI-basiertes Portfolio für die Lehrerbildung
             <span class="proj-funder">BMBF</span>
           </li>
@@ -469,13 +476,13 @@
       <div class="card">
         <div class="card-title">Contact &amp; Address</div>
         <div class="address-block">
-          <strong>University of Bamberg</strong><br>
+          <strong><span class="full">Otto-Friedrich-Universität</span><span class="short">U</span> Bamberg</strong><br>
           Chair for AI Systems Engineering<br>
           An der Weberei 5, Room WE5/05.090<br>
           96047 Bamberg, Germany<br>
           Tel: +49 (0)951 863-2942<br>
           <br>
-          <strong>Freie Universität Berlin</strong><br>
+          <strong><span class="full">Freie Universität</span><span class="short">FU</span> Berlin</strong><br>
           Arnimallee 7<br>
           14195 Berlin, Germany<br>
           <br>
