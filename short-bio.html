@@ -30,16 +30,18 @@
   }
 
   /* ── NAV ── */
+  /* ── TOP NAV ── */
   nav {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     padding: 0 2rem;
     position: sticky; top: 0; z-index: 200;
+    width: 100%;
   }
   .nav-inner {
     max-width: 980px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    height: 3rem;
+    height: 3rem; width: 100%;
   }
   .nav-name {
     font-family: 'EB Garamond', serif;
@@ -142,11 +144,12 @@
   footer a { color: var(--accent); text-decoration: none; }
 
   @media (max-width: 700px) {
-    nav { padding: 0 .75rem; }
+    nav { padding: 0 .75rem; width: 100%; box-sizing: border-box; }
     .nav-inner { flex-direction: column; align-items: flex-start;
-                 height: auto; padding: .4rem 0; gap: .25rem; }
-    .nav-name { font-size: .9rem; }
-    .nav-link { padding: .25rem .45rem; font-size: .6rem; }
+                 height: auto; padding: .4rem 0; gap: .25rem; width: 100%; }
+    .nav-name { font-size: .85rem; }
+    .nav-links { flex-wrap: wrap; gap: .15rem; width: 100%; }
+    .nav-link { padding: .22rem .4rem; font-size: .58rem; }
     .page { grid-template-columns: 1fr; padding: 1.5rem .75rem 3rem; gap: 1.5rem; }
   }
 </style>
@@ -182,7 +185,7 @@
           University of Bamberg, is an adjunct (apl.) professor at the Freie Universität Berlin,
           and works closely with the University of Luxembourg, among others. He is a member of
           numerous scientific organisations such as the Association of German Scientists (VDW)
-          and Sigma Xi (USA).
+          and Sigma Xi (USA). He also serves as Director of the <a href="https://www.uni-bamberg.de/ziai/" target="_blank">Center for Innovative Applications of Informatics (ZIAI)</a>, Study Programme Representative of the new <a href="https://www.uni-bamberg.de/en/studies/courses-offered/bachelor/applied-informatics-and-ai-and-data-science/" target="_blank">B.Sc. in AI &amp; Data Science</a>, and core member of the <a href="https://www.uni-bamberg.de/bacai/" target="_blank">Bamberg Center for AI (BaCAI)</a>.
         </p>
         <p>
           For Benzmüller, AI is less a technology than a scientific discipline that should
@@ -244,7 +247,7 @@
           Universität Bamberg inne, ist außerplanmäßiger Professor an der Freien Universität
           Berlin und arbeitet unter anderem eng mit der Universität Luxemburg zusammen. Er ist
           Mitglied zahlreicher wissenschaftlicher Vereinigungen wie der Vereinigung Deutscher
-          Wissenschaftler (VDW) und Sigma Xi (USA).
+          Wissenschaftler (VDW) und Sigma Xi (USA). Er ist zudem Direktor des <a href="https://www.uni-bamberg.de/ziai/" target="_blank">Zentrums für Innovative Anwendungen der Informatik (ZIAI)</a>, Studiengangbeauftragter des neuen <a href="https://www.uni-bamberg.de/studium/angebot/bachelor/angewandte-informatik-ki-und-data-science/" target="_blank">B.Sc. KI &amp; Data Science</a> sowie Kernmitglied des <a href="https://www.uni-bamberg.de/bacai/" target="_blank">Bamberg Center for AI (BaCAI)</a>.
         </p>
         <p>
           Benzmüller sieht KI weniger als Technologie, sondern vielmehr als wissenschaftliche
