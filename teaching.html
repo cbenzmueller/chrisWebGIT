@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christoph Benzmüller — Teaching</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f5f4f0;
+    --surface:     #ffffff;
+    --border:      #dedad4;
+    --border2:     #c8c3bb;
+    --accent:      #2c5f8a;
+    --accent-soft: rgba(44,95,138,.09);
+    --text:        #1a1a1a;
+    --text-muted:  #5a5550;
+    --text-dim:    #9a948d;
+    --lecture:     #b45309;
+    --lecture-bg:  rgba(180,83,9,.09);
+    --seminar:     #2c5f8a;
+    --seminar-bg:  rgba(44,95,138,.09);
+    --project:     #6d28d9;
+    --project-bg:  rgba(109,40,217,.09);
+    --bundle:      #1a7a4a;
+    --bundle-bg:   rgba(26,122,74,.09);
+    --other:       #b91c1c;
+    --other-bg:    rgba(185,28,28,.09);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+  }
+  .header-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .7rem;
+  }
+  h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 500; line-height: 1.1; color: var(--text); margin-bottom: .4rem;
+  }
+  .subtitle { color: var(--text-muted); font-size: .92rem; margin-bottom: 1.8rem; }
+  /* ── TOOLBAR ── */
+  .toolbar {
+    position: sticky; top: 3rem; z-index: 100;
+    background: rgba(245,244,240,.96); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: .6rem 2rem;
+  }
+  .toolbar-inner { max-width: 980px; margin: 0 auto; display: flex; gap: .55rem; align-items: center; flex-wrap: wrap; }
+  .search-wrap { flex: 1; min-width: 160px; position: relative; }
+  .search-wrap svg { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
+  input[type="search"] {
+    width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: .88rem;
+    padding: .42rem .7rem .42rem 2rem; outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  input[type="search"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  input[type="search"]::placeholder { color: var(--text-dim); }
+  select {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: .85rem;
+    padding: .42rem .8rem; outline: none; cursor: pointer;
+  }
+  .tb-btn {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+    padding: .42rem .8rem; cursor: pointer; transition: all .15s; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: .3rem;
+  }
+  .tb-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── MAIN ── */
+  main { max-width: 980px; margin: 1.5rem auto; padding: 0 2rem 5rem; }
+  .year-group { margin-bottom: 2rem; }
+  .year-heading {
+    display: flex; align-items: baseline; gap: .6rem;
+    border-bottom: 2px solid var(--border); padding-bottom: .3rem; margin-bottom: .6rem;
+  }
+  .yr { font-family: 'EB Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--text); line-height: 1; }
+  .year-count { font-size: .75rem; color: var(--text-dim); }
+
+  /* ── COURSE ROW ── */
+  .course-row {
+    padding: .35rem 0 .35rem .6rem;
+    border-left: 3px solid transparent; margin-bottom: .15rem;
+  }
+  .course-row[data-cat="lecture"] { border-left-color: var(--lecture); }
+  .course-row[data-cat="seminar"] { border-left-color: var(--seminar); }
+  .course-row[data-cat="project"] { border-left-color: var(--project); }
+  .course-row[data-cat="bundle"]  { border-left-color: var(--bundle); }
+  .course-row[data-cat="other"]   { border-left-color: var(--other); }
+  [data-cat="lecture"]
+  [data-cat="seminar"]
+  [data-cat="project"]
+  [data-cat="bundle"]
+  [data-cat="other"]
+  .course-body { min-width: 0; }
+  .course-title {
+    font-family: 'EB Garamond', serif; font-size: 1rem; font-weight: 500;
+    line-height: 1.3; color: var(--text);
+  }
+  .course-title a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: color .15s, border-color .15s; }
+  .course-title a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .course-meta { font-size: .8rem; color: var(--text-muted); margin-top: .1rem; line-height: 1.35; }
+
+  /* action links */
+  .course-actions { display: flex; align-items: center; gap: .3rem; margin-top: .22rem; flex-wrap: wrap; }
+  .act-link {
+    font-family: 'JetBrains Mono', monospace; font-size: .62rem;
+    padding: .1rem .45rem; border-radius: 4px; border: 1px solid var(--border);
+    color: var(--text-dim); text-decoration: none; transition: all .12s; cursor: pointer;
+    background: transparent; line-height: 1.4;
+  }
+  .act-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .act-link.url-link { border-color: rgba(44,95,138,.35); color: var(--accent); }
+  .act-link.url-link:hover { background: var(--accent-soft); }
+  .act-link.bib-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  /* BibTeX dropdown */
+  .bib-box {
+    display: none; margin-top: .35rem; position: relative;
+    background: #f8f7f4; border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .bib-box.open { display: block; }
+  .bib-pre {
+    font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+    line-height: 1.55; color: var(--text-muted);
+    padding: .6rem .8rem; overflow-x: auto; white-space: pre;
+    max-height: 260px; overflow-y: auto;
+  }
+  .bib-copy {
+    position: absolute; top: .35rem; right: .45rem;
+    font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    color: var(--text-dim); padding: .1rem .45rem; cursor: pointer; transition: all .12s;
+  }
+  .bib-copy:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── STATUS ── */
+  .status-box { text-align: center; padding: 5rem 2rem; color: var(--text-muted); }
+  .loading-ring {
+    display: inline-block; width: 36px; height: 36px;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 1.3rem 2rem;
+    color: var(--text-dim); font-size: .76rem;
+    border-top: 1px solid var(--border); background: var(--surface);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 580px) {
+    header { padding: 2rem 1rem 1.5rem; }
+    main { padding-left: 1rem; padding-right: 1rem; }
+    .toolbar { padding: .5rem 1rem; }
+  .stat:nth-child(3n+1), .stat:nth-child(3n+2) { border-right: 1px solid var(--border); }
+  }
+
+    /* ── TOP NAV ── */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 980px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 3.2rem;
+  }
+  .nav-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem; font-weight: 500;
+    color: var(--text); text-decoration: none;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: .4rem .75rem; border-radius: 6px;
+    transition: all .15s; white-space: nowrap;
+  }
+  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 600px) {
+    nav { padding: 0 .75rem; }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .5rem 0; gap: .3rem; }
+    .nav-name { font-size: .95rem; }
+    .nav-links { flex-wrap: wrap; gap: .2rem; }
+    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
+  }
+    .nav-links { flex-wrap: wrap; gap: .15rem; width: 100%; }
+    .nav-link { padding: .22rem .4rem; font-size: .58rem; }
+  }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .4rem 0; gap: .25rem; }
+    .nav-name { font-size: .9rem; }
+    .nav-link { padding: .25rem .45rem; font-size: .6rem; }
+  }
+
+    .subtitle .full { display: inline; }
+    .subtitle .short { display: none; }
+    @media (max-width: 480px) {
+      .subtitle .full { display: none; }
+      .subtitle .short { display: inline; }
+    }
+  @media (max-width: 600px) {
+    nav { padding: 0 .75rem; }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .5rem 0; gap: .3rem; }
+    .nav-name { font-size: .95rem; white-space: nowrap; }
+    .nav-links { flex-wrap: wrap; gap: .2rem; }
+    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
+  }
+  .full { display: inline; }
+  .short { display: none; }
+  @media (max-width: 480px) {
+    .full { display: none; }
+    .short { display: inline; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-name" href="index.html">Christoph Benzmüller</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="publications.html">Publications</a>
+      <a class="nav-link" href="talks.html">Presentations</a>
+      <a class="nav-link active" href="teaching.html">Teaching</a>
+      <a class="nav-link" href="cv.html">CV</a>
+      <a class="nav-link" href="short-bio.html">Bio</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="header-kicker">Teaching</div>
+  <h1 class="page-heading">Christoph Benzmüller</h1>
+  <p class="header-sub">
+    <span class="full">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</span>
+    <span class="short">University of Bamberg &amp; FU Berlin</span>
+  </p>
+  <p class="header-sub" style="margin-top:.4rem;font-size:.85rem">
+    An overview on the use of LogiKEy in education is provided in
+    <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/LogiKEy_in_Education.pdf"
+       target="_blank" style="color:var(--accent);text-decoration:none">LogiKEy_in_Education</a>.
+  </p>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div id="stats" class="stats-bar"></div>
+    <div class="controls">
+      <input id="search" type="search" placeholder="Search…" autocomplete="off">
+      <select id="yearSel"><option value="">All Years</option></select>
+      <button id="sortBtn" title="Toggle sort order">↕ Year</button>
+      <button id="refreshBtn" title="Reload">↺</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div id="list" class="pub-list"></div>
+</main>
+
+<footer>
+  <p>Christoph Benzmüller &nbsp;·&nbsp;
+     <a href="https://www.uni-bamberg.de/aise/" target="_blank">AISE @ U Bamberg</a> &nbsp;·&nbsp;
+     <a href="http://www.mi.fu-berlin.de/en/" target="_blank">MI @ FU Berlin</a></p>
+  <p style="margin-top:.4rem;font-size:.8rem;color:var(--text-dim)">
+    See also:
+    <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/LogiKEy_in_Education.pdf"
+       target="_blank">LogiKEy_in_Education</a>
+  </p>
+</footer>
+
+<script>
+const BIB_URL = 'papers/teaching.bib';
+let allCourses=[],sortAsc=false,activeYear='',query='';
+const UMLAUT={a:'\u00e4',o:'\u00f6',u:'\u00fc',A:'\u00c4',O:'\u00d6',U:'\u00dc',e:'\u00eb',E:'\u00cb',i:'\u00ef',I:'\u00cf'};
+const ACUTE ={a:'\u00e1',e:'\u00e9',i:'\u00ed',o:'\u00f3',u:'\u00fa',A:'\u00c1',E:'\u00c9',I:'\u00cd',O:'\u00d3',U:'\u00da',y:'\u00fd',Y:'\u00dd',c:'\u0107',C:'\u0106',n:'\u0144',N:'\u0143',s:'\u015b',S:'\u015a',z:'\u017a',Z:'\u0179'};
+const GRAVE ={a:'\u00e0',e:'\u00e8',i:'\u00ec',o:'\u00f2',u:'\u00f9',A:'\u00c0',E:'\u00c8',I:'\u00cc',O:'\u00d2',U:'\u00d9'};
+const CIRC  ={a:'\u00e2',e:'\u00ea',i:'\u00ee',o:'\u00f4',u:'\u00fb',A:'\u00c2',E:'\u00ca',I:'\u00ce',O:'\u00d4',U:'\u00db'};
+const TILDE ={n:'\u00f1',N:'\u00d1',a:'\u00e3',o:'\u00f5',A:'\u00c3',O:'\u00d5'};
+function cleanLatex(s){
+  if(!s)return'';
+  return s
+    .replace(/\{\\"\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\\"\{([a-zA-Z])\}/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\{"?\\"\s*([a-zA-Z])\}/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\\"\s*([a-zA-Z])/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\{\\'\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>ACUTE[c]||c)
+    .replace(/\\'\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>ACUTE[c]||c)
+    .replace(/\{\\`\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>GRAVE[c]||c)
+    .replace(/\\`\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>GRAVE[c]||c)
+    .replace(/\{\\\^\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>CIRC[c]||c)
+    .replace(/\\\^\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>CIRC[c]||c)
+    .replace(/\{\\~\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>TILDE[c]||c)
+    .replace(/\\~\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>TILDE[c]||c)
+    .replace(/\\c\{([cCsStT])\}/g,(_,c)=>({c:'\u00e7',C:'\u00c7',s:'\u015f',S:'\u015e',t:'\u0163',T:'\u0162'}[c]||c))
+    .replace(/\{?\\ss\}?/g,'\u00df').replace(/\{?\\ae\}?/gi,m=>/A/.test(m)?'\u00c6':'\u00e6')
+    .replace(/\{?\\oe\}?/gi,m=>/O/.test(m)?'\u0152':'\u0153').replace(/\{?\\aa\}?/gi,m=>/A/.test(m)?'\u00c5':'\u00e5')
+    .replace(/---/g,'\u2014').replace(/--/g,'\u2013')
+    .replace(/\\[a-zA-Z]+\s*/g,'').replace(/\\/g,'')
+    .replace(/\{|\}/g,'').replace(/~/g,' ').replace(/\s+/g,' ').trim();
+}
+function extractValue(src,pos){
+  while(pos<src.length&&/[ \t]/.test(src[pos]))pos++;
+  if(src[pos]==='{'){
+    let depth=0,start=pos;
+    while(pos<src.length){if(src[pos]==='{')depth++;else if(src[pos]==='}'){depth--;if(!depth){pos++;break;}}pos++;}
+    return{val:src.slice(start+1,pos-1),end:pos};
+  }
+  if(src[pos]==='"'){let start=++pos;while(pos<src.length&&src[pos]!=='"')pos++;return{val:src.slice(start,pos),end:pos+1};}
+  let start=pos;while(pos<src.length&&!/[,\s\}]/.test(src[pos]))pos++;return{val:src.slice(start,pos),end:pos};
+}
+const SKIP=new Set(['keywords','bibsource','optauthor','addendum','copyright','abstract','isbn','issn','urn','adress','month','venue','day','annote']);
+function isSkipped(name){const lo=name.toLowerCase();return lo.startsWith('opt')||(lo.startsWith('ot')&&lo!=='other')||SKIP.has(lo);}
+function sanitizeBib(type,key,rest){
+  const lines=[];const fnRe=/\b([A-Za-z_]\w*)\s*=/g;let fm;
+  while((fm=fnRe.exec(rest))!==null){
+    const fname=fm[1];const flo=fname.toLowerCase();
+    if(isSkipped(fname)){const eqPos=fm.index+fm[0].length;try{const{end}=extractValue(rest,eqPos);fnRe.lastIndex=end;}catch(_){}continue;}
+    const eqPos=fm.index+fm[0].length;
+    try{
+      const{val,end}=extractValue(rest,eqPos);fnRe.lastIndex=end;
+      let trimmed=val.trim();if(!trimmed)continue;
+      if((flo==='note'||flo==='annote')&&trimmed.includes('<a ')){
+        const parts=[];const re=/<a\s[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;let m;
+        while((m=re.exec(trimmed))!==null)parts.push(m[2].trim()+': '+m[1].trim());
+        trimmed=parts.length>0?parts.join('; '):trimmed.replace(/<[^>]+>/g,'').trim();
+        if(!trimmed)continue;
+      }
+      try{const formatted=String(parseInt(trimmed,10))===trimmed?trimmed:'{'+trimmed+'}';lines.push(`  ${flo.padEnd(12)} = ${formatted}`);}
+      catch(_){lines.push(`  ${flo.padEnd(12)} = {${trimmed}}`);}
+    }catch(_){}
+  }
+
+return `@${type}{${key},\n${lines.join(',\n')}\n}`;
+}
+
+function parseCourses(raw) {
+  const entries = [];
+  const re = /@(\w+)\s*\{/gi;
+  let m;
+  while ((m = re.exec(raw)) !== null) {
+    const type = m[1].toLowerCase();
+    if (['string','comment','preamble'].includes(type)) continue;
+    let i = m.index + m[0].length;
+    let depth = 1, bodyStart = i;
+    while (i < raw.length && depth > 0) {
+      if (raw[i] === '{') depth++;
+      else if (raw[i] === '}') depth--;
+      i++;
+    }
+    const body = raw.slice(bodyStart, i-1);
+    const comma = body.indexOf(',');
+    if (comma < 0) continue;
+    const key = body.slice(0, comma).trim();
+    const rest = body.slice(comma+1);
+
+    const entry = { type, key };
+    let rawNote = '', rawAnnote = '';
+    const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
+    let fm;
+    while ((fm = fnRe.exec(rest)) !== null) {
+      const fname = fm[1].toLowerCase();
+      const eqPos = fm.index + fm[0].length;
+      try {
+        const { val, end } = extractValue(rest, eqPos);
+        fnRe.lastIndex = end;
+        if (fname === 'note')   rawNote   = val;
+        if (fname === 'annote') rawAnnote = val;
+        if (!isSkipped(fname) && val) entry[fname] = cleanLatex(val);
+      } catch(_) {}
+    }
+
+    if (!entry.title || !entry.year) continue;
+
+    // Collect links from both note and annote
+    entry.links = [...extractLinks(rawNote), ...extractLinks(rawAnnote)];
+    // Also use direct url field
+    if (entry.url && !entry.links.find(l => l.url === entry.url)) {
+      entry.links.unshift({ url: entry.url, label: 'Link ↗' });
+    }
+
+    // Category
+    if (isBundle(key)) {
+      entry.cat = 'bundle';
+    } else {
+      entry.cat = categorize(entry.keywords);
+    }
+
+    entry._raw = sanitizeBib(type, key, rest);
+    entries.push(entry);
+  }
+  return entries;
+}
+
+// ── Labels ────────────────────────────────────────────────────────────────
+function catLabel(c) {
+  return { lecture:'Lecture', seminar:'Seminar', project:'Project', bundle:'Semester Bundle', other:'Other' }[c] || 'Other';
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function toggleBib(id, btn) {
+  const box = document.getElementById(id);
+  const open = box.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+function copyBib(id) {
+  const text = document.getElementById(id).querySelector('.bib-pre').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(id).querySelector('.bib-copy');
+    const prev = btn.textContent; btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = prev, 1500);
+  });
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+function render() {
+  let courses = [...allCourses];
+  if (activeCat !== 'all') courses = courses.filter(c => c.cat === activeCat);
+  if (activeYear) courses = courses.filter(c => c.year === activeYear);
+  if (query) {
+    const q = query.toLowerCase();
+    courses = courses.filter(c =>
+      [c.title, c.publisher, c.note, c.author].some(f => f && f.toLowerCase().includes(q))
+    );
+  }
+  courses.sort((a,b) => sortAsc ? +a.year - +b.year : +b.year - +a.year);
+
+  const main = document.getElementById('main');
+  if (!courses.length) {
+    main.innerHTML = '<div class="status-box"><p>No courses match your current filters.</p></div>';
+    return;
+  }
+  const byYear = {};
+  courses.forEach(c => (byYear[c.year] = byYear[c.year]||[]).push(c));
+  const years = Object.keys(byYear).sort((a,b) => sortAsc ? +a-+b : +b-+a);
+
+  main.innerHTML = years.map(yr => `
+    <div class="year-group">
+      <div class="year-heading">
+        <span class="yr">${yr}</span>
+        <span class="year-count">${byYear[yr].length} course${byYear[yr].length>1?'s':''}</span>
+      </div>
+      ${byYear[yr].map(courseRow).join('')}
+    </div>`).join('');
+}
+
+function courseRow(c) {
+  // Title: if bundle with a url, make it a link directly
+  const mainUrl = c.url || (c.links.length === 1 ? c.links[0].url : null);
+  const titleHtml = mainUrl
+    ? `<a href="${mainUrl}" target="_blank" rel="noopener">${c.title}</a>`
+    : c.title;
+
+  // Meta line: publisher + note
+  const metaParts = [];
+  if (c.publisher) metaParts.push(c.publisher);
+  if (c.note) metaParts.push(`<span style="font-style:italic">${c.note}</span>`);
+  const meta = metaParts.join(' · ');
+
+  // Action links
+  const acts = [];
+  c.links.forEach(l => {
+    const label = l.label.length > 20 ? l.label.slice(0,18)+'…' : l.label;
+    acts.push(`<a class="act-link url-link" href="${l.url}" target="_blank" rel="noopener">${label} ↗</a>`);
+  });
+  const bibId = 'bib-' + c.key.replace(/[^a-zA-Z0-9]/g,'_');
+  acts.push(`<button class="act-link bib-toggle" onclick="toggleBib('${bibId}',this)">BibTeX</button>`);
+
+  return `
+  <div class="course-row" data-cat="${c.cat}">
+    <div class="course-body">
+      <div class="course-title">${titleHtml}</div>
+      ${meta ? `<div class="course-meta">${meta}</div>` : ''}
+      <div class="course-actions">${acts.join('')}</div>
+      <div class="bib-box" id="${bibId}">
+        <pre class="bib-pre">${escHtml(c._raw)}</pre>
+        <button class="bib-copy" onclick="copyBib('${bibId}')">Copy</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+
+function updateYearFilter() {
+  const years = [...new Set(allCourses.map(c=>c.year))].sort((a,b)=>+b-+a);
+  document.getElementById('yearFilter').innerHTML =
+    '<option value="">All Years</option>' + years.map(y=>`<option value="${y}">${y}</option>`).join('');
+}
+
+async function loadBib() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  document.getElementById('main').innerHTML =
+    '<div class="status-box"><div class="loading-ring"></div><p>Fetching teaching activities…</p></div>';
+  try {
+    const res = await fetch(BIB_URL + '?_=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    allCourses = parseCourses(await res.text()); updateYearFilter(); render();
+    document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
+  } catch(err) {
+    document.getElementById('main').innerHTML =
+      `<div class="status-box"><p>⚠️ Could not load teaching data.<br><small>${err.message}</small></p></div>`;
+  } finally { btn.classList.remove('spinning'); }
+}
+
+document.getElementById('searchInput').addEventListener('input', e => { query = e.target.value; render(); });
+document.getElementById('yearFilter').addEventListener('change', e => { activeYear = e.target.value; render(); });
+document.getElementById('sortBtn').addEventListener('click', () => {
+  sortAsc = !sortAsc;
+  document.getElementById('sortBtn').textContent = sortAsc ? '↑ Oldest first' : '↓ Newest first';
+  render();
+});
+document.getElementById('refreshBtn').addEventListener('click', loadBib);
+
+
+loadBib();
+</script>
+</body>
+</html>
