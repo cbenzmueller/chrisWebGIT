@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christoph Benzmüller — Talks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f5f4f0;
+    --surface:     #ffffff;
+    --border:      #dedad4;
+    --border2:     #c8c3bb;
+    --accent:      #2c5f8a;
+    --accent-soft: rgba(44,95,138,.09);
+    --text:        #1a1a1a;
+    --text-muted:  #5a5550;
+    --text-dim:    #9a948d;
+    --invited:     #b45309;
+    --invited-bg:  rgba(180,83,9,.09);
+    --conf:        #2c5f8a;
+    --conf-bg:     rgba(44,95,138,.09);
+    --workshop:    #6d28d9;
+    --workshop-bg: rgba(109,40,217,.09);
+    --other:       #1a7a4a;
+    --other-bg:    rgba(26,122,74,.09);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+  }
+  .header-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .7rem;
+  }
+  h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 500; line-height: 1.1; color: var(--text); margin-bottom: .4rem;
+  }
+  .subtitle { color: var(--text-muted); font-size: .92rem; margin-bottom: 1.8rem; }
+  .stats-row {
+    display: inline-flex; border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; background: var(--bg);
+  }
+  .stat { padding: .55rem 1.3rem; text-align: center; border-right: 1px solid var(--border); }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-family: 'EB Garamond', serif; font-size: 1.75rem; font-weight: 500; color: var(--accent); line-height: 1; display: block; }
+  .stat-label { font-size: .68rem; color: var(--text-dim); letter-spacing: .04em; text-transform: uppercase; }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    position: sticky; top: 3rem; z-index: 100;
+    background: rgba(245,244,240,.96); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: .6rem 2rem;
+  }
+  .toolbar-inner { max-width: 980px; margin: 0 auto; display: flex; gap: .55rem; align-items: center; flex-wrap: wrap; }
+  .search-wrap { flex: 1; min-width: 160px; position: relative; }
+  .search-wrap svg { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
+  input[type="search"] {
+    width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: .88rem;
+    padding: .42rem .7rem .42rem 2rem; outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  input[type="search"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  input[type="search"]::placeholder { color: var(--text-dim); }
+  select {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: .85rem;
+    padding: .42rem .8rem; outline: none; cursor: pointer;
+  }
+  .tb-btn {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+    padding: .42rem .8rem; cursor: pointer; transition: all .15s; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: .3rem;
+  }
+  .tb-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── CHIPS ── */
+  .type-filters { max-width: 980px; margin: 1rem auto 0; padding: 0 2rem; display: flex; gap: .35rem; flex-wrap: wrap; }
+  .chip {
+    display: inline-flex; align-items: center; gap: .3rem;
+    padding: .22rem .7rem; border-radius: 999px; border: 1px solid var(--border);
+    font-size: .74rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
+    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
+  }
+  .chip:hover { border-color: var(--border2); color: var(--text); }
+  .chip.active { font-weight: 600; border-width: 1.5px; }
+  .chip[data-cat="all"].active      { background: var(--text);        border-color: var(--text);     color: #fff; }
+  .chip[data-cat="invited"].active  { background: var(--invited-bg);  border-color: var(--invited);  color: var(--invited); }
+  .chip[data-cat="conf"].active     { background: var(--conf-bg);     border-color: var(--conf);     color: var(--conf); }
+  .chip[data-cat="workshop"].active { background: var(--workshop-bg); border-color: var(--workshop); color: var(--workshop); }
+  .chip[data-cat="other"].active    { background: var(--other-bg);    border-color: var(--other);    color: var(--other); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+  /* ── MAIN ── */
+  main { max-width: 980px; margin: 1.5rem auto; padding: 0 2rem 5rem; }
+  .year-group { margin-bottom: 2rem; }
+  .year-heading {
+    display: flex; align-items: baseline; gap: .6rem;
+    border-bottom: 2px solid var(--border); padding-bottom: .3rem; margin-bottom: .6rem;
+  }
+  .yr { font-family: 'EB Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--text); line-height: 1; }
+  .year-count { font-size: .75rem; color: var(--text-dim); }
+
+  /* ── TALK ROW ── */
+  .talk-row {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 0 .7rem; padding: .35rem 0 .35rem .6rem;
+    border-left: 3px solid transparent; margin-bottom: .15rem;
+  }
+  .talk-row[data-cat="invited"]  { border-left-color: var(--invited); }
+  .talk-row[data-cat="conf"]     { border-left-color: var(--conf); }
+  .talk-row[data-cat="workshop"] { border-left-color: var(--workshop); }
+  .talk-row[data-cat="other"]    { border-left-color: var(--other); }
+
+  .talk-left {
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: .15rem; padding-top: .1rem; min-width: 0;
+  }
+  .type-badge {
+    font-size: .6rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    padding: .08rem .4rem; border-radius: 3px; white-space: nowrap;
+  }
+  [data-cat="invited"]  .type-badge { background: var(--invited-bg);  color: var(--invited); }
+  [data-cat="conf"]     .type-badge { background: var(--conf-bg);     color: var(--conf); }
+  [data-cat="workshop"] .type-badge { background: var(--workshop-bg); color: var(--workshop); }
+  [data-cat="other"]    .type-badge { background: var(--other-bg);    color: var(--other); }
+
+  .talk-key { font-family: 'JetBrains Mono', monospace; font-size: .58rem; color: var(--text-dim); white-space: nowrap; }
+
+  .talk-body { min-width: 0; }
+  .talk-title {
+    font-family: 'EB Garamond', serif; font-size: 1rem; font-weight: 500;
+    line-height: 1.3; color: var(--text);
+  }
+  .talk-venue { font-size: .8rem; color: var(--text-muted); margin-top: .1rem; line-height: 1.35; }
+
+  /* action links */
+  .talk-actions { display: flex; align-items: center; gap: .3rem; margin-top: .22rem; flex-wrap: wrap; }
+  .act-link {
+    font-family: 'JetBrains Mono', monospace; font-size: .62rem;
+    padding: .1rem .45rem; border-radius: 4px; border: 1px solid var(--border);
+    color: var(--text-dim); text-decoration: none; transition: all .12s; cursor: pointer;
+    background: transparent; line-height: 1.4;
+  }
+  .act-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .act-link.slides-link { border-color: rgba(44,95,138,.35); color: var(--accent); }
+  .act-link.slides-link:hover { background: var(--accent-soft); }
+  .act-link.bib-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  /* BibTeX dropdown */
+  .bib-box {
+    display: none; margin-top: .35rem; position: relative;
+    background: #f8f7f4; border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .bib-box.open { display: block; }
+  .bib-pre {
+    font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+    line-height: 1.55; color: var(--text-muted);
+    padding: .6rem .8rem; overflow-x: auto; white-space: pre;
+    max-height: 260px; overflow-y: auto;
+  }
+  .bib-copy {
+    position: absolute; top: .35rem; right: .45rem;
+    font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    color: var(--text-dim); padding: .1rem .45rem; cursor: pointer; transition: all .12s;
+  }
+  .bib-copy:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── STATUS ── */
+  .status-box { text-align: center; padding: 5rem 2rem; color: var(--text-muted); }
+  .loading-ring {
+    display: inline-block; width: 36px; height: 36px;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 1.3rem 2rem;
+    color: var(--text-dim); font-size: .76rem;
+    border-top: 1px solid var(--border); background: var(--surface);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 580px) {
+    header { padding: 2rem 1rem 1.5rem; }
+    main, .type-filters { padding-left: 1rem; padding-right: 1rem; }
+    .toolbar { padding: .5rem 1rem; }
+    .talk-row { grid-template-columns: 1fr; }
+    .talk-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
+  }
+
+    /* ── TOP NAV ── */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 980px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 3.2rem;
+  }
+  .nav-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem; font-weight: 500;
+    color: var(--text); text-decoration: none;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: .4rem .75rem; border-radius: 6px;
+    transition: all .15s; white-space: nowrap;
+  }
+  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 600px) {
+    nav { padding: 0 .75rem; }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .5rem 0; gap: .3rem; }
+    .nav-name { font-size: .95rem; }
+    .nav-links { flex-wrap: wrap; gap: .2rem; }
+    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
+  }
+    .nav-links { flex-wrap: wrap; gap: .15rem; width: 100%; }
+    .nav-link { padding: .22rem .4rem; font-size: .58rem; }
+  }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .4rem 0; gap: .25rem; }
+    .nav-name { font-size: .9rem; }
+    .nav-link { padding: .25rem .45rem; font-size: .6rem; }
+  }
+
+    .subtitle .full { display: inline; }
+    .subtitle .short { display: none; }
+    @media (max-width: 480px) {
+      .subtitle .full { display: none; }
+      .subtitle .short { display: inline; }
+    }
+  @media (max-width: 600px) {
+    nav { padding: 0 .75rem; }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .5rem 0; gap: .3rem; }
+    .nav-name { font-size: .95rem; white-space: nowrap; }
+    .nav-links { flex-wrap: wrap; gap: .2rem; }
+    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
+  }
+  .full { display: inline; }
+  .short { display: none; }
+  @media (max-width: 480px) {
+    .full { display: none; }
+    .short { display: inline; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-name" href="index.html">Christoph Benzmüller</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="publications.html">Publications</a>
+      <a class="nav-link active" href="talks.html">Presentations</a>
+      <a class="nav-link" href="teaching.html">Teaching</a>
+      <a class="nav-link" href="cv.html">CV</a>
+      <a class="nav-link" href="short-bio.html">Bio</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="header-kicker">Presentations</div>
+  <h1 class="page-heading">Christoph Benzmüller</h1>
+  <p class="header-sub">
+    <span class="full">Otto-Friedrich-Universität Bamberg &amp; Freie Universität Berlin</span>
+    <span class="short">University of Bamberg &amp; FU Berlin</span>
+  </p>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div id="stats" class="stats-bar"></div>
+    <div class="controls">
+      <input id="search" type="search" placeholder="Search…" autocomplete="off">
+      <select id="yearSel"><option value="">All Years</option></select>
+      <button id="sortBtn" title="Toggle sort order">↕ Year</button>
+      <button id="refreshBtn" title="Reload">↺</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div id="list" class="pub-list"></div>
+</main>
+
+<footer>
+  <p>Christoph Benzmüller &nbsp;·&nbsp;
+     <a href="https://www.uni-bamberg.de/aise/" target="_blank">AISE @ U Bamberg</a> &nbsp;·&nbsp;
+     <a href="http://www.mi.fu-berlin.de/en/" target="_blank">MI @ FU Berlin</a></p>
+</footer>
+
+<script>
+const BIB_URL = 'papers/talks.bib';
+let allTalks=[],sortAsc=false,activeCat='all',activeYear='',query='';
+const UMLAUT={a:'\u00e4',o:'\u00f6',u:'\u00fc',A:'\u00c4',O:'\u00d6',U:'\u00dc',e:'\u00eb',E:'\u00cb',i:'\u00ef',I:'\u00cf'};
+const ACUTE ={a:'\u00e1',e:'\u00e9',i:'\u00ed',o:'\u00f3',u:'\u00fa',A:'\u00c1',E:'\u00c9',I:'\u00cd',O:'\u00d3',U:'\u00da',y:'\u00fd',Y:'\u00dd',c:'\u0107',C:'\u0106',n:'\u0144',N:'\u0143',s:'\u015b',S:'\u015a',z:'\u017a',Z:'\u0179'};
+const GRAVE ={a:'\u00e0',e:'\u00e8',i:'\u00ec',o:'\u00f2',u:'\u00f9',A:'\u00c0',E:'\u00c8',I:'\u00cc',O:'\u00d2',U:'\u00d9'};
+const CIRC  ={a:'\u00e2',e:'\u00ea',i:'\u00ee',o:'\u00f4',u:'\u00fb',A:'\u00c2',E:'\u00ca',I:'\u00ce',O:'\u00d4',U:'\u00db'};
+const TILDE ={n:'\u00f1',N:'\u00d1',a:'\u00e3',o:'\u00f5',A:'\u00c3',O:'\u00d5'};
+function cleanLatex(s){
+  if(!s)return'';
+  return s
+    .replace(/\{\\"\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\\"\{([a-zA-Z])\}/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\{"?\\"\s*([a-zA-Z])\}/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\\"\s*([a-zA-Z])/g,(_,c)=>UMLAUT[c]||c)
+    .replace(/\{\\'\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>ACUTE[c]||c)
+    .replace(/\\'\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>ACUTE[c]||c)
+    .replace(/\{\\`\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>GRAVE[c]||c)
+    .replace(/\\`\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>GRAVE[c]||c)
+    .replace(/\{\\\^\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>CIRC[c]||c)
+    .replace(/\\\^\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>CIRC[c]||c)
+    .replace(/\{\\~\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c)=>TILDE[c]||c)
+    .replace(/\\~\{?\s*([a-zA-Z])\s*\}?/g,(_,c)=>TILDE[c]||c)
+    .replace(/\\c\{([cCsStT])\}/g,(_,c)=>({c:'\u00e7',C:'\u00c7',s:'\u015f',S:'\u015e',t:'\u0163',T:'\u0162'}[c]||c))
+    .replace(/\{?\\ss\}?/g,'\u00df').replace(/\{?\\ae\}?/gi,m=>/A/.test(m)?'\u00c6':'\u00e6')
+    .replace(/\{?\\oe\}?/gi,m=>/O/.test(m)?'\u0152':'\u0153').replace(/\{?\\aa\}?/gi,m=>/A/.test(m)?'\u00c5':'\u00e5')
+    .replace(/---/g,'\u2014').replace(/--/g,'\u2013')
+    .replace(/\\[a-zA-Z]+\s*/g,'').replace(/\\/g,'')
+    .replace(/\{|\}/g,'').replace(/~/g,' ').replace(/\s+/g,' ').trim();
+}
+function extractValue(src,pos){
+  while(pos<src.length&&/[ \t]/.test(src[pos]))pos++;
+  if(src[pos]==='{'){
+    let depth=0,start=pos;
+    while(pos<src.length){if(src[pos]==='{')depth++;else if(src[pos]==='}'){depth--;if(!depth){pos++;break;}}pos++;}
+    return{val:src.slice(start+1,pos-1),end:pos};
+  }
+  if(src[pos]==='"'){let start=++pos;while(pos<src.length&&src[pos]!=='"')pos++;return{val:src.slice(start,pos),end:pos+1};}
+  let start=pos;while(pos<src.length&&!/[,\s\}]/.test(src[pos]))pos++;return{val:src.slice(start,pos),end:pos};
+}
+const SKIP=new Set(['keywords','bibsource','optauthor','addendum','copyright','abstract','isbn','issn','urn','adress','month','venue','day','annote']);
+function isSkipped(name){const lo=name.toLowerCase();return lo.startsWith('opt')||(lo.startsWith('ot')&&lo!=='other')||SKIP.has(lo);}
+function sanitizeBib(type,key,rest){
+  const lines=[];const fnRe=/\b([A-Za-z_]\w*)\s*=/g;let fm;
+  while((fm=fnRe.exec(rest))!==null){
+    const fname=fm[1];const flo=fname.toLowerCase();
+    if(isSkipped(fname)){const eqPos=fm.index+fm[0].length;try{const{end}=extractValue(rest,eqPos);fnRe.lastIndex=end;}catch(_){}continue;}
+    const eqPos=fm.index+fm[0].length;
+    try{
+      const{val,end}=extractValue(rest,eqPos);fnRe.lastIndex=end;
+      let trimmed=val.trim();if(!trimmed)continue;
+      if((flo==='note'||flo==='annote')&&trimmed.includes('<a ')){
+        const parts=[];const re=/<a\s[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;let m;
+        while((m=re.exec(trimmed))!==null)parts.push(m[2].trim()+': '+m[1].trim());
+        trimmed=parts.length>0?parts.join('; '):trimmed.replace(/<[^>]+>/g,'').trim();
+        if(!trimmed)continue;
+      }
+      try{const formatted=String(parseInt(trimmed,10))===trimmed?trimmed:'{'+trimmed+'}';lines.push(`  ${flo.padEnd(12)} = ${formatted}`);}
+      catch(_){lines.push(`  ${flo.padEnd(12)} = {${trimmed}}`);}
+    }catch(_){}
+  }
+
+return `@${type}{${key},\n${lines.join(',\n')}\n}`;
+}
+
+// Determine talk category from the Keywords field
+function categorize(keywords, title) {
+  const kw = (keywords || '').toLowerCase();
+  const ti = (title || '').toLowerCase();
+  if (kw.includes('invited') || ti.match(/^\(invited/)) return 'invited';
+  if (kw.includes('conference') || ti.match(/^\(.*conference/)) return 'conf';
+  if (kw.includes('workshop') || ti.match(/^\(.*workshop/)) return 'workshop';
+  return 'other';
+}
+
+// Extract slide URLs embedded as raw HTML in the Note field, e.g. <a href="...">slides</a>
+function extractSlideLinks(noteRaw) {
+  if (!noteRaw) return [];
+  const links = [];
+  const re = /<a\s+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
+  let m;
+  while ((m = re.exec(noteRaw)) !== null) {
+    links.push({ url: m[1], label: m[2].trim() });
+  }
+  return links;
+}
+
+function parseTalks(raw) {
+  const entries = [];
+  const re = /@(\w+)\s*\{/gi;
+  let m;
+  while ((m = re.exec(raw)) !== null) {
+    const type = m[1].toLowerCase();
+    if (['string','comment','preamble'].includes(type)) continue;
+    let i = m.index + m[0].length;
+    let depth = 1, bodyStart = i;
+    while (i < raw.length && depth > 0) {
+      if (raw[i] === '{') depth++;
+      else if (raw[i] === '}') depth--;
+      i++;
+    }
+    const body = raw.slice(bodyStart, i-1);
+    const comma = body.indexOf(',');
+    if (comma < 0) continue;
+    const key = body.slice(0, comma).trim();
+    const rest = body.slice(comma+1);
+
+    // Parse fields — keep raw note for link extraction before LaTeX cleaning
+    // We advance lastIndex past each value to avoid matching = signs inside field values (e.g. href= in HTML).
+    const entry = { type, key };
+    let rawNote = '';
+    const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
+    let fm;
+    while ((fm = fnRe.exec(rest)) !== null) {
+      const fname = fm[1].toLowerCase();
+      const eqPos = fm.index + fm[0].length;
+      try {
+        const { val, end } = extractValue(rest, eqPos);
+        fnRe.lastIndex = end; // skip past the value so we don't match inside it
+        if (fname === 'note') rawNote = val; // keep raw for HTML link extraction
+        if (fname === 'keywords') {
+          entry[fname] = cleanLatex(val); // needed for categorize(), excluded from BibTeX by isTalkSkipped
+        } else if (!isTalkSkipped(fname) && val) {
+          entry[fname] = cleanLatex(val);
+        }
+      } catch(_) {}
+    }
+
+    if (!entry.title || !entry.year) continue;
+
+    entry.cat = categorize(entry.keywords, entry.title);
+    entry.slideLinks = extractSlideLinks(rawNote);
+    entry._raw = sanitizeTalkBib(type, key, rest);
+    entries.push(entry);
+  }
+  return entries;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+function catLabel(c) {
+  return {invited:'Invited',conf:'Conference',workshop:'Workshop',other:'Other'}[c] || 'Other';
+}
+
+function render() {
+  let talks = [...allTalks];
+  if (activeCat !== 'all') talks = talks.filter(t => t.cat === activeCat);
+  if (activeYear) talks = talks.filter(t => t.year === activeYear);
+  if (query) {
+    const q = query.toLowerCase();
+    talks = talks.filter(t =>
+      [t.title, t.publisher, t.note].some(f => f && f.toLowerCase().includes(q))
+    );
+  }
+  talks.sort((a,b) => sortAsc ? +a.year - +b.year : +b.year - +a.year);
+
+  const main = document.getElementById('main');
+  if (!talks.length) {
+    main.innerHTML = '<div class="status-box"><p>No talks match your current filters.</p></div>';
+    return;
+  }
+  const byYear = {};
+  talks.forEach(t => (byYear[t.year] = byYear[t.year]||[]).push(t));
+  const years = Object.keys(byYear).sort((a,b) => sortAsc ? +a-+b : +b-+a);
+
+  main.innerHTML = years.map(yr => `
+    <div class="year-group">
+      <div class="year-heading">
+        <span class="yr">${yr}</span>
+        <span class="year-count">${byYear[yr].length} talk${byYear[yr].length>1?'s':''}</span>
+      </div>
+      ${byYear[yr].map(talkRow).join('')}
+    </div>`).join('');
+}
+
+function talkRow(t) {
+  // Clean up title: strip (Invited) / (Invited ...) prefix tags since the badge already shows that
+  const title = (t.title || 'Untitled').replace(/^\(Invited[^)]*\)\s*/i, '').replace(/^\(Keynote[^)]*\)\s*/i, '');
+
+  const acts = [];
+  // Slide links extracted from Note HTML
+  t.slideLinks.forEach(l => {
+    const label = /slide/i.test(l.label) ? 'Slides ↗' : l.label + ' ↗';
+    acts.push(`<a class="act-link slides-link" href="${l.url}" target="_blank" rel="noopener">${label}</a>`);
+  });
+  // BibTeX toggle
+  const bibId = 'bib-' + t.key.replace(/[^a-zA-Z0-9]/g,'_');
+  acts.push(`<button class="act-link bib-toggle" onclick="toggleBib('${bibId}',this)">BibTeX</button>`);
+
+  return `
+  <div class="talk-row" data-cat="${t.cat}">
+    <div class="talk-left">
+      <span class="type-badge">${catLabel(t.cat)}</span>
+      <span class="talk-key">${t.key}</span>
+    </div>
+    <div class="talk-body">
+      <div class="talk-title">${title}</div>
+      ${t.publisher ? `<div class="talk-venue">${t.publisher}</div>` : ''}
+      <div class="talk-actions">${acts.join('')}</div>
+      <div class="bib-box" id="${bibId}">
+        <pre class="bib-pre">${escHtml(t._raw)}</pre>
+        <button class="bib-copy" onclick="copyBib('${bibId}')">Copy</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function toggleBib(id, btn) {
+  const box = document.getElementById(id);
+  const open = box.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+function copyBib(id) {
+  const text = document.getElementById(id).querySelector('.bib-pre').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(id).querySelector('.bib-copy');
+    const prev = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = prev, 1500);
+  });
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent   = allTalks.length;
+  document.getElementById('stat-invited').textContent = allTalks.filter(t=>t.cat==='invited').length;
+  document.getElementById('stat-conf').textContent    = allTalks.filter(t=>t.cat==='conf').length;
+  document.getElementById('stat-years').textContent   = new Set(allTalks.map(t=>t.year)).size;
+}
+
+function updateYearFilter() {
+  const years = [...new Set(allTalks.map(t=>t.year))].sort((a,b)=>+b-+a);
+  document.getElementById('yearFilter').innerHTML =
+    '<option value="">All Years</option>' + years.map(y=>`<option value="${y}">${y}</option>`).join('');
+}
+
+async function loadBib() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  document.getElementById('main').innerHTML =
+    '<div class="status-box"><div class="loading-ring"></div><p>Fetching latest talks…</p></div>';
+  try {
+    const res = await fetch(BIB_URL + '?_=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    allTalks = parseTalks(await res.text());
+    updateStats(); updateYearFilter(); render();
+    document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
+  } catch(err) {
+    document.getElementById('main').innerHTML =
+      `<div class="status-box"><p>⚠️ Could not load talks.<br><small>${err.message}</small></p></div>`;
+  } finally { btn.classList.remove('spinning'); }
+}
+
+document.getElementById('searchInput').addEventListener('input', e => { query = e.target.value; render(); });
+document.getElementById('yearFilter').addEventListener('change', e => { activeYear = e.target.value; render(); });
+document.getElementById('sortBtn').addEventListener('click', () => {
+  sortAsc = !sortAsc;
+  document.getElementById('sortBtn').textContent = sortAsc ? '↑ Oldest first' : '↓ Newest first';
+  render();
+});
+document.getElementById('refreshBtn').addEventListener('click', loadBib);
+document.getElementById('typeFilters').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  activeCat = chip.dataset.cat;
+  render();
+});
+
+loadBib();
+</script>
+</body>
+</html>
