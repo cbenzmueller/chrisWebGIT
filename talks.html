@@ -272,6 +272,7 @@
     <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
     <div class="stat"><span class="stat-n" id="stat-invited">—</span><span class="stat-label">Invited</span></div>
     <div class="stat"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Conference</span></div>
+    <div class="stat"><span class="stat-n" id="stat-workshop">—</span><span class="stat-label">Workshop</span></div>
     <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
   </div>
 </header>
@@ -591,6 +592,7 @@ function updateStats() {
   document.getElementById('stat-total').textContent   = allTalks.length;
   document.getElementById('stat-invited').textContent = allTalks.filter(t=>t.cat==='invited').length;
   document.getElementById('stat-conf').textContent    = allTalks.filter(t=>t.cat==='conf').length;
+  document.getElementById('stat-workshop').textContent= allTalks.filter(t=>t.cat==='workshop').length;
   document.getElementById('stat-years').textContent   = new Set(allTalks.map(t=>t.year)).size;
 }
 
