@@ -322,7 +322,7 @@
 </nav>
 
 <header>
-  <div class="header-kicker">Academic Publications · v5</div>
+  <div class="header-kicker">Academic Publications · v6</div>
   <h1>Christoph Benzmüller</h1>
   <p class="subtitle">University of Bamberg &amp; FU Berlin</p>
   <div class="stats-row">
@@ -488,6 +488,7 @@ function parseBib(raw) {
     const rest = body.slice(comma+1);
 
     const entry = { type, key };
+    const _bibtype = type; // preserve @entrytype before field loop may overwrite it
     const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
     let fm;
     while ((fm = fnRe.exec(rest)) !== null) {
@@ -499,6 +500,7 @@ function parseBib(raw) {
         if (val) entry[fname] = cleanLatex(val);
       } catch(_) {}
     }
+    entry.type = _bibtype; // restore @entrytype in case bib 'type' field overwrote it
     if (entry.title && entry.year) {
       // Reclassify @unpublished (and typo @unblished) as techreport — matches server bib convention
       if (['unpublished','unblished'].includes(entry.type)) entry.type = 'techreport';
@@ -689,11 +691,6 @@ async function loadBib() {
     const res = await fetch(BIB_URL + '?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     allPubs = parseBib(await res.text());
-    // DEBUG: log type counts to console
-    const typeCounts = {};
-    allPubs.forEach(p => { typeCounts[p.type] = (typeCounts[p.type]||0)+1; });
-    console.log('=== Publication types after reclassification ===', JSON.stringify(typeCounts, null, 2));
-    console.log('Total allPubs:', allPubs.length);
     updateStats(); updateYearFilter(); render();
     document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
   } catch(err) {
