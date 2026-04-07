@@ -509,7 +509,7 @@ function parseBib(raw) {
       }
       // Detect habilitation theses stored as @book or other types
       if (['book','techreport','misc'].includes(entry.type)) {
-        const habilfields = [entry.note, entry.series, entry.howpublished]
+        const habilfields = [entry.note, entry.series, entry.howpublished, entry.title, entry.keywords]
           .some(f => f && /habilitation/i.test(f));
         if (habilfields) entry.type = 'habilitation';
       }
