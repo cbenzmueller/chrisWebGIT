@@ -502,7 +502,7 @@ function parseBib(raw) {
     if (entry.title && entry.year) {
       // Reclassify @unpublished (and typo @unblished) as techreport — matches server bib convention
       if (['unpublished','unblished'].includes(entry.type)) entry.type = 'techreport';
-      // Reclassify non-standard types: "SEKI Report" and "Research Report" -> type is truncated to first word
+      // Reclassify non-standard bib types: "@SEKI Report{" and "@Research Report{" — regex captures only first word
       if (['seki','research'].includes(entry.type)) entry.type = 'techreport';
       // Reclassify Seki Reports as techreport
       if (['misc','techreport'].includes(entry.type)) {
@@ -512,7 +512,7 @@ function parseBib(raw) {
       }
       // Detect habilitation theses stored as @book or other types
       if (['book','techreport','misc'].includes(entry.type)) {
-        const habilfields = [entry.note, entry.series, entry.howpublished]
+        const habilfields = [entry.note, entry.series, entry.howpublished, entry.title, entry.keywords]
           .some(f => f && /habilitation/i.test(f));
         if (habilfields) entry.type = 'habilitation';
       }
