@@ -28,6 +28,8 @@
     --misc-bg:     rgba(26,122,74,.09);
     --other:       #b91c1c;
     --other-bg:    rgba(185,28,28,.09);
+    --thesis:      #0e7490;
+    --thesis-bg:   rgba(14,116,144,.09);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -124,6 +126,8 @@
   .chip[data-type="incollection"].active,
   .chip[data-type="book"].active     { background: var(--book-bg); border-color: var(--book); color: var(--book); }
   .chip[data-type="misc"].active     { background: var(--misc-bg); border-color: var(--misc); color: var(--misc); }
+  .chip[data-type="techreport"].active { background: var(--other-bg); border-color: var(--other); color: var(--other); }
+  .chip[data-type="thesis"].active   { background: var(--thesis-bg); border-color: var(--thesis); color: var(--thesis); }
   .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
   /* ── MAIN ── */
@@ -154,8 +158,10 @@
   .pub-row[data-type="book"],
   .pub-row[data-type="proceedings"]  { border-left-color: var(--book); }
   .pub-row[data-type="misc"]         { border-left-color: var(--misc); }
-  .pub-row[data-type="techreport"],
-  .pub-row[data-type="phdthesis"]    { border-left-color: var(--other); }
+  .pub-row[data-type="techreport"]   { border-left-color: var(--other); }
+  .pub-row[data-type="phdthesis"],
+  .pub-row[data-type="mastersthesis"],
+  .pub-row[data-type="habilitation"] { border-left-color: var(--thesis); }
 
   /* left column: badge + key */
   .pub-left {
@@ -172,8 +178,10 @@
   [data-type="book"]          .type-badge,
   [data-type="proceedings"]   .type-badge { background: var(--book-bg); color: var(--book); }
   [data-type="misc"]          .type-badge { background: var(--misc-bg); color: var(--misc); }
-  [data-type="techreport"]    .type-badge,
-  [data-type="phdthesis"]     .type-badge { background: var(--other-bg); color: var(--other); }
+  [data-type="techreport"]    .type-badge { background: var(--other-bg); color: var(--other); }
+  [data-type="phdthesis"]     .type-badge,
+  [data-type="mastersthesis"] .type-badge,
+  [data-type="habilitation"]  .type-badge { background: var(--thesis-bg); color: var(--thesis); }
 
   .pub-key {
     font-family: 'JetBrains Mono', monospace; font-size: .58rem;
@@ -253,7 +261,7 @@
     .toolbar { padding: .5rem 1rem; }
     .pub-row { grid-template-columns: 1fr; }
     .pub-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
-    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; border-radius: 8px; }
+    .stats-row { display: grid; grid-template-columns: repeat(5, 1fr); width: 100%; border-radius: 8px; }
     .stat { border-right: none; border-bottom: 1px solid var(--border); padding: .4rem .5rem; }
     .stat:nth-child(3n+1), .stat:nth-child(3n+2) { border-right: 1px solid var(--border); }
     .stat:last-child { border-bottom: none; }
@@ -324,6 +332,7 @@
     <div class="stat"><span class="stat-n" id="stat-books">—</span><span class="stat-label">Books / Proc.</span></div>
     <div class="stat"><span class="stat-n" id="stat-preprints">—</span><span class="stat-label">Preprints</span></div>
     <div class="stat"><span class="stat-n" id="stat-techreports">—</span><span class="stat-label">Tech Rep.</span></div>
+    <div class="stat"><span class="stat-n" id="stat-theses">—</span><span class="stat-label">Theses</span></div>
     <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
   </div>
 </header>
@@ -350,6 +359,8 @@
   <button class="chip" data-type="incollection"><span class="chip-dot" style="background:var(--book)"></span>Book Chapter</button>
   <button class="chip" data-type="book"><span class="chip-dot" style="background:var(--book)"></span>Book / Proceedings</button>
   <button class="chip" data-type="misc"><span class="chip-dot" style="background:var(--misc)"></span>Preprint / Other</button>
+  <button class="chip" data-type="techreport"><span class="chip-dot" style="background:var(--other)"></span>Tech Rep.</button>
+  <button class="chip" data-type="thesis"><span class="chip-dot" style="background:var(--thesis)"></span>Theses</button>
 </div>
 
 <main id="main">
@@ -513,7 +524,8 @@ function parseBib(raw) {
 function typeLabel(t) {
   return {article:'Journal',inproceedings:'Conference',incollection:'Book Ch.',
     book:'Book',proceedings:'Proceedings',phdthesis:'PhD Thesis',
-    mastersthesis:"MSc Thesis",misc:'Preprint',techreport:'Tech Rep.'}[t]
+    mastersthesis:'MSc Thesis',habilitation:'Habilitation',
+    misc:'Preprint',techreport:'Tech Rep.'}[t]
     || (t ? t[0].toUpperCase()+t.slice(1) : 'Other');
 }
 
@@ -563,6 +575,7 @@ function render() {
   if (activeType !== 'all') {
     pubs = pubs.filter(p => {
       if (activeType === 'book') return ['book','proceedings'].includes(p.type);
+      if (activeType === 'thesis') return ['phdthesis','mastersthesis','habilitation'].includes(p.type);
       return p.type === activeType;
     });
   }
@@ -655,6 +668,7 @@ function updateStats() {
   document.getElementById('stat-books').textContent    = allPubs.filter(p=>['book','proceedings'].includes(p.type)).length;
   document.getElementById('stat-preprints').textContent= allPubs.filter(p=>p.type==='misc').length;
   document.getElementById('stat-techreports').textContent= allPubs.filter(p=>p.type==='techreport').length;
+  document.getElementById('stat-theses').textContent   = allPubs.filter(p=>['phdthesis','mastersthesis','habilitation'].includes(p.type)).length;
 }
 
 function updateYearFilter() {
