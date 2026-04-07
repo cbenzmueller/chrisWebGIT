@@ -689,6 +689,11 @@ async function loadBib() {
     const res = await fetch(BIB_URL + '?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     allPubs = parseBib(await res.text());
+    // DEBUG: log type counts to console
+    const typeCounts = {};
+    allPubs.forEach(p => { typeCounts[p.type] = (typeCounts[p.type]||0)+1; });
+    console.log('=== Publication types after reclassification ===', JSON.stringify(typeCounts, null, 2));
+    console.log('Total allPubs:', allPubs.length);
     updateStats(); updateYearFilter(); render();
     document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
   } catch(err) {
