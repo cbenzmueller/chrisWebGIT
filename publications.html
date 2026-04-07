@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Christoph Benzmüller — Publications [v4]</title>
+<title>Christoph Benzmüller — Publications</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -322,7 +322,7 @@
 </nav>
 
 <header>
-  <div class="header-kicker">Academic Publications · v4</div>
+  <div class="header-kicker">Academic Publications · v5</div>
   <h1>Christoph Benzmüller</h1>
   <p class="subtitle">University of Bamberg &amp; FU Berlin</p>
   <div class="stats-row">
@@ -502,15 +502,15 @@ function parseBib(raw) {
     if (entry.title && entry.year) {
       // Reclassify @unpublished (and typo @unblished) as techreport — matches server bib convention
       if (['unpublished','unblished'].includes(entry.type)) entry.type = 'techreport';
-      // Reclassify non-standard bib types: "@SEKI Report{" and "@Research Report{" — regex captures only first word
+      // Reclassify non-standard types: @SEKI Report{ and @Research Report{ truncate to first word
       if (['seki','research'].includes(entry.type)) entry.type = 'techreport';
-      // Reclassify Seki Reports as techreport
+      // Reclassify Seki Reports stored as misc/techreport with seki in publisher/institution
       if (['misc','techreport'].includes(entry.type)) {
         const sekilike = [entry.number, entry.series, entry.institution, entry.publisher, entry.note]
           .some(f => f && /seki/i.test(f));
         if (sekilike) entry.type = 'techreport';
       }
-      // Detect habilitation theses stored as @book or other types
+      // Detect habilitation theses — check title and keywords too (T3 has it in title)
       if (['book','techreport','misc'].includes(entry.type)) {
         const habilfields = [entry.note, entry.series, entry.howpublished, entry.title, entry.keywords]
           .some(f => f && /habilitation/i.test(f));
