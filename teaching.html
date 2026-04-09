@@ -60,6 +60,7 @@
   /* ── TOOLBAR ── */
   .toolbar {
     position: sticky; top: 3rem; z-index: 100;
+    backdrop-filter: blur(12px);
     background: rgba(245,244,240,.96); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border); padding: .6rem 2rem;
   }
@@ -184,24 +185,25 @@
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     padding: 0 2rem;
-    position: sticky; top: 0; z-index: 200;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
   }
   .nav-inner {
     max-width: 980px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    height: 3rem;
+    height: 3.2rem;
   }
   .nav-name {
     font-family: 'EB Garamond', serif;
-    font-size: 1.1rem; font-weight: 500;
+    font-size: 1.15rem; font-weight: 500;
     color: var(--text); text-decoration: none; white-space: nowrap;
   }
-  .nav-links { display: flex; gap: .15rem; flex-wrap: wrap; }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
   .nav-link {
     font-family: 'JetBrains Mono', monospace;
-    font-size: .67rem; letter-spacing: .04em; text-transform: uppercase;
+    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
     color: var(--text-muted); text-decoration: none;
-    padding: .35rem .65rem; border-radius: 6px; transition: all .15s;
+    padding: .4rem .75rem; border-radius: 6px; transition: all .15s;
   }
   .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
   .nav-link.active { color: var(--accent); background: var(--accent-soft); }
