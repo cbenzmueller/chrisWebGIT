@@ -167,6 +167,8 @@
   .act-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .act-link.slides-link { border-color: rgba(44,95,138,.35); color: var(--accent); }
   .act-link.slides-link:hover { background: var(--accent-soft); }
+  .act-link.video-link { border-color: rgba(192,32,42,.4); color: #c0202a; }
+  .act-link.video-link:hover { border-color: #c0202a; color: #c0202a; background: rgba(192,32,42,.08); }
   .act-link.bib-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
   /* BibTeX dropdown */
@@ -554,10 +556,15 @@ function talkRow(t) {
   const title = (t.title || 'Untitled').replace(/^\(Invited[^)]*\)\s*/i, '').replace(/^\(Keynote[^)]*\)\s*/i, '');
 
   const acts = [];
-  // Slide links extracted from Note HTML
+  // Links extracted from Note HTML — video links get their own distinct button
   t.slideLinks.forEach(l => {
-    const label = /slide/i.test(l.label) ? 'Slides ↗' : l.label + ' ↗';
-    acts.push(`<a class="act-link slides-link" href="${l.url}" target="_blank" rel="noopener">${label}</a>`);
+    const isVideo = /youtube\.com|youtu\.be|vimeo\.com|lecturenet/i.test(l.url) || /video/i.test(l.label);
+    if (isVideo) {
+      acts.push(`<a class="act-link video-link" href="${l.url}" target="_blank" rel="noopener">▶ Video</a>`);
+    } else {
+      const label = /slide/i.test(l.label) ? 'Slides ↗' : l.label + ' ↗';
+      acts.push(`<a class="act-link slides-link" href="${l.url}" target="_blank" rel="noopener">${label}</a>`);
+    }
   });
   // BibTeX toggle
   const bibId = 'bib-' + t.key.replace(/[^a-zA-Z0-9]/g,'_');
