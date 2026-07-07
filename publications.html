@@ -216,10 +216,8 @@
   .act-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .act-link.doi-link { border-color: rgba(44,95,138,.35); color: var(--accent); }
   .act-link.doi-link:hover { background: var(--accent-soft); }
-  .act-link.rg-link { border-color: rgba(0,159,155,.4); color: #00857f; }
-  .act-link.rg-link:hover { border-color: #00857f; background: rgba(0,159,155,.09); color: #00857f; }
-  .act-link.arxiv-link { border-color: rgba(179,27,27,.35); color: #b31b1b; }
-  .act-link.arxiv-link:hover { border-color: #b31b1b; background: rgba(179,27,27,.08); color: #b31b1b; }
+  /* ResearchGate and arXiv buttons use the same decent neutral styling as the
+     other action links (inherited from .act-link / .act-link:hover above). */
   .act-link.bib-toggle { cursor: pointer; }
   .act-link.bib-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
@@ -621,7 +619,7 @@ function render() {
 function pubRow(p) {
   // Title link: prefer DOI, then generic URL, then ResearchGate, then arXiv
   const href = p.doi ? `https://doi.org/${p.doi}`
-             : (p.url || p.urlrg || p.urlarxiv || null);
+             : (p.url || p.urlrg || p.urlarxiv || p.urldblp || null);
   const title = p.title || 'Untitled';
   const titleHtml = href
     ? `<a href="${href}" target="_blank" rel="noopener">${title}</a>`
@@ -633,6 +631,7 @@ function pubRow(p) {
   if (p.url) acts.push(`<a class="act-link" href="${p.url}" target="_blank" rel="noopener">URL ↗</a>`);
   if (p.urlrg) acts.push(`<a class="act-link rg-link" href="${p.urlrg}" target="_blank" rel="noopener">ResearchGate ↗</a>`);
   if (p.urlarxiv) acts.push(`<a class="act-link arxiv-link" href="${p.urlarxiv}" target="_blank" rel="noopener">arXiv ↗</a>`);
+  if (p.urldblp) acts.push(`<a class="act-link" href="${p.urldblp}" target="_blank" rel="noopener">DBLP ↗</a>`);
   // BibTeX toggle button
   const bibId = 'bib-' + p.key.replace(/[^a-zA-Z0-9]/g,'_');
   acts.push(`<button class="act-link bib-toggle" onclick="toggleBib('${bibId}',this)">BibTeX</button>`);
