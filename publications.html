@@ -592,7 +592,7 @@ function render() {
   if (query) {
     const q = query.toLowerCase();
     pubs = pubs.filter(p =>
-      [p.title,p.author,p.editor,p.journal,p.booktitle].some(f => f && f.toLowerCase().includes(q))
+      [p.key,p.title,p.author,p.editor,p.journal,p.booktitle].some(f => f && f.toLowerCase().includes(q))
     );
   }
   pubs.sort((a,b) => sortAsc ? +a.year - +b.year : +b.year - +a.year);
