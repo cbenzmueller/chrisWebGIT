@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christoph Benzmüller — News & Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f5f4f0;
+    --surface:     #ffffff;
+    --border:      #dedad4;
+    --border2:     #c8c3bb;
+    --accent:      #2c5f8a;
+    --accent-soft: rgba(44,95,138,.09);
+    --text:        #1a1a1a;
+    --text-muted:  #5a5550;
+    --text-dim:    #9a948d;
+    --invited:     #b45309;
+    --invited-bg:  rgba(180,83,9,.09);
+    --conf:        #2c5f8a;
+    --conf-bg:     rgba(44,95,138,.09);
+    --workshop:    #6d28d9;
+    --workshop-bg: rgba(109,40,217,.09);
+    --other:       #1a7a4a;
+    --other-bg:    rgba(26,122,74,.09);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+  }
+  .header-kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .7rem;
+  }
+  h1 {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 500; line-height: 1.1; color: var(--text); margin-bottom: .4rem;
+  }
+  .subtitle { color: var(--text-muted); font-size: .92rem; margin-bottom: 1.8rem; }
+  .stats-row {
+    display: inline-flex; border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; background: var(--bg);
+  }
+  .stat { padding: .55rem 1.3rem; text-align: center; border-right: 1px solid var(--border); }
+  .stat:last-child { border-right: none; }
+  .stat-n { font-family: 'EB Garamond', serif; font-size: 1.75rem; font-weight: 500; color: var(--accent); line-height: 1; display: block; }
+  .stat-label { font-size: .68rem; color: var(--text-dim); letter-spacing: .04em; text-transform: uppercase; }
+
+  /* ── TOOLBAR ── */
+  .toolbar {
+    position: sticky; top: 3rem; z-index: 100;
+    backdrop-filter: blur(12px);
+    background: rgba(245,244,240,.96); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: .6rem 2rem;
+  }
+  .toolbar-inner { max-width: 980px; margin: 0 auto; display: flex; gap: .55rem; align-items: center; flex-wrap: wrap; }
+  .search-wrap { flex: 1; min-width: 160px; position: relative; }
+  .search-wrap svg { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
+  input[type="search"] {
+    width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: .88rem;
+    padding: .42rem .7rem .42rem 2rem; outline: none; transition: border-color .15s, box-shadow .15s;
+  }
+  input[type="search"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  input[type="search"]::placeholder { color: var(--text-dim); }
+  select {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text); font-family: 'Source Sans 3', sans-serif; font-size: .85rem;
+    padding: .42rem .8rem; outline: none; cursor: pointer;
+  }
+  .tb-btn {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+    padding: .42rem .8rem; cursor: pointer; transition: all .15s; white-space: nowrap;
+    display: inline-flex; align-items: center; gap: .3rem;
+  }
+  .tb-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── CHIPS ── */
+  .type-filters { max-width: 980px; margin: 1rem auto 0; padding: 0 2rem; display: flex; gap: .35rem; flex-wrap: wrap; }
+  .chip {
+    display: inline-flex; align-items: center; gap: .3rem;
+    padding: .22rem .7rem; border-radius: 999px; border: 1px solid var(--border);
+    font-size: .74rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
+    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
+  }
+  .chip:hover { border-color: var(--border2); color: var(--text); }
+  .chip.active { font-weight: 600; border-width: 1.5px; }
+  .chip[data-cat="all"].active      { background: var(--text);        border-color: var(--text);     color: #fff; }
+  .chip[data-cat="invited"].active  { background: var(--invited-bg);  border-color: var(--invited);  color: var(--invited); }
+  .chip[data-cat="conf"].active     { background: var(--conf-bg);     border-color: var(--conf);     color: var(--conf); }
+  .chip[data-cat="workshop"].active { background: var(--workshop-bg); border-color: var(--workshop); color: var(--workshop); }
+  .chip[data-cat="other"].active    { background: var(--other-bg);    border-color: var(--other);    color: var(--other); }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+  /* ── MAIN ── */
+  main { max-width: 980px; margin: 1.5rem auto; padding: 0 2rem 5rem; }
+  .year-group { margin-bottom: 2rem; }
+  .year-heading {
+    display: flex; align-items: baseline; gap: .6rem;
+    border-bottom: 2px solid var(--border); padding-bottom: .3rem; margin-bottom: .6rem;
+  }
+  .yr { font-family: 'EB Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--text); line-height: 1; }
+  .year-count { font-size: .75rem; color: var(--text-dim); }
+
+  /* ── TALK ROW ── */
+  .talk-row {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 0 .7rem; padding: .35rem 0 .35rem .6rem;
+    border-left: 3px solid transparent; margin-bottom: .15rem;
+  }
+  .talk-row[data-cat="invited"]  { border-left-color: var(--invited); }
+  .talk-row[data-cat="conf"]     { border-left-color: var(--conf); }
+  .talk-row[data-cat="workshop"] { border-left-color: var(--workshop); }
+  .talk-row[data-cat="other"]    { border-left-color: var(--other); }
+
+  .talk-left {
+    display: flex; flex-direction: column; align-items: flex-end;
+    gap: .15rem; padding-top: .1rem; min-width: 0;
+  }
+  .type-badge {
+    font-size: .6rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    padding: .08rem .4rem; border-radius: 3px; white-space: nowrap;
+  }
+  [data-cat="invited"]  .type-badge { background: var(--invited-bg);  color: var(--invited); }
+  [data-cat="conf"]     .type-badge { background: var(--conf-bg);     color: var(--conf); }
+  [data-cat="workshop"] .type-badge { background: var(--workshop-bg); color: var(--workshop); }
+  [data-cat="other"]    .type-badge { background: var(--other-bg);    color: var(--other); }
+
+  .talk-key { font-family: 'JetBrains Mono', monospace; font-size: .58rem; color: var(--text-dim); white-space: nowrap; }
+
+  .talk-body { min-width: 0; }
+  .talk-title {
+    font-family: 'EB Garamond', serif; font-size: 1rem; font-weight: 500;
+    line-height: 1.3; color: var(--text);
+  }
+  .talk-venue { font-size: .8rem; color: var(--text-muted); margin-top: .1rem; line-height: 1.35; }
+
+  /* action links */
+  .talk-actions { display: flex; align-items: center; gap: .3rem; margin-top: .22rem; flex-wrap: wrap; }
+  .act-link {
+    font-family: 'JetBrains Mono', monospace; font-size: .62rem;
+    padding: .1rem .45rem; border-radius: 4px; border: 1px solid var(--border);
+    color: var(--text-dim); text-decoration: none; transition: all .12s; cursor: pointer;
+    background: transparent; line-height: 1.4;
+  }
+  .act-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .act-link.slides-link { border-color: rgba(44,95,138,.35); color: var(--accent); }
+  .act-link.slides-link:hover { background: var(--accent-soft); }
+  .act-link.video-link { border-color: rgba(192,32,42,.4); color: #c0202a; }
+  .act-link.video-link:hover { border-color: #c0202a; color: #c0202a; background: rgba(192,32,42,.08); }
+  .act-link.bib-toggle.open { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  /* BibTeX dropdown */
+  .bib-box {
+    display: none; margin-top: .35rem; position: relative;
+    background: #f8f7f4; border: 1px solid var(--border);
+    border-radius: 6px; overflow: hidden;
+  }
+  .bib-box.open { display: block; }
+  .bib-pre {
+    font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+    line-height: 1.55; color: var(--text-muted);
+    padding: .6rem .8rem; overflow-x: auto; white-space: pre;
+    max-height: 260px; overflow-y: auto;
+  }
+  .bib-copy {
+    position: absolute; top: .35rem; right: .45rem;
+    font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    color: var(--text-dim); padding: .1rem .45rem; cursor: pointer; transition: all .12s;
+  }
+  .bib-copy:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── STATUS ── */
+  .status-box { text-align: center; padding: 5rem 2rem; color: var(--text-muted); }
+  .loading-ring {
+    display: inline-block; width: 36px; height: 36px;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 1rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 1.3rem 2rem;
+    color: var(--text-dim); font-size: .76rem;
+    border-top: 1px solid var(--border); background: var(--surface);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 580px) {
+    header { padding: 2rem 1rem 1.5rem; }
+    main, .type-filters { padding-left: 1rem; padding-right: 1rem; }
+    .toolbar { padding: .5rem 1rem; }
+    .talk-row { grid-template-columns: 1fr; }
+    .talk-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; border-radius: 8px; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); padding: .4rem .5rem; }
+    .stat:nth-child(3n+1), .stat:nth-child(3n+2) { border-right: 1px solid var(--border); }
+    .stat:nth-last-child(-n+3):nth-child(3n+1),
+    .stat:nth-last-child(-n+3):nth-child(3n+2),
+    .stat:last-child { border-bottom: none; }
+    .stat-n { font-size: 1.3rem; }
+    .stat-label { font-size: .58rem; }
+  }
+
+  /* ── TOP NAV ── */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .nav-inner {
+    max-width: 980px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 3.2rem;
+  }
+  .nav-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem; font-weight: 500;
+    color: var(--text); text-decoration: none; white-space: nowrap;
+  }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: .4rem .75rem; border-radius: 6px; transition: all .15s;
+  }
+  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 580px) {
+    nav { padding: 0 .75rem; }
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .4rem 0; gap: .25rem; }
+    .nav-name { font-size: .9rem; }
+    .nav-link { padding: .25rem .45rem; font-size: .6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-name" href="index.html">Christoph Benzmüller</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html">Home</a>
+      <a class="nav-link" href="publications.html">Publications</a>
+      <a class="nav-link" href="talks.html">Talks</a>
+      <a class="nav-link active" href="newsreports.html">News</a>
+      <a class="nav-link" href="teaching.html">Teaching</a>
+      <a class="nav-link" href="cv.html">CV</a>
+      <a class="nav-link" href="short-bio.html">Bio</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="header-kicker">News &amp; Media Coverage</div>
+  <h1>Christoph Benzmüller</h1>
+  <p class="subtitle">Press and media reports worldwide</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Reports</span></div>
+    <div class="stat"><span class="stat-n" id="stat-invited">—</span><span class="stat-label">Countries</span></div>
+    <div class="stat"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Online</span></div>
+    <div class="stat"><span class="stat-n" id="stat-workshop">—</span><span class="stat-label">Video</span></div>
+    <div class="stat"><span class="stat-n" id="stat-other">—</span><span class="stat-label">Radio/TV</span></div>
+    <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Interviews</span></div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="search-wrap">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="search" id="searchInput" placeholder="Search outlet, title, country…">
+    </div>
+    <select id="yearFilter"><option value="">All Countries</option></select>
+    <button class="tb-btn" id="sortBtn">↕ By coverage</button>
+    <button class="tb-btn refresh-btn" id="refreshBtn" title="Reload from source">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+      Refresh
+    </button>
+  </div>
+</div>
+
+<div class="type-filters" id="typeFilters">
+  <button class="chip active" data-cat="all"><span class="chip-dot"></span>All</button>
+  <button class="chip" data-cat="online"><span class="chip-dot" style="background:var(--conf)"></span>Online / Print</button>
+  <button class="chip" data-cat="broadcast"><span class="chip-dot" style="background:var(--invited)"></span>Radio / TV</button>
+  <button class="chip" data-cat="interview"><span class="chip-dot" style="background:var(--workshop)"></span>Interview</button>
+  <button class="chip" data-cat="video"><span class="chip-dot" style="background:var(--other)"></span>Video</button>
+</div>
+
+<main id="main">
+  <div class="status-box"><div class="loading-ring"></div><p>Loading news reports…</p></div>
+</main>
+
+<footer>
+  Live data from <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/news.bib" target="_blank">news.bib</a>
+  &nbsp;·&nbsp; <span id="lastUpdated"></span>
+</footer>
+
+<script>
+const BIB_URL = 'papers/news.bib';
+let allTalks = [], sortAsc = false, activeCat = 'all', activeCountry = '', query = '';
+
+// ── LaTeX cleaner ─────────────────────────────────────────────────────────
+const UMLAUT = {a:'ä',o:'ö',u:'ü',A:'Ä',O:'Ö',U:'Ü',e:'ë',E:'Ë',i:'ï',I:'Ï'};
+const ACUTE  = {a:'á',e:'é',i:'í',o:'ó',u:'ú',A:'Á',E:'É',I:'Í',O:'Ó',U:'Ú',y:'ý',Y:'Ý',c:'ć',C:'Ć',n:'ń',N:'Ń',s:'ś',S:'Ś',z:'ź',Z:'Ź'};
+const GRAVE  = {a:'à',e:'è',i:'ì',o:'ò',u:'ù',A:'À',E:'È',I:'Ì',O:'Ò',U:'Ù'};
+const CIRC   = {a:'â',e:'ê',i:'î',o:'ô',u:'û',A:'Â',E:'Ê',I:'Î',O:'Ô',U:'Û'};
+const TILDE  = {n:'ñ',N:'Ñ',a:'ã',o:'õ',A:'Ã',O:'Õ'};
+
+function cleanLatex(s) {
+  if (!s) return '';
+  return s
+    .replace(/\{\\"\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => UMLAUT[c]||c)
+    .replace(/\\"\{([a-zA-Z])\}/g,              (_,c) => UMLAUT[c]||c)
+    .replace(/\{"?\\"\s*([a-zA-Z])\}/g,         (_,c) => UMLAUT[c]||c)
+    .replace(/\\"\s*([a-zA-Z])/g,               (_,c) => UMLAUT[c]||c)
+    .replace(/\{\\'\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => ACUTE[c]||c)
+    .replace(/\\'\{?\s*([a-zA-Z])\s*\}?/g,      (_,c) => ACUTE[c]||c)
+    .replace(/\{\\`\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => GRAVE[c]||c)
+    .replace(/\\`\{?\s*([a-zA-Z])\s*\}?/g,      (_,c) => GRAVE[c]||c)
+    .replace(/\{\\\^\{?\s*([a-zA-Z])\s*\}?\}/g,(_,c) => CIRC[c]||c)
+    .replace(/\\\^\{?\s*([a-zA-Z])\s*\}?/g,    (_,c) => CIRC[c]||c)
+    .replace(/\{\\~\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => TILDE[c]||c)
+    .replace(/\\~\{?\s*([a-zA-Z])\s*\}?/g,     (_,c) => TILDE[c]||c)
+    .replace(/\\c\{([cCsStT])\}/g, (_,c) => ({c:'ç',C:'Ç',s:'ş',S:'Ş',t:'ţ',T:'Ţ'}[c]||c))
+    .replace(/\{?\\ss\}?/g, 'ß')
+    .replace(/\{?\\ae\}?/gi, m => /A/.test(m)?'Æ':'æ')
+    .replace(/\{?\\oe\}?/gi, m => /O/.test(m)?'Œ':'œ')
+    .replace(/\{?\\aa\}?/gi, m => /A/.test(m)?'Å':'å')
+    .replace(/---/g,'—').replace(/--/g,'–')
+    .replace(/\\[a-zA-Z]+\s*/g,'')
+    .replace(/\\/g,'')
+    .replace(/\{|\}/g,'')
+    .replace(/~/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
+// ── BibTeX parser ─────────────────────────────────────────────────────────
+function extractValue(src, pos) {
+  while (pos < src.length && /[ \t]/.test(src[pos])) pos++;
+  if (src[pos] === '{') {
+    let depth = 0, start = pos;
+    while (pos < src.length) {
+      if (src[pos] === '{') depth++;
+      else if (src[pos] === '}') { depth--; if (!depth) { pos++; break; } }
+      pos++;
+    }
+    return { val: src.slice(start+1, pos-1), end: pos };
+  }
+  if (src[pos] === '"') {
+    let start = ++pos;
+    while (pos < src.length && src[pos] !== '"') pos++;
+    return { val: src.slice(start, pos), end: pos+1 };
+  }
+  let start = pos;
+  while (pos < src.length && !/[,\s\}]/.test(src[pos])) pos++;
+  return { val: src.slice(start, pos), end: pos };
+}
+
+// Fields to suppress from displayed BibTeX
+const SKIP_FIELDS_TALKS = new Set(['keywords','bibsource','addendum','copyright','abstract','isbn','issn','urn','adress','month','venue']);
+function isTalkSkipped(name) {
+  const lo = name.toLowerCase();
+  return lo.startsWith('opt') || (lo.startsWith('ot') && lo !== 'other') || SKIP_FIELDS_TALKS.has(lo);
+}
+
+function sanitizeTalkBib(type, key, rest) {
+  // Fields to always drop from talk BibTeX display
+  const DROP = new Set(['keywords','bibsource','optauthor','addendum','copyright',
+                        'abstract','isbn','issn','urn','adress','month','venue']);
+  const lines = [];
+  const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
+  let fm;
+  while ((fm = fnRe.exec(rest)) !== null) {
+    const fname = fm[1];
+    const flo = fname.toLowerCase();
+    // Drop OPT-prefixed, OT-prefixed (except 'other'), and noise fields
+    if (flo.startsWith('opt') || (flo.startsWith('ot') && flo !== 'other') || DROP.has(flo)) {
+      // Still need to advance past the value
+      const eqPos = fm.index + fm[0].length;
+      try { const {end} = extractValue(rest, eqPos); fnRe.lastIndex = end; } catch(_) {}
+      continue;
+    }
+    const eqPos = fm.index + fm[0].length;
+    try {
+      const { val, end } = extractValue(rest, eqPos);
+      fnRe.lastIndex = end;
+      let trimmed = val.trim();
+      if (!trimmed) continue;
+
+      // For Note: convert HTML links to plain text "label: url" pairs
+      if (flo === 'note') {
+        const linkRe = /<a\s+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
+        const parts = [];
+        let lm;
+        while ((lm = linkRe.exec(trimmed)) !== null) {
+          const label = lm[2].trim();
+          const url = lm[1].trim();
+          parts.push(label + ': ' + url);
+        }
+        if (parts.length > 0) {
+          trimmed = parts.join('; ');
+        } else {
+          // Strip any remaining HTML tags
+          trimmed = trimmed.replace(/<[^>]+>/g, '').trim();
+        }
+        if (!trimmed) continue;
+      }
+
+      const needsBraces = isNaN(trimmed) || trimmed !== String(parseInt(trimmed, 10));
+      const formatted = needsBraces ? `{${trimmed}}` : trimmed;
+      lines.push(`  ${flo.padEnd(12)} = ${formatted}`);
+    } catch(_) {}
+  }
+  return `@${type}{${key},\n${lines.join(',\n')}\n}`;
+}
+
+// Determine the medium of a news report from the Keywords field
+function categorize(keywords, title) {
+  const kw = (keywords || '').toLowerCase();
+  if (kw.includes('video')) return 'video';
+  if (kw.includes('radio') || kw.includes('tv')) return 'broadcast';
+  if (kw.includes('interview')) return 'interview';
+  return 'online';
+}
+const COUNTRY_KW = new Set(['news report','news','online','print','radio','tv','video','interview']);
+function deriveCountry(keywords) {
+  const toks = (keywords || '').split(',').map(s => s.trim()).filter(Boolean);
+  for (let i = toks.length - 1; i >= 0; i--) if (!COUNTRY_KW.has(toks[i].toLowerCase())) return toks[i];
+  return 'Other';
+}
+
+// Extract slide URLs embedded as raw HTML in the Note field, e.g. <a href="...">slides</a>
+function extractSlideLinks(noteRaw) {
+  if (!noteRaw) return [];
+  const links = [];
+  const re = /<a\s+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
+  let m;
+  while ((m = re.exec(noteRaw)) !== null) {
+    links.push({ url: m[1], label: m[2].trim() });
+  }
+  return links;
+}
+
+function parseTalks(raw) {
+  const entries = [];
+  const re = /@(\w+)\s*\{/gi;
+  let m;
+  while ((m = re.exec(raw)) !== null) {
+    const type = m[1].toLowerCase();
+    if (['string','comment','preamble'].includes(type)) continue;
+    let i = m.index + m[0].length;
+    let depth = 1, bodyStart = i;
+    while (i < raw.length && depth > 0) {
+      if (raw[i] === '{') depth++;
+      else if (raw[i] === '}') depth--;
+      i++;
+    }
+    const body = raw.slice(bodyStart, i-1);
+    const comma = body.indexOf(',');
+    if (comma < 0) continue;
+    const key = body.slice(0, comma).trim();
+    const rest = body.slice(comma+1);
+
+    // Parse fields — keep raw note for link extraction before LaTeX cleaning
+    // We advance lastIndex past each value to avoid matching = signs inside field values (e.g. href= in HTML).
+    const entry = { type, key };
+    let rawNote = '';
+    const fnRe = /\b([A-Za-z_]\w*)\s*=/g;
+    let fm;
+    while ((fm = fnRe.exec(rest)) !== null) {
+      const fname = fm[1].toLowerCase();
+      const eqPos = fm.index + fm[0].length;
+      try {
+        const { val, end } = extractValue(rest, eqPos);
+        fnRe.lastIndex = end; // skip past the value so we don't match inside it
+        if (fname === 'note') rawNote = val; // keep raw for HTML link extraction
+        if (fname === 'keywords') {
+          entry[fname] = cleanLatex(val); // needed for categorize(), excluded from BibTeX by isTalkSkipped
+        } else if (!isTalkSkipped(fname) && val) {
+          entry[fname] = cleanLatex(val);
+        }
+      } catch(_) {}
+    }
+
+    if (!entry.title || !entry.year) continue;
+
+    entry.cat = categorize(entry.keywords, entry.title);
+    entry.country = deriveCountry(entry.keywords);
+    entry.slideLinks = extractSlideLinks(rawNote);
+    entry._raw = sanitizeTalkBib(type, key, rest);
+    entries.push(entry);
+  }
+  return entries;
+}
+
+// ── Render ────────────────────────────────────────────────────────────────
+function catLabel(c) {
+  return {online:'Online / Print',broadcast:'Radio / TV',interview:'Interview',video:'Video'}[c] || 'Online';
+}
+
+function render() {
+  let talks = [...allTalks];
+  if (activeCat !== 'all') talks = talks.filter(t => t.cat === activeCat);
+  if (activeCountry) talks = talks.filter(t => t.country === activeCountry);
+  if (query) {
+    const q = query.toLowerCase();
+    talks = talks.filter(t =>
+      [t.title, t.publisher, t.note, t.country].some(f => f && f.toLowerCase().includes(q))
+    );
+  }
+
+  const main = document.getElementById('main');
+  if (!talks.length) {
+    main.innerHTML = '<div class="status-box"><p>No reports match your current filters.</p></div>';
+    return;
+  }
+  // Group by country; order groups by report count (or alphabetically when sortAsc)
+  const byC = {};
+  talks.forEach(t => (byC[t.country] = byC[t.country]||[]).push(t));
+  const countries = Object.keys(byC).sort((a,b) =>
+    sortAsc ? a.localeCompare(b) : (byC[b].length - byC[a].length || a.localeCompare(b)));
+
+  main.innerHTML = countries.map(c => `
+    <div class="year-group">
+      <div class="year-heading">
+        <span class="yr">${c}</span>
+        <span class="year-count">${byC[c].length} report${byC[c].length>1?'s':''}</span>
+      </div>
+      ${byC[c].sort((x,y) => (+y.year||0)-(+x.year||0)).map(talkRow).join('')}
+    </div>`).join('');
+}
+
+function talkRow(t) {
+  const title = t.title || 'Untitled';
+  // primary link = the entry url, else the first embedded note link
+  const href = t.url || (t.slideLinks[0] && t.slideLinks[0].url) || '';
+  const titleHtml = href
+    ? `<a href="${href}" target="_blank" rel="noopener">${title}</a>` : title;
+
+  const acts = [];
+  if (href) acts.push(`<a class="act-link slides-link" href="${href}" target="_blank" rel="noopener">Read ↗</a>`);
+  // any additional embedded links (e.g. a video alongside a page)
+  t.slideLinks.forEach(l => {
+    if (l.url === href) return;
+    const isVideo = /youtube\.com|youtu\.be|vimeo\.com/i.test(l.url) || /video|movie/i.test(l.label);
+    acts.push(`<a class="act-link ${isVideo?'video-link':'slides-link'}" href="${l.url}" target="_blank" rel="noopener">${isVideo?'▶ Video':(l.label+' ↗')}</a>`);
+  });
+  const bibId = 'bib-' + t.key.replace(/[^a-zA-Z0-9]/g,'_');
+  acts.push(`<button class="act-link bib-toggle" onclick="toggleBib('${bibId}',this)">BibTeX</button>`);
+
+  const meta = [t.publisher, t.year].filter(Boolean).join(' · ');
+  return `
+  <div class="talk-row" data-cat="${t.cat}">
+    <div class="talk-left">
+      <span class="type-badge">${catLabel(t.cat)}</span>
+      <span class="talk-key">${t.key}</span>
+    </div>
+    <div class="talk-body">
+      <div class="talk-title">${titleHtml}</div>
+      ${meta ? `<div class="talk-venue">${meta}</div>` : ''}
+      <div class="talk-actions">${acts.join('')}</div>
+      <div class="bib-box" id="${bibId}">
+        <pre class="bib-pre">${escHtml(t._raw)}</pre>
+        <button class="bib-copy" onclick="copyBib('${bibId}')">Copy</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function toggleBib(id, btn) {
+  const box = document.getElementById(id);
+  const open = box.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+function copyBib(id) {
+  const text = document.getElementById(id).querySelector('.bib-pre').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(id).querySelector('.bib-copy');
+    const prev = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = prev, 1500);
+  });
+}
+
+function updateStats() {
+  const online = allTalks.filter(t=>t.cat==='online').length;
+  document.getElementById('stat-total').textContent   = allTalks.length;
+  document.getElementById('stat-invited').textContent = new Set(allTalks.map(t=>t.country)).size;
+  document.getElementById('stat-conf').textContent    = online;
+  document.getElementById('stat-workshop').textContent= allTalks.filter(t=>t.cat==='video').length;
+  document.getElementById('stat-other').textContent   = allTalks.filter(t=>t.cat==='broadcast').length;
+  document.getElementById('stat-years').textContent   = allTalks.filter(t=>t.cat==='interview').length;
+}
+
+function updateYearFilter() {
+  const byC = {};
+  allTalks.forEach(t => byC[t.country] = (byC[t.country]||0)+1);
+  const countries = Object.keys(byC).sort((a,b)=> byC[b]-byC[a] || a.localeCompare(b));
+  document.getElementById('yearFilter').innerHTML =
+    '<option value="">All Countries</option>' + countries.map(c=>`<option value="${c}">${c} (${byC[c]})</option>`).join('');
+}
+
+async function loadBib() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  document.getElementById('main').innerHTML =
+    '<div class="status-box"><div class="loading-ring"></div><p>Fetching latest news reports…</p></div>';
+  try {
+    const res = await fetch(BIB_URL + '?_=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    allTalks = parseTalks(await res.text());
+    updateStats(); updateYearFilter(); render();
+    document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
+  } catch(err) {
+    document.getElementById('main').innerHTML =
+      `<div class="status-box"><p>⚠️ Could not load news reports.<br><small>${err.message}</small></p></div>`;
+  } finally { btn.classList.remove('spinning'); }
+}
+
+document.getElementById('searchInput').addEventListener('input', e => { query = e.target.value; render(); });
+document.getElementById('yearFilter').addEventListener('change', e => { activeCountry = e.target.value; render(); });
+document.getElementById('sortBtn').addEventListener('click', () => {
+  sortAsc = !sortAsc;
+  document.getElementById('sortBtn').textContent = sortAsc ? '↕ By country A–Z' : '↕ By coverage';
+  render();
+});
+document.getElementById('refreshBtn').addEventListener('click', loadBib);
+document.getElementById('typeFilters').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  activeCat = chip.dataset.cat;
+  render();
+});
+
+loadBib();
+</script>
+</body>
+</html>
