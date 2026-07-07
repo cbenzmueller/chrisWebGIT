@@ -629,7 +629,7 @@ function pubRow(p) {
   const acts = [];
   if (p.doi) acts.push(`<a class="act-link doi-link" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">DOI ↗</a>`);
   if (p.url) acts.push(`<a class="act-link" href="${p.url}" target="_blank" rel="noopener">URL ↗</a>`);
-  if (p.urlrg) acts.push(`<a class="act-link rg-link" href="${p.urlrg}" target="_blank" rel="noopener">ResearchGate ↗</a>`);
+  if (p.urlrg) acts.push(`<a class="act-link rg-link" href="${p.urlrg}" target="_blank" rel="noopener">RG ↗</a>`);
   if (p.urlarxiv) acts.push(`<a class="act-link arxiv-link" href="${p.urlarxiv}" target="_blank" rel="noopener">arXiv ↗</a>`);
   if (p.urldblp) acts.push(`<a class="act-link" href="${p.urldblp}" target="_blank" rel="noopener">DBLP ↗</a>`);
   // BibTeX toggle button
