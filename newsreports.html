@@ -125,7 +125,7 @@
 
   /* ── TALK ROW ── */
   .talk-row {
-    display: grid; grid-template-columns: auto 1fr;
+    display: grid; grid-template-columns: 5.2rem 1fr;
     gap: 0 .7rem; padding: .35rem 0 .35rem .6rem;
     border-left: 3px solid transparent; margin-bottom: .15rem;
   }
@@ -524,7 +524,7 @@ function parseTalks(raw) {
 
 // ── Render ────────────────────────────────────────────────────────────────
 function catLabel(c) {
-  return {online:'Online / Print',broadcast:'Radio / TV',interview:'Interview',video:'Video'}[c] || 'Online';
+  return {online:'Online',broadcast:'Radio/TV',interview:'Interview',video:'Video'}[c] || 'Online';
 }
 
 function render() {
