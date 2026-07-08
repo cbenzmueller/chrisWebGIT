@@ -468,6 +468,15 @@ function extractSlideLinks(noteRaw) {
   return links;
 }
 
+const MONTHS = {jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12,
+  january:1,february:2,march:3,april:4,june:6,july:7,august:8,september:9,october:10,november:11,december:12};
+function monthNum(v) {
+  const s = (v || '').toLowerCase().replace(/[^a-z0-9]/g,'');
+  if (MONTHS[s]) return MONTHS[s];
+  if (MONTHS[s.slice(0,3)]) return MONTHS[s.slice(0,3)];
+  const n = parseInt(s, 10);
+  return (n >= 1 && n <= 12) ? n : 0;
+}
 function parseTalks(raw) {
   const entries = [];
   const re = /@(\w+)\s*\{/gi;
@@ -501,6 +510,7 @@ function parseTalks(raw) {
         const { val, end } = extractValue(rest, eqPos);
         fnRe.lastIndex = end; // skip past the value so we don't match inside it
         if (fname === 'note') rawNote = val; // keep raw for HTML link extraction
+        if (fname === 'month' || fname === 'optmonth') entry._month = monthNum(cleanLatex(val));
         if (fname === 'keywords') {
           entry[fname] = cleanLatex(val); // needed for categorize(), excluded from BibTeX by isTalkSkipped
         } else if (!isTalkSkipped(fname) && val) {
@@ -511,6 +521,7 @@ function parseTalks(raw) {
 
     if (!entry.title || !entry.year) continue;
 
+    entry.dateKey = (+entry.year) * 100 + (entry._month || 0); // year+month sort key
     entry.cat = categorize(entry.keywords, entry.title);
     entry.slideLinks = extractSlideLinks(rawNote);
     entry._raw = sanitizeTalkBib(type, key, rest);
@@ -534,7 +545,7 @@ function render() {
       [t.title, t.publisher, t.note].some(f => f && f.toLowerCase().includes(q))
     );
   }
-  talks.sort((a,b) => sortAsc ? +a.year - +b.year : +b.year - +a.year);
+  talks.sort((a,b) => sortAsc ? a.dateKey - b.dateKey : b.dateKey - a.dateKey);
 
   const main = document.getElementById('main');
   if (!talks.length) {
