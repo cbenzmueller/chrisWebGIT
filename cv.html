@@ -37,27 +37,6 @@
     position: sticky; top: 0; z-index: 100;
     backdrop-filter: blur(12px);
   }
-  .nav-inner {
-    max-width: 980px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 3.2rem;
-  }
-  .nav-name {
-    font-family: 'EB Garamond', serif;
-    font-size: 1.15rem; font-weight: 500;
-    color: var(--text); text-decoration: none;
-    white-space: nowrap; flex-shrink: 0;
-  }
-  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
-  .nav-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
-    color: var(--text-muted); text-decoration: none;
-    padding: .4rem .75rem; border-radius: 6px;
-    transition: all .15s; white-space: nowrap;
-  }
-  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
-  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
 
   /* ── HERO ── */
   .hero {
@@ -235,22 +214,12 @@
     .hero-position::before { display: inline; }
     .contact-pill { font-size: .6rem; padding: .2rem .55rem; }
     nav { padding: 0 .75rem; height: auto; }
-    .nav-inner { flex-direction: column; align-items: flex-start;
-                 height: auto; padding: .5rem 0; gap: .3rem; }
-    .nav-name { font-size: .95rem; }
-    .nav-links { flex-wrap: wrap; gap: .2rem; }
-    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
     .hero { padding: 1.5rem .75rem 1.2rem; }
   }
 
   /* Narrow phone — compact nav + photo beside name */
   @media (max-width: 420px) {
     nav { padding: 0 .6rem; }
-    .nav-inner { flex-direction: row; align-items: center; flex-wrap: wrap;
-                 height: auto; padding: .35rem 0; gap: .2rem; justify-content: space-between; }
-    .nav-name { font-size: .8rem; flex-shrink: 0; }
-    .nav-links { flex-wrap: wrap; gap: .1rem; justify-content: flex-end; }
-    .nav-link { padding: .2rem .35rem; font-size: .55rem; letter-spacing: .02em; }
     .hero { padding: 1rem .6rem .9rem; }
     .hero-inner { display: grid !important; grid-template-columns: 68px 1fr; gap: .75rem; align-items: start; }
     .hero-photo { width: 68px; height: 68px; font-size: 1.3rem; }
@@ -393,22 +362,12 @@
     .hero-position::before { display: inline; }
     .contact-pill { font-size: .6rem; padding: .2rem .55rem; }
     nav { padding: 0 .75rem; height: auto; }
-    .nav-inner { flex-direction: column; align-items: flex-start;
-                 height: auto; padding: .5rem 0; gap: .3rem; }
-    .nav-name { font-size: .95rem; }
-    .nav-links { flex-wrap: wrap; gap: .2rem; }
-    .nav-link { padding: .28rem .5rem; font-size: .63rem; }
     .hero { padding: 1.5rem .75rem 1.2rem; }
   }
 
   /* Narrow phone — compact nav + photo beside name */
   @media (max-width: 420px) {
     nav { padding: 0 .6rem; }
-    .nav-inner { flex-direction: row; align-items: center; flex-wrap: wrap;
-                 height: auto; padding: .35rem 0; gap: .2rem; justify-content: space-between; }
-    .nav-name { font-size: .8rem; flex-shrink: 0; }
-    .nav-links { flex-wrap: wrap; gap: .1rem; justify-content: flex-end; }
-    .nav-link { padding: .2rem .35rem; font-size: .55rem; letter-spacing: .02em; }
     .hero { padding: 1rem .6rem .9rem; }
     .hero-inner { display: grid !important; grid-template-columns: 68px 1fr; gap: .75rem; align-items: start; }
     .hero-photo { width: 68px; height: 68px; font-size: 1.3rem; }
@@ -433,6 +392,35 @@
     .full { display: none; }
     .short { display: inline; }
   }
+  /* --- navigation bar (unified across all pages) --- */
+  .nav-inner {
+    max-width: 980px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 3.2rem; gap: .5rem;
+  }
+  .nav-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem; font-weight: 500;
+    color: var(--text); text-decoration: none;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: wrap; align-items: center; justify-content: flex-end; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: .4rem .75rem; border-radius: 6px;
+    transition: all .15s; white-space: nowrap;
+  }
+  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 580px) {
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .4rem 0; gap: .25rem; }
+    .nav-name { font-size: .9rem; }
+    .nav-links { justify-content: flex-start; }
+    .nav-link { padding: .25rem .45rem; font-size: .6rem; }
+  }
 </style>
 </head>
 <body>
@@ -444,7 +432,7 @@
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="publications.html">Publications</a>
       <a class="nav-link" href="talks.html">Talks</a>
-      <a class="nav-link" href="newsreports.html">News</a>
+      <a class="nav-link" href="media.html">Media</a>
       <a class="nav-link" href="teaching.html">Teaching</a>
       <a class="nav-link active" href="cv.html">CV</a>
       <a class="nav-link" href="short-bio.html">Bio</a>
