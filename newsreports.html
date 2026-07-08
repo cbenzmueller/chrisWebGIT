@@ -537,6 +537,14 @@ function parseTalks(raw) {
 function catLabel(c) {
   return {online:'Online',broadcast:'Radio/TV',interview:'Interview',video:'Video'}[c] || 'Online';
 }
+// Verb for the primary link button, based on the medium
+function actionLabel(t) {
+  const kw = (t.keywords || '').toLowerCase();
+  const u = (t.url || '').toLowerCase();
+  if (kw.includes('radio') || kw.includes('podcast') || /podigee|podcast|oe1\.orf|deutschlandfunk|swr\.de/.test(u)) return 'Listen';
+  if (t.cat === 'video' || kw.includes('video') || kw.includes('tv') || /youtu|vimeo|mediathek|zdf\.de|3sat/.test(u)) return 'Watch';
+  return 'Read';
+}
 
 function render() {
   let talks = [...allTalks];
@@ -584,7 +592,7 @@ function talkRow(t) {
     ? `<a href="${href}" target="_blank" rel="noopener">${title}</a>` : title;
 
   const acts = [];
-  if (href) acts.push(`<a class="act-link slides-link" href="${href}" target="_blank" rel="noopener">Read ↗</a>`);
+  if (href) acts.push(`<a class="act-link slides-link" href="${href}" target="_blank" rel="noopener">${actionLabel(t)} ↗</a>`);
   // any additional embedded links (e.g. a video alongside a page)
   t.slideLinks.forEach(l => {
     if (l.url === href) return;
