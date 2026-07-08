@@ -39,25 +39,6 @@
     backdrop-filter: blur(12px);
     width: 100%;
   }
-  .nav-inner {
-    max-width: 980px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 3.2rem; width: 100%;
-  }
-  .nav-name {
-    font-family: 'EB Garamond', serif;
-    font-size: 1.15rem; font-weight: 500;
-    color: var(--text); text-decoration: none; white-space: nowrap;
-  }
-  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
-  .nav-link {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
-    color: var(--text-muted); text-decoration: none;
-    padding: .4rem .75rem; border-radius: 6px; transition: all .15s;
-  }
-  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
-  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
 
   /* ── PAGE ── */
   .page {
@@ -149,11 +130,6 @@
 
   @media (max-width: 700px) {
     nav { padding: 0 .75rem; width: 100%; box-sizing: border-box; }
-    .nav-inner { flex-direction: column; align-items: flex-start;
-                 height: auto; padding: .4rem 0; gap: .25rem; width: 100%; }
-    .nav-name { font-size: .85rem; }
-    .nav-links { flex-wrap: wrap; gap: .15rem; width: 100%; }
-    .nav-link { padding: .22rem .4rem; font-size: .58rem; }
     .page { grid-template-columns: 1fr; padding: 1.5rem .75rem 3rem; gap: 1.5rem; }
   }
 
@@ -163,6 +139,35 @@
       .subtitle .full { display: none; }
       .subtitle .short { display: inline; }
     }
+  /* --- navigation bar (unified across all pages) --- */
+  .nav-inner {
+    max-width: 980px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 3.2rem; gap: .5rem;
+  }
+  .nav-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem; font-weight: 500;
+    color: var(--text); text-decoration: none;
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: wrap; align-items: center; justify-content: flex-end; }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none;
+    padding: .4rem .75rem; border-radius: 6px;
+    transition: all .15s; white-space: nowrap;
+  }
+  .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+  .nav-link.active { color: var(--accent); background: var(--accent-soft); }
+  @media (max-width: 580px) {
+    .nav-inner { flex-direction: column; align-items: flex-start;
+                 height: auto; padding: .4rem 0; gap: .25rem; }
+    .nav-name { font-size: .9rem; }
+    .nav-links { justify-content: flex-start; }
+    .nav-link { padding: .25rem .45rem; font-size: .6rem; }
+  }
 </style>
 </head>
 <body>
@@ -174,7 +179,7 @@
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="publications.html">Publications</a>
       <a class="nav-link" href="talks.html">Talks</a>
-      <a class="nav-link" href="newsreports.html">News</a>
+      <a class="nav-link" href="media.html">Media</a>
       <a class="nav-link" href="teaching.html">Teaching</a>
       <a class="nav-link" href="cv.html">CV</a>
       <a class="nav-link active" href="short-bio.html">Bio</a>

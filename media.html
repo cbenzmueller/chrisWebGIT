@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Christoph Benzmüller — News & Media</title>
+<title>Christoph Benzmüller — Media</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -232,30 +232,33 @@
     position: sticky; top: 0; z-index: 100;
     backdrop-filter: blur(12px);
   }
+  /* --- navigation bar (unified across all pages) --- */
   .nav-inner {
     max-width: 980px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    height: 3.2rem;
+    height: 3.2rem; gap: .5rem;
   }
   .nav-name {
     font-family: 'EB Garamond', serif;
     font-size: 1.15rem; font-weight: 500;
-    color: var(--text); text-decoration: none; white-space: nowrap;
+    color: var(--text); text-decoration: none;
+    white-space: nowrap; flex-shrink: 0;
   }
-  .nav-links { display: flex; gap: .2rem; flex-wrap: nowrap; align-items: center; }
+  .nav-links { display: flex; gap: .2rem; flex-wrap: wrap; align-items: center; justify-content: flex-end; }
   .nav-link {
     font-family: 'JetBrains Mono', monospace;
     font-size: .7rem; letter-spacing: .05em; text-transform: uppercase;
     color: var(--text-muted); text-decoration: none;
-    padding: .4rem .75rem; border-radius: 6px; transition: all .15s;
+    padding: .4rem .75rem; border-radius: 6px;
+    transition: all .15s; white-space: nowrap;
   }
   .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
   .nav-link.active { color: var(--accent); background: var(--accent-soft); }
   @media (max-width: 580px) {
-    nav { padding: 0 .75rem; }
     .nav-inner { flex-direction: column; align-items: flex-start;
                  height: auto; padding: .4rem 0; gap: .25rem; }
     .nav-name { font-size: .9rem; }
+    .nav-links { justify-content: flex-start; }
     .nav-link { padding: .25rem .45rem; font-size: .6rem; }
   }
 </style>
@@ -269,7 +272,7 @@
       <a class="nav-link" href="index.html">Home</a>
       <a class="nav-link" href="publications.html">Publications</a>
       <a class="nav-link" href="talks.html">Talks</a>
-      <a class="nav-link active" href="newsreports.html">News</a>
+      <a class="nav-link active" href="media.html">Media</a>
       <a class="nav-link" href="teaching.html">Teaching</a>
       <a class="nav-link" href="cv.html">CV</a>
       <a class="nav-link" href="short-bio.html">Bio</a>
@@ -278,7 +281,7 @@
 </nav>
 
 <header>
-  <div class="header-kicker">News &amp; Media Coverage</div>
+  <div class="header-kicker">Media Coverage</div>
   <h1>Christoph Benzmüller</h1>
   <p class="subtitle">Press and media reports worldwide</p>
   <div class="stats-row">
@@ -319,12 +322,12 @@
 </main>
 
 <footer>
-  Live data from <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/news.bib" target="_blank">news.bib</a>
+  Live data from <a href="https://page.mi.fu-berlin.de/cbenzmueller/papers/media.bib" target="_blank">media.bib</a>
   &nbsp;·&nbsp; <span id="lastUpdated"></span>
 </footer>
 
 <script>
-const BIB_URL = 'papers/news.bib';
+const BIB_URL = 'papers/media.bib';
 let allTalks = [], mode = 'date', activeCat = 'all', activeCountry = '', query = '';
 
 // ── LaTeX cleaner ─────────────────────────────────────────────────────────
