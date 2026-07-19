@@ -423,7 +423,7 @@ function cleanLatex(s) {
 
 // ── BibTeX parser ─────────────────────────────────────────────────────────
 function extractValue(src, pos) {
-  while (pos < src.length && /[ \t]/.test(src[pos])) pos++;
+  while (pos < src.length && /[ \t\r\n]/.test(src[pos])) pos++;
   if (src[pos] === '{') {
     let depth = 0, start = pos;
     while (pos < src.length) {
