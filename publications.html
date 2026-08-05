@@ -94,8 +94,6 @@
   }
   .topic-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .topic-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
-  .topic-chip .tc-n { font-size: .66rem; color: var(--text-dim); }
-  .topic-chip.active .tc-n { color: rgba(255,255,255,.75); }
 
   /* ── TOOLBAR ── */
   .toolbar {
@@ -716,10 +714,9 @@ function updateStats() {
 }
 
 function updateTopics() {
-  document.getElementById('topicFilters').innerHTML = TOPICS.map(t => {
-    const n = allPubs.filter(p => p._topics.includes(t.key)).length;
-    return `<button class="topic-chip${activeTopic===t.key?' active':''}" data-topic="${t.key}">${t.label} <span class="tc-n">${n}</span></button>`;
-  }).join('');
+  document.getElementById('topicFilters').innerHTML = TOPICS.map(t =>
+    `<button class="topic-chip${activeTopic===t.key?' active':''}" data-topic="${t.key}">${t.label}</button>`
+  ).join('');
 }
 
 function updateYearFilter() {
