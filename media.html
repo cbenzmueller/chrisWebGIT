@@ -61,6 +61,10 @@
   }
   .stat { padding: .55rem 1.3rem; text-align: center; border-right: 1px solid var(--border); }
   .stat:last-child { border-right: none; }
+  .stat[data-cat] { cursor: pointer; transition: background .15s; }
+  .stat[data-cat]:hover { background: var(--accent-soft); }
+  .stat[data-cat].active { background: var(--accent-soft); box-shadow: inset 0 -3px 0 var(--accent); }
+  .stat[data-cat].active .stat-label { color: var(--accent); font-weight: 600; }
   .stat-n { font-family: 'EB Garamond', serif; font-size: 1.75rem; font-weight: 500; color: var(--accent); line-height: 1; display: block; }
   .stat-label { font-size: .68rem; color: var(--text-dim); letter-spacing: .04em; text-transform: uppercase; }
 
@@ -95,23 +99,6 @@
   .tb-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── CHIPS ── */
-  .type-filters { max-width: 980px; margin: 1rem auto 0; padding: 0 2rem; display: flex; gap: .35rem; flex-wrap: wrap; }
-  .chip {
-    display: inline-flex; align-items: center; gap: .3rem;
-    padding: .22rem .7rem; border-radius: 999px; border: 1px solid var(--border);
-    font-size: .74rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
-    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
-  }
-  .chip:hover { border-color: var(--border2); color: var(--text); }
-  .chip.active { font-weight: 600; border-width: 1.5px; }
-  .chip[data-cat="all"].active      { background: var(--text);        border-color: var(--text);     color: #fff; }
-  .chip[data-cat="invited"].active  { background: var(--invited-bg);  border-color: var(--invited);  color: var(--invited); }
-  .chip[data-cat="conf"].active     { background: var(--conf-bg);     border-color: var(--conf);     color: var(--conf); }
-  .chip[data-cat="workshop"].active { background: var(--workshop-bg); border-color: var(--workshop); color: var(--workshop); }
-  .chip[data-cat="other"].active    { background: var(--other-bg);    border-color: var(--other);    color: var(--other); }
-  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
   /* ── MAIN ── */
   main { max-width: 980px; margin: 1.5rem auto; padding: 0 2rem 5rem; }
@@ -210,7 +197,7 @@
 
   @media (max-width: 580px) {
     header { padding: 2rem 1rem 1.5rem; }
-    main, .type-filters { padding-left: 1rem; padding-right: 1rem; }
+    main { padding-left: 1rem; padding-right: 1rem; }
     .toolbar { padding: .5rem 1rem; }
     .talk-row { grid-template-columns: 1fr; }
     .talk-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
@@ -284,13 +271,13 @@
   <div class="header-kicker">Media Coverage</div>
   <h1>Christoph Benzmüller</h1>
   <p class="subtitle">Press and media reports worldwide</p>
-  <div class="stats-row">
-    <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Reports</span></div>
+  <div class="stats-row" id="statsRow">
+    <div class="stat active" data-cat="all" role="button" tabindex="0"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Reports</span></div>
     <div class="stat"><span class="stat-n" id="stat-invited">—</span><span class="stat-label">Countries</span></div>
-    <div class="stat"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Online</span></div>
-    <div class="stat"><span class="stat-n" id="stat-workshop">—</span><span class="stat-label">Video</span></div>
-    <div class="stat"><span class="stat-n" id="stat-other">—</span><span class="stat-label">Radio/TV</span></div>
-    <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Interviews</span></div>
+    <div class="stat" data-cat="online" role="button" tabindex="0"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Online/Print</span></div>
+    <div class="stat" data-cat="video" role="button" tabindex="0"><span class="stat-n" id="stat-workshop">—</span><span class="stat-label">Video</span></div>
+    <div class="stat" data-cat="broadcast" role="button" tabindex="0"><span class="stat-n" id="stat-other">—</span><span class="stat-label">Radio/TV</span></div>
+    <div class="stat" data-cat="interview" role="button" tabindex="0"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Interviews</span></div>
   </div>
 </header>
 
@@ -307,14 +294,6 @@
       Refresh
     </button>
   </div>
-</div>
-
-<div class="type-filters" id="typeFilters">
-  <button class="chip active" data-cat="all"><span class="chip-dot"></span>All</button>
-  <button class="chip" data-cat="online"><span class="chip-dot" style="background:var(--conf)"></span>Online / Print</button>
-  <button class="chip" data-cat="broadcast"><span class="chip-dot" style="background:var(--invited)"></span>Radio / TV</button>
-  <button class="chip" data-cat="interview"><span class="chip-dot" style="background:var(--workshop)"></span>Interview</button>
-  <button class="chip" data-cat="video"><span class="chip-dot" style="background:var(--other)"></span>Video</button>
 </div>
 
 <main id="main">
@@ -685,13 +664,20 @@ document.getElementById('sortBtn').addEventListener('click', () => {
   render();
 });
 document.getElementById('refreshBtn').addEventListener('click', loadBib);
-document.getElementById('typeFilters').addEventListener('click', e => {
-  const chip = e.target.closest('.chip');
-  if (!chip) return;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-  activeCat = chip.dataset.cat;
+function selectStat(stat) {
+  document.querySelectorAll('#statsRow .stat').forEach(s => s.classList.remove('active'));
+  stat.classList.add('active');
+  activeCat = stat.dataset.cat;
   render();
+}
+document.getElementById('statsRow').addEventListener('click', e => {
+  const stat = e.target.closest('.stat[data-cat]');
+  if (stat) selectStat(stat);
+});
+document.getElementById('statsRow').addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const stat = e.target.closest('.stat[data-cat]');
+  if (stat) { e.preventDefault(); selectStat(stat); }
 });
 
 loadBib();
