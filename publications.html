@@ -74,8 +74,28 @@
   }
   .stat { padding: .55rem 1.3rem; text-align: center; border-right: 1px solid var(--border); }
   .stat:last-child { border-right: none; }
+  .stat[data-type] { cursor: pointer; transition: background .15s; }
+  .stat[data-type]:hover { background: var(--accent-soft); }
+  .stat[data-type].active { background: var(--accent-soft); box-shadow: inset 0 -3px 0 var(--accent); }
+  .stat[data-type].active .stat-label { color: var(--accent); font-weight: 600; }
   .stat-n { font-family: 'EB Garamond', serif; font-size: 1.75rem; font-weight: 500; color: var(--accent); line-height: 1; display: block; }
   .stat-label { font-size: .68rem; color: var(--text-dim); letter-spacing: .04em; text-transform: uppercase; }
+
+  /* ── TOPIC ROW ── */
+  .topic-filters {
+    max-width: 980px; margin: .9rem auto 0;
+    display: flex; gap: .35rem; flex-wrap: wrap; justify-content: center;
+  }
+  .topic-chip {
+    display: inline-flex; align-items: center; gap: .35rem;
+    padding: .24rem .75rem; border-radius: 999px; border: 1px solid var(--border);
+    font-size: .76rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
+    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
+  }
+  .topic-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .topic-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .topic-chip .tc-n { font-size: .66rem; color: var(--text-dim); }
+  .topic-chip.active .tc-n { color: rgba(255,255,255,.75); }
 
   /* ── TOOLBAR ── */
   .toolbar {
@@ -110,26 +130,6 @@
   .tb-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── CHIPS ── */
-  .type-filters { max-width: 980px; margin: 1rem auto 0; padding: 0 2rem; display: flex; gap: .35rem; flex-wrap: wrap; }
-  .chip {
-    display: inline-flex; align-items: center; gap: .3rem;
-    padding: .22rem .7rem; border-radius: 999px; border: 1px solid var(--border);
-    font-size: .74rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
-    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
-  }
-  .chip:hover { border-color: var(--border2); color: var(--text); }
-  .chip.active { font-weight: 600; border-width: 1.5px; }
-  .chip[data-type="all"].active      { background: var(--text);       border-color: var(--text);    color: #fff; }
-  .chip[data-type="article"].active  { background: var(--journal-bg); border-color: var(--journal); color: var(--journal); }
-  .chip[data-type="inproceedings"].active { background: var(--conf-bg); border-color: var(--conf); color: var(--conf); }
-  .chip[data-type="incollection"].active,
-  .chip[data-type="book"].active     { background: var(--book-bg); border-color: var(--book); color: var(--book); }
-  .chip[data-type="misc"].active     { background: var(--misc-bg); border-color: var(--misc); color: var(--misc); }
-  .chip[data-type="techreport"].active { background: var(--other-bg); border-color: var(--other); color: var(--other); }
-  .chip[data-type="thesis"].active   { background: var(--thesis-bg); border-color: var(--thesis); color: var(--thesis); }
-  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
   /* ── MAIN ── */
   main { max-width: 980px; margin: 1.5rem auto; padding: 0 2rem 5rem; }
@@ -260,7 +260,7 @@
 
   @media (max-width: 580px) {
     header { padding: 2rem 1rem 1.5rem; }
-    main, .type-filters { padding-left: 1rem; padding-right: 1rem; }
+    main { padding-left: 1rem; padding-right: 1rem; }
     .toolbar { padding: .5rem 1rem; }
     .pub-row { grid-template-columns: 1fr; }
     .pub-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
@@ -333,17 +333,18 @@
   <div class="header-kicker">Academic Publications</div>
   <h1>Christoph Benzmüller</h1>
   <p class="subtitle">University of Bamberg &amp; FU Berlin</p>
-  <div class="stats-row">
-    <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
-    <div class="stat"><span class="stat-n" id="stat-journals">—</span><span class="stat-label">Journal</span></div>
-    <div class="stat"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Conf./WS</span></div>
-    <div class="stat"><span class="stat-n" id="stat-chapters">—</span><span class="stat-label">Book Chapter</span></div>
-    <div class="stat"><span class="stat-n" id="stat-books">—</span><span class="stat-label">Books/Proc.</span></div>
-    <div class="stat"><span class="stat-n" id="stat-preprints">—</span><span class="stat-label">Preprints</span></div>
-    <div class="stat"><span class="stat-n" id="stat-techreports">—</span><span class="stat-label">Misc./TechRep.</span></div>
-    <div class="stat"><span class="stat-n" id="stat-theses">—</span><span class="stat-label">Theses</span></div>
+  <div class="stats-row" id="statsRow">
+    <div class="stat active" data-type="all" role="button" tabindex="0"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
+    <div class="stat" data-type="article" role="button" tabindex="0"><span class="stat-n" id="stat-journals">—</span><span class="stat-label">Journal</span></div>
+    <div class="stat" data-type="inproceedings" role="button" tabindex="0"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Conf./WS</span></div>
+    <div class="stat" data-type="incollection" role="button" tabindex="0"><span class="stat-n" id="stat-chapters">—</span><span class="stat-label">Book Chapter</span></div>
+    <div class="stat" data-type="book" role="button" tabindex="0"><span class="stat-n" id="stat-books">—</span><span class="stat-label">Books/Proc.</span></div>
+    <div class="stat" data-type="misc" role="button" tabindex="0"><span class="stat-n" id="stat-preprints">—</span><span class="stat-label">Preprints</span></div>
+    <div class="stat" data-type="techreport" role="button" tabindex="0"><span class="stat-n" id="stat-techreports">—</span><span class="stat-label">Misc./TechRep.</span></div>
+    <div class="stat" data-type="thesis" role="button" tabindex="0"><span class="stat-n" id="stat-theses">—</span><span class="stat-label">Theses</span></div>
     <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
   </div>
+  <div class="topic-filters" id="topicFilters"></div>
 </header>
 
 <div class="toolbar">
@@ -361,17 +362,6 @@
   </div>
 </div>
 
-<div class="type-filters" id="typeFilters">
-  <button class="chip active" data-type="all"><span class="chip-dot"></span>All types</button>
-  <button class="chip" data-type="article"><span class="chip-dot" style="background:var(--journal)"></span>Journal</button>
-  <button class="chip" data-type="inproceedings"><span class="chip-dot" style="background:var(--conf)"></span>Conf./WS</button>
-  <button class="chip" data-type="incollection"><span class="chip-dot" style="background:var(--book)"></span>Book Chapter</button>
-  <button class="chip" data-type="book"><span class="chip-dot" style="background:var(--book)"></span>Book/Proc.</button>
-  <button class="chip" data-type="misc"><span class="chip-dot" style="background:var(--misc)"></span>Preprint</button>
-  <button class="chip" data-type="techreport"><span class="chip-dot" style="background:var(--other)"></span>Misc./TechRep.</button>
-  <button class="chip" data-type="thesis"><span class="chip-dot" style="background:var(--thesis)"></span>Theses</button>
-</div>
-
 <main id="main">
   <div class="status-box"><div class="loading-ring"></div><p>Loading publications…</p></div>
 </main>
@@ -383,7 +373,34 @@
 
 <script>
 const BIB_URL = 'papers/chris.bib';
-let allPubs = [], sortAsc = false, activeType = 'all', activeYear = '', query = '';
+let allPubs = [], sortAsc = false, activeType = 'all', activeYear = '', query = '', activeTopic = '';
+
+// ── Interdisciplinary topics (aligned with logikey.org categories) ────────
+// Matched against keywords + title + venue; one entry may belong to several.
+const TOPICS = [
+  {key:'logic',    label:'Logic',
+   re:/logic|logik|semantic|henkin|modal\b|polymorph|type theory|paraconsist|intuitionist|hypersequent|calculus|calculi|non.?classical|axiomatiz|inferen|schlie(ß|ss)en/i},
+  {key:'cs',       label:'Computer Science',
+   re:/automated|theorem prov|proof assistant|interactive proof|\bleo\b|leopard|omega|tptp|isabelle|proof plan|resolution|unification|prover|semantic embedding|verification|programming|computation|luxlogai|ruleml|wissensverarbeitung|deduction|deduktion|\batp\b|proof search|spezifik|specification/i},
+  {key:'math',     label:'Mathematics',
+   re:/mathemat|categor|foundations|arithmetic|number theory|calculemus|symbolic computation|\bmkm\b|set theory|algebra/i},
+  {key:'ai-agents',label:'AI, Agents & Applications',
+   re:/\bagents?\b|argumentation|natural language|dialog|tutor|user interface|proof presentation|artificial intelligence|machine learning|e-?learning|assertion|\bai\b|\bnlp\b|k(ü|ue)nstliche intelligenz|participatory design/i},
+  {key:'ai-law',   label:'AI, Law & Ethics',
+   re:/deontic|normative|machine ethics|ethic|legal|\blaw\b|value.?oriented|logikey|verantwortung/i},
+  {key:'ai-health',label:'AI & Health',
+   re:/health|medic|clinic|patient|cancer|nursing/i},
+  {key:'phil',     label:'Philosophy',
+   re:/philosoph|metaphys|hermeneutic|g(ö|oe)del|leibniz|anselm|kant\b|ontological argument|epistem/i},
+  {key:'theo',     label:'Theology',
+   re:/theolog|ontological argument|\bgod\b|\bgott\b|religio|anselm/i},
+];
+
+function classifyTopics(p) {
+  const hay = [p._kw, p.title, p.journal, p.booktitle, p.series, p.note]
+    .filter(Boolean).join(' ').toLowerCase();
+  return TOPICS.filter(t => t.re.test(hay)).map(t => t.key);
+}
 
 // ── LaTeX cleaner ─────────────────────────────────────────────────────────
 const UMLAUT = {a:'ä',o:'ö',u:'ü',A:'Ä',O:'Ö',U:'Ü',e:'ë',E:'Ë',i:'ï',I:'Ï'};
@@ -501,8 +518,16 @@ function parseBib(raw) {
     let fm;
     while ((fm = fnRe.exec(rest)) !== null) {
       const fname = fm[1].toLowerCase();
-      if (isSkippedField(fname)) continue;
       const eqPos = fm.index + fm[0].length;
+      if (fname === 'keywords') {
+        // hidden from displayed BibTeX, but kept for topic classification
+        try {
+          const { val } = extractValue(rest, eqPos);
+          if (val) entry._kw = cleanLatex(val);
+        } catch(_) {}
+        continue;
+      }
+      if (isSkippedField(fname)) continue;
       try {
         const { val } = extractValue(rest, eqPos);
         if (val) entry[fname] = cleanLatex(val);
@@ -522,11 +547,12 @@ function parseBib(raw) {
       }
       // Detect habilitation theses — check title and keywords too (T3 has it in title)
       if (['book','techreport','misc'].includes(entry.type)) {
-        const habilfields = [entry.note, entry.series, entry.howpublished, entry.title, entry.keywords]
+        const habilfields = [entry.note, entry.series, entry.howpublished, entry.title, entry._kw]
           .some(f => f && /habilitation/i.test(f));
         if (habilfields) entry.type = 'habilitation';
       }
       entry._raw = sanitizeBib(entry.type, key, rest);
+      entry._topics = classifyTopics(entry);
       entries.push(entry);
     }
   }
@@ -592,6 +618,7 @@ function render() {
       return p.type === activeType;
     });
   }
+  if (activeTopic) pubs = pubs.filter(p => p._topics.includes(activeTopic));
   if (activeYear) pubs = pubs.filter(p => p.year === activeYear);
   if (query) {
     const q = query.toLowerCase();
@@ -688,6 +715,13 @@ function updateStats() {
   document.getElementById('stat-theses').textContent   = allPubs.filter(p=>['phdthesis','mastersthesis','habilitation'].includes(p.type)).length;
 }
 
+function updateTopics() {
+  document.getElementById('topicFilters').innerHTML = TOPICS.map(t => {
+    const n = allPubs.filter(p => p._topics.includes(t.key)).length;
+    return `<button class="topic-chip${activeTopic===t.key?' active':''}" data-topic="${t.key}">${t.label} <span class="tc-n">${n}</span></button>`;
+  }).join('');
+}
+
 function updateYearFilter() {
   const years = [...new Set(allPubs.map(p=>p.year))].sort((a,b)=>+b-+a);
   document.getElementById('yearFilter').innerHTML =
@@ -703,7 +737,7 @@ async function loadBib() {
     const res = await fetch(BIB_URL + '?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     allPubs = parseBib(await res.text());
-    updateStats(); updateYearFilter(); render();
+    updateStats(); updateTopics(); updateYearFilter(); render();
     document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
   } catch(err) {
     document.getElementById('main').innerHTML =
@@ -719,13 +753,28 @@ document.getElementById('sortBtn').addEventListener('click', () => {
   render();
 });
 document.getElementById('refreshBtn').addEventListener('click', loadBib);
-document.getElementById('typeFilters').addEventListener('click', e => {
-  const chip = e.target.closest('.chip');
-  if (!chip) return;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-  activeType = chip.dataset.type;
+function selectStat(stat) {
+  document.querySelectorAll('#statsRow .stat').forEach(s => s.classList.remove('active'));
+  stat.classList.add('active');
+  activeType = stat.dataset.type;
   render();
+}
+document.getElementById('statsRow').addEventListener('click', e => {
+  const stat = e.target.closest('.stat[data-type]');
+  if (stat) selectStat(stat);
+});
+document.getElementById('topicFilters').addEventListener('click', e => {
+  const chip = e.target.closest('.topic-chip');
+  if (!chip) return;
+  activeTopic = (activeTopic === chip.dataset.topic) ? '' : chip.dataset.topic;
+  document.querySelectorAll('.topic-chip').forEach(c =>
+    c.classList.toggle('active', c.dataset.topic === activeTopic));
+  render();
+});
+document.getElementById('statsRow').addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const stat = e.target.closest('.stat[data-type]');
+  if (stat) { e.preventDefault(); selectStat(stat); }
 });
 
 loadBib();
