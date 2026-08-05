@@ -377,13 +377,13 @@ let allPubs = [], sortAsc = false, activeType = 'all', activeYear = '', query = 
 // Matched against keywords + title + venue; one entry may belong to several.
 const TOPICS = [
   {key:'logic',    label:'Logic',
-   re:/logic|logik|semantic|henkin|modal\b|polymorph|type theory|paraconsist|intuitionist|hypersequent|calculus|calculi|non.?classical|axiomatiz|inferen|schlie(ß|ss)en/i},
+   re:/logic|logik|semantic|henkin|modal\b|polymorph|type theory|paraconsist|intuitionist|hypersequent|calculus|calculi|non.?classical|axiomatiz|inferen|schlie(ß|ss)en|kalk(ü|ue)l|davis.putnam|dpll|\balc\b/i},
   {key:'cs',       label:'Computer Science',
-   re:/automated|theorem prov|proof assistant|interactive proof|\bleo\b|leopard|omega|tptp|isabelle|proof plan|resolution|unification|prover|semantic embedding|verification|programming|computation|luxlogai|ruleml|wissensverarbeitung|deduction|deduktion|\batp\b|proof search|spezifik|specification/i},
+   re:/automated|theorem prov|proof assistant|interactive proof|\bleo\b|leopard|omega|tptp|isabelle|proof plan|resolution|unification|prover|semantic embedding|verification|programming|computation|luxlogai|ruleml|wissensverarbeitung|deduction|deduktion|\batp\b|\bproofs?\b|beweis|proof search|spezifik|specification|algorithm|komplexit|informatik|\bgui\b|\bjava\b|lambda|watson/i},
   {key:'math',     label:'Mathematics',
    re:/mathemat|categor|foundations|arithmetic|number theory|calculemus|symbolic computation|\bmkm\b|set theory|algebra/i},
   {key:'ai-agents',label:'AI, Agents & Applications',
-   re:/\bagents?\b|argumentation|natural language|dialog|tutor|user interface|proof presentation|artificial intelligence|machine learning|e-?learning|assertion|\bai\b|\bnlp\b|k(ü|ue)nstliche intelligenz|participatory design/i},
+   re:/\bagents?\b|argumentation|natural language|dialog|tutor|user interface|proof presentation|artificial intelligence|machine learning|e-?learning|assertion|\bai\b|\bnlp\b|k(ü|ue)nstliche intelligenz|\bki\b|roboter|intelligen|agenten|participatory design/i},
   {key:'ai-law',   label:'AI, Law & Ethics',
    re:/deontic|normative|machine ethics|ethic|legal|\blaw\b|value.?oriented|logikey|verantwortung/i},
   {key:'ai-health',label:'AI & Health',

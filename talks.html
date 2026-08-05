@@ -61,8 +61,26 @@
   }
   .stat { padding: .55rem 1.3rem; text-align: center; border-right: 1px solid var(--border); }
   .stat:last-child { border-right: none; }
+  .stat[data-cat] { cursor: pointer; transition: background .15s; }
+  .stat[data-cat]:hover { background: var(--accent-soft); }
+  .stat[data-cat].active { background: var(--accent-soft); box-shadow: inset 0 -3px 0 var(--accent); }
+  .stat[data-cat].active .stat-label { color: var(--accent); font-weight: 600; }
   .stat-n { font-family: 'EB Garamond', serif; font-size: 1.75rem; font-weight: 500; color: var(--accent); line-height: 1; display: block; }
   .stat-label { font-size: .68rem; color: var(--text-dim); letter-spacing: .04em; text-transform: uppercase; }
+
+  /* ── TOPIC ROW ── */
+  .topic-filters {
+    max-width: 980px; margin: .9rem auto 0;
+    display: flex; gap: .35rem; flex-wrap: wrap; justify-content: center;
+  }
+  .topic-chip {
+    display: inline-flex; align-items: center; gap: .35rem;
+    padding: .24rem .75rem; border-radius: 999px; border: 1px solid var(--border);
+    font-size: .76rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
+    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
+  }
+  .topic-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .topic-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 
   /* ── TOOLBAR ── */
   .toolbar {
@@ -95,23 +113,6 @@
   .tb-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
   .refresh-btn.spinning svg { animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── CHIPS ── */
-  .type-filters { max-width: 980px; margin: 1rem auto 0; padding: 0 2rem; display: flex; gap: .35rem; flex-wrap: wrap; }
-  .chip {
-    display: inline-flex; align-items: center; gap: .3rem;
-    padding: .22rem .7rem; border-radius: 999px; border: 1px solid var(--border);
-    font-size: .74rem; font-family: 'Source Sans 3', sans-serif; cursor: pointer;
-    transition: all .15s; color: var(--text-muted); background: var(--surface); user-select: none;
-  }
-  .chip:hover { border-color: var(--border2); color: var(--text); }
-  .chip.active { font-weight: 600; border-width: 1.5px; }
-  .chip[data-cat="all"].active      { background: var(--text);        border-color: var(--text);     color: #fff; }
-  .chip[data-cat="invited"].active  { background: var(--invited-bg);  border-color: var(--invited);  color: var(--invited); }
-  .chip[data-cat="conf"].active     { background: var(--conf-bg);     border-color: var(--conf);     color: var(--conf); }
-  .chip[data-cat="workshop"].active { background: var(--workshop-bg); border-color: var(--workshop); color: var(--workshop); }
-  .chip[data-cat="other"].active    { background: var(--other-bg);    border-color: var(--other);    color: var(--other); }
-  .chip-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
   /* ── MAIN ── */
   main { max-width: 980px; margin: 1.5rem auto; padding: 0 2rem 5rem; }
@@ -210,7 +211,7 @@
 
   @media (max-width: 580px) {
     header { padding: 2rem 1rem 1.5rem; }
-    main, .type-filters { padding-left: 1rem; padding-right: 1rem; }
+    main { padding-left: 1rem; padding-right: 1rem; }
     .toolbar { padding: .5rem 1rem; }
     .talk-row { grid-template-columns: 1fr; }
     .talk-left { flex-direction: row; align-items: center; margin-bottom: .2rem; }
@@ -284,14 +285,15 @@
   <div class="header-kicker">Invited Talks &amp; Presentations</div>
   <h1>Christoph Benzmüller</h1>
   <p class="subtitle">University of Bamberg &amp; FU Berlin</p>
-  <div class="stats-row">
-    <div class="stat"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
-    <div class="stat"><span class="stat-n" id="stat-invited">—</span><span class="stat-label">Invited</span></div>
-    <div class="stat"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Conference</span></div>
-    <div class="stat"><span class="stat-n" id="stat-workshop">—</span><span class="stat-label">Workshop</span></div>
-    <div class="stat"><span class="stat-n" id="stat-other">—</span><span class="stat-label">Other</span></div>
+  <div class="stats-row" id="statsRow">
+    <div class="stat active" data-cat="all" role="button" tabindex="0"><span class="stat-n" id="stat-total">—</span><span class="stat-label">Total</span></div>
+    <div class="stat" data-cat="invited" role="button" tabindex="0"><span class="stat-n" id="stat-invited">—</span><span class="stat-label">Invited</span></div>
+    <div class="stat" data-cat="conf" role="button" tabindex="0"><span class="stat-n" id="stat-conf">—</span><span class="stat-label">Conference</span></div>
+    <div class="stat" data-cat="workshop" role="button" tabindex="0"><span class="stat-n" id="stat-workshop">—</span><span class="stat-label">Workshop</span></div>
+    <div class="stat" data-cat="other" role="button" tabindex="0"><span class="stat-n" id="stat-other">—</span><span class="stat-label">Other</span></div>
     <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
   </div>
+  <div class="topic-filters" id="topicFilters"></div>
 </header>
 
 <div class="toolbar">
@@ -309,14 +311,6 @@
   </div>
 </div>
 
-<div class="type-filters" id="typeFilters">
-  <button class="chip active" data-cat="all"><span class="chip-dot"></span>All</button>
-  <button class="chip" data-cat="invited"><span class="chip-dot" style="background:var(--invited)"></span>Invited</button>
-  <button class="chip" data-cat="conf"><span class="chip-dot" style="background:var(--conf)"></span>Conference</button>
-  <button class="chip" data-cat="workshop"><span class="chip-dot" style="background:var(--workshop)"></span>Workshop</button>
-  <button class="chip" data-cat="other"><span class="chip-dot" style="background:var(--other)"></span>Other</button>
-</div>
-
 <main id="main">
   <div class="status-box"><div class="loading-ring"></div><p>Loading talks…</p></div>
 </main>
@@ -328,7 +322,34 @@
 
 <script>
 const BIB_URL = 'papers/talks.bib';
-let allTalks = [], sortAsc = false, activeCat = 'all', activeYear = '', query = '';
+let allTalks = [], sortAsc = false, activeCat = 'all', activeYear = '', query = '', activeTopic = '';
+
+// ── Interdisciplinary topics (aligned with logikey.org / publications.html) ─
+// Matched against title + venue + note; one talk may belong to several.
+const TOPICS = [
+  {key:'logic',    label:'Logic',
+   re:/logic|logik|semantic|henkin|modal\b|polymorph|type theory|paraconsist|intuitionist|hypersequent|calculus|calculi|non.?classical|axiomatiz|inferen|schlie(ß|ss)en|kalk(ü|ue)l|davis.putnam|dpll|\balc\b/i},
+  {key:'cs',       label:'Computer Science',
+   re:/automated|theorem prov|proof assistant|interactive proof|\bleo\b|leopard|omega|tptp|isabelle|proof plan|resolution|unification|prover|semantic embedding|verification|programming|computation|luxlogai|ruleml|wissensverarbeitung|deduction|deduktion|\batp\b|\bproofs?\b|beweis|proof search|spezifik|specification|algorithm|komplexit|informatik|\bgui\b|\bjava\b|lambda|watson/i},
+  {key:'math',     label:'Mathematics',
+   re:/mathemat|categor|foundations|arithmetic|number theory|calculemus|symbolic computation|\bmkm\b|set theory|algebra/i},
+  {key:'ai-agents',label:'AI, Agents & Applications',
+   re:/\bagents?\b|argumentation|natural language|dialog|tutor|user interface|proof presentation|artificial intelligence|machine learning|e-?learning|assertion|\bai\b|\bnlp\b|k(ü|ue)nstliche intelligenz|\bki\b|roboter|intelligen|agenten|participatory design/i},
+  {key:'ai-law',   label:'AI, Law & Ethics',
+   re:/deontic|normative|machine ethics|ethic|legal|\blaw\b|value.?oriented|logikey|verantwortung/i},
+  {key:'ai-health',label:'AI & Health',
+   re:/health|medic|clinic|patient|cancer|nursing/i},
+  {key:'phil',     label:'Philosophy',
+   re:/philosoph|metaphys|hermeneutic|g(ö|oe)del|leibniz|anselm|kant\b|ontological argument|epistem/i},
+  {key:'theo',     label:'Theology',
+   re:/theolog|ontological argument|\bgod\b|\bgott\b|religio|anselm/i},
+];
+
+function classifyTopics(t) {
+  const hay = [t.title, t.publisher, t.note, t.booktitle, t.howpublished]
+    .filter(Boolean).join(' ').toLowerCase();
+  return TOPICS.filter(tp => tp.re.test(hay)).map(tp => tp.key);
+}
 
 // ── LaTeX cleaner ─────────────────────────────────────────────────────────
 const UMLAUT = {a:'ä',o:'ö',u:'ü',A:'Ä',O:'Ö',U:'Ü',e:'ë',E:'Ë',i:'ï',I:'Ï'};
@@ -525,6 +546,7 @@ function parseTalks(raw) {
     entry.cat = categorize(entry.keywords, entry.title);
     entry.slideLinks = extractSlideLinks(rawNote);
     entry._raw = sanitizeTalkBib(type, key, rest);
+    entry._topics = classifyTopics(entry);
     entries.push(entry);
   }
   return entries;
@@ -538,6 +560,7 @@ function catLabel(c) {
 function render() {
   let talks = [...allTalks];
   if (activeCat !== 'all') talks = talks.filter(t => t.cat === activeCat);
+  if (activeTopic) talks = talks.filter(t => t._topics.includes(activeTopic));
   if (activeYear) talks = talks.filter(t => t.year === activeYear);
   if (query) {
     const q = query.toLowerCase();
@@ -630,6 +653,12 @@ function updateStats() {
   document.getElementById('stat-years').textContent   = new Set(allTalks.map(t=>t.year)).size;
 }
 
+function updateTopics() {
+  document.getElementById('topicFilters').innerHTML = TOPICS.map(t =>
+    `<button class="topic-chip${activeTopic===t.key?' active':''}" data-topic="${t.key}">${t.label}</button>`
+  ).join('');
+}
+
 function updateYearFilter() {
   const years = [...new Set(allTalks.map(t=>t.year))].sort((a,b)=>+b-+a);
   document.getElementById('yearFilter').innerHTML =
@@ -645,7 +674,7 @@ async function loadBib() {
     const res = await fetch(BIB_URL + '?_=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
     allTalks = parseTalks(await res.text());
-    updateStats(); updateYearFilter(); render();
+    updateStats(); updateTopics(); updateYearFilter(); render();
     document.getElementById('lastUpdated').textContent = 'Fetched ' + new Date().toLocaleString();
   } catch(err) {
     document.getElementById('main').innerHTML =
@@ -661,12 +690,27 @@ document.getElementById('sortBtn').addEventListener('click', () => {
   render();
 });
 document.getElementById('refreshBtn').addEventListener('click', loadBib);
-document.getElementById('typeFilters').addEventListener('click', e => {
-  const chip = e.target.closest('.chip');
+function selectStat(stat) {
+  document.querySelectorAll('#statsRow .stat').forEach(s => s.classList.remove('active'));
+  stat.classList.add('active');
+  activeCat = stat.dataset.cat;
+  render();
+}
+document.getElementById('statsRow').addEventListener('click', e => {
+  const stat = e.target.closest('.stat[data-cat]');
+  if (stat) selectStat(stat);
+});
+document.getElementById('statsRow').addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const stat = e.target.closest('.stat[data-cat]');
+  if (stat) { e.preventDefault(); selectStat(stat); }
+});
+document.getElementById('topicFilters').addEventListener('click', e => {
+  const chip = e.target.closest('.topic-chip');
   if (!chip) return;
-  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-  activeCat = chip.dataset.cat;
+  activeTopic = (activeTopic === chip.dataset.topic) ? '' : chip.dataset.topic;
+  document.querySelectorAll('.topic-chip').forEach(c =>
+    c.classList.toggle('active', c.dataset.topic === activeTopic));
   render();
 });
 
