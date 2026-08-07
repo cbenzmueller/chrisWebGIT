@@ -714,9 +714,11 @@ function updateStats() {
 }
 
 function updateTopics() {
-  document.getElementById('topicFilters').innerHTML = TOPICS.map(t =>
-    `<button class="topic-chip${activeTopic===t.key?' active':''}" data-topic="${t.key}">${t.label}</button>`
-  ).join('');
+  document.getElementById('topicFilters').innerHTML =
+    `<button class="topic-chip${activeTopic===''?' active':''}" data-topic="">All</button>` +
+    TOPICS.map(t =>
+      `<button class="topic-chip${activeTopic===t.key?' active':''}" data-topic="${t.key}">${t.label}</button>`
+    ).join('');
 }
 
 function updateYearFilter() {
