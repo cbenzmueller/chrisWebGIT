@@ -393,6 +393,8 @@ const TOPICS = [
    re:/deontic|normative|machine ethics|ethic|legal|\blaw\b|value.?oriented|logikey|verantwortung/i},
   {key:'ai-health',label:'AI & Health',
    re:/health|medic|clinic|patient|cancer|nursing/i},
+  {key:'systems',  label:'Systems & Tools',
+   re:/system description|system demonstration|systembeschreibung|tool description|tool demonstration|tool demo\b|tool paper|systems & tools/i},
   {key:'phil',     label:'Philosophy',
    re:/philosoph|metaphys|hermeneutic|g(ö|oe)del|leibniz|anselm|kant\b|ontological argument|epistem/i},
   {key:'theo',     label:'Theology',
@@ -402,7 +404,10 @@ const TOPICS = [
 function classifyTopics(p) {
   const hay = [p._kw, p.title, p.journal, p.booktitle, p.series, p.note]
     .filter(Boolean).join(' ').toLowerCase();
-  return TOPICS.filter(t => t.re.test(hay)).map(t => t.key);
+  const keys = TOPICS.filter(t => t.re.test(hay)).map(t => t.key);
+  // Software artefacts (@software) always belong to the Systems & Tools topic
+  if (p.type === 'software' && !keys.includes('systems')) keys.push('systems');
+  return keys;
 }
 
 // ── LaTeX cleaner ─────────────────────────────────────────────────────────
