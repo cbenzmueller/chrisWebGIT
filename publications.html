@@ -30,8 +30,6 @@
     --other-bg:    rgba(185,28,28,.09);
     --thesis:      #0e7490;
     --thesis-bg:   rgba(14,116,144,.09);
-    --software:    #be185d;
-    --software-bg: rgba(190,24,93,.09);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -163,7 +161,6 @@
   .pub-row[data-type="phdthesis"],
   .pub-row[data-type="mastersthesis"],
   .pub-row[data-type="habilitation"] { border-left-color: var(--thesis); }
-  .pub-row[data-type="software"]     { border-left-color: var(--software); }
 
   /* left column: badge + key */
   .pub-left {
@@ -184,7 +181,6 @@
   [data-type="phdthesis"]     .type-badge,
   [data-type="mastersthesis"] .type-badge,
   [data-type="habilitation"]  .type-badge { background: var(--thesis-bg); color: var(--thesis); }
-  [data-type="software"]      .type-badge { background: var(--software-bg); color: var(--software); }
 
   .pub-key {
     font-family: 'JetBrains Mono', monospace; font-size: .58rem;
@@ -343,7 +339,6 @@
     <div class="stat" data-type="book" role="button" tabindex="0"><span class="stat-n" id="stat-books">—</span><span class="stat-label">Books/Proc.</span></div>
     <div class="stat" data-type="misc" role="button" tabindex="0"><span class="stat-n" id="stat-preprints">—</span><span class="stat-label">Preprints</span></div>
     <div class="stat" data-type="techreport" role="button" tabindex="0"><span class="stat-n" id="stat-techreports">—</span><span class="stat-label">Misc./TechRep.</span></div>
-    <div class="stat" data-type="software" role="button" tabindex="0"><span class="stat-n" id="stat-software">—</span><span class="stat-label">Software</span></div>
     <div class="stat" data-type="thesis" role="button" tabindex="0"><span class="stat-n" id="stat-theses">—</span><span class="stat-label">Theses</span></div>
     <div class="stat"><span class="stat-n" id="stat-years">—</span><span class="stat-label">Years Active</span></div>
   </div>
@@ -393,12 +388,12 @@ const TOPICS = [
    re:/deontic|normative|machine ethics|ethic|legal|\blaw\b|value.?oriented|logikey|verantwortung/i},
   {key:'ai-health',label:'AI & Health',
    re:/health|medic|clinic|patient|cancer|nursing/i},
-  {key:'systems',  label:'Systems & Tools',
-   re:/system description|system demonstration|systembeschreibung|tool description|tool demonstration|tool demo\b|tool paper|systems & tools/i},
   {key:'phil',     label:'Philosophy',
    re:/philosoph|metaphys|hermeneutic|g(ö|oe)del|leibniz|anselm|kant\b|ontological argument|epistem/i},
   {key:'theo',     label:'Theology',
    re:/theolog|ontological argument|\bgod\b|\bgott\b|religio|anselm/i},
+  {key:'systems',  label:'Systems & Tools',
+   re:/system description|system demonstration|systembeschreibung|tool description|tool demonstration|tool demo\b|tool paper|systems & tools/i},
 ];
 
 function classifyTopics(p) {
@@ -545,6 +540,8 @@ function parseBib(raw) {
     if (entry.title && entry.year) {
       // Reclassify @unpublished (and typo @unblished) as techreport — matches server bib convention
       if (['unpublished','unblished'].includes(entry.type)) entry.type = 'techreport';
+      // Reclassify @software as techreport (Misc./TechRep.) — Software category retired
+      if (entry.type === 'software') entry.type = 'techreport';
       // Reclassify non-standard types: @SEKI Report{ and @Research Report{ truncate to first word
       if (['seki','research'].includes(entry.type)) entry.type = 'techreport';
       // Reclassify Seki Reports stored as misc/techreport with seki in publisher/institution
@@ -720,7 +717,6 @@ function updateStats() {
   document.getElementById('stat-books').textContent    = allPubs.filter(p=>['book','proceedings'].includes(p.type)).length;
   document.getElementById('stat-preprints').textContent= allPubs.filter(p=>p.type==='misc').length;
   document.getElementById('stat-techreports').textContent= allPubs.filter(p=>p.type==='techreport').length;
-  document.getElementById('stat-software').textContent  = allPubs.filter(p=>p.type==='software').length;
   document.getElementById('stat-theses').textContent   = allPubs.filter(p=>['phdthesis','mastersthesis','habilitation'].includes(p.type)).length;
 }
 
