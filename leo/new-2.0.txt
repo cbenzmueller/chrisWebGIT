@@ -1,0 +1,21 @@
+LEO-II v2.0 -- what is new (September 2026)
+
+Proves 205 of the 294 higher-order modal problems of the ontological-argument
+dataset at ten seconds on one core, where v1.9.6 proves 174, and 224 given the
+whole machine (E 3.2: 218 and 227).  Runs vary by two or three.
+
+* The first-order partner (E) is called every fifth iteration of the main loop
+  instead of after every one.  Each call costs the whole time slice it is given,
+  so calling after every iteration starved the search of the clauses the calls
+  needed.  Largest single change (--atpfrequency N to override).
+* Ground function types are handed to the partner as one constant each instead
+  of as nested type terms; same encoding up to renaming, a third of the weight.
+* --cores N runs a portfolio of N settings; default 1, as E and Vampire do;
+  --cores 0 or auto uses every core of the machine.
+* Two swallowed exceptions fixed: a timeout no longer reports as Error.
+* Scratch files live in a per-process directory under $TMPDIR and are removed.
+* New flags, off by default and measured to lose on this dataset:
+  --defsasrules (keep definitions as rewrite equations), --atpmaxclauses N,
+  --instantiate N (instantiate free variables with the problem's own terms).
+
+Details and the measurements are in CHANGES inside the archive.

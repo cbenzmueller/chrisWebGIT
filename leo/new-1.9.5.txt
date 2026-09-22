@@ -1,0 +1,5 @@
+LEO-II v1.9.5 -- what is new
+
+v1.9.4 plus three repairs:
+* no longer waits forever for a first-order prover that never answers;
+* two crashes on malformed input fixed.

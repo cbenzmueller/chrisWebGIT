@@ -1,0 +1,4 @@
+LEO-II v1.9.4 -- what is new
+
+* Proves more than v1.8.0 in the same time.
+* --cores N runs N settings in parallel and returns the first proof.

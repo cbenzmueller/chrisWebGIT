@@ -1,0 +1,4 @@
+LEO-II v1.9.6 -- what is new
+
+* -t N now limits the whole run.  Earlier versions applied it to one time slice
+  and could exceed it by minutes, or not stop at all.

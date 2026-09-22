@@ -1,0 +1,4 @@
+LEO-II v1.8.0 -- what is new
+
+* Builds and runs under OCaml 4.02 and above, including OCaml 5.
+* camlp4 is no longer needed.
