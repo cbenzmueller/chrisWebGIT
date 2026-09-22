@@ -1,5 +1,9 @@
 LEO-II v1.9.5 -- what is new
 
-v1.9.4 plus three repairs:
-* no longer waits forever for a first-order prover that never answers;
-* two crashes on malformed input fixed.
+v1.9.4 plus three repairs, no change to what the prover proves:
+* no longer waits forever for a first-order prover that never answers
+  (the call now has a deadline of its own);
+* --proofoutput 2 reports a missing epclextract instead of running an
+  empty command;
+* two costs in the term index removed (bound-variable names rebuilt on every
+  retrieval, subterm positions hashed three times).
