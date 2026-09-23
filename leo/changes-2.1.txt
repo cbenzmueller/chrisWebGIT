@@ -1,0 +1,23 @@
+LEO-II v2.1 -- what is new (September 2026)
+
+Proves 217 of the 294 higher-order modal problems of the ontological-argument
+dataset at ten seconds on one core, where v2.0 proves 205, and 225 given the
+whole machine (E 3.2: 218 and 227).  Runs vary by two or three.
+
+* A short filtered time slice first.  The relevance filter (--relevancefilter 1)
+  keeps only axioms that share symbols with the conjecture; as a default it
+  loses, as a first slice with a quarter of the budget it wins twelve problems,
+  because what it finds it finds in about a second.  For problems with long
+  definitions the schedule now opens with that slice; the unfiltered search
+  gets the rest and whatever the slice leaves unused.  Neutral on 400 TPTP
+  theorems, nothing proved on 470 TPTP non-theorems.
+* Questions are answered.  A formula of role "question" is proved like a
+  conjecture and the instances of its existential variables are reported:
+      % SZS answers Tuple [[a]]
+  The instance comes from the first-order prover, which is handed the
+  question's clauses as a question of its own and run with --answers.
+* --proofoutput 2 finds epclextract beside eprover when .leoatprc does not
+  name it, so the first-order steps of a proof are expanded.
+* A stray debug print in directory mode is a warning on level 1.
+
+Details and the measurements are in CHANGES inside the archive.
