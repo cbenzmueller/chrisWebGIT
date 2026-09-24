@@ -1,10 +1,11 @@
 LEO-II v2.2 -- what is new (September 2026)
 
-Reads the THF problems that v2.1 could not read.  Of the 3637 monomorphic TH0
-problems of the TPTP library v7.5.0, v2.1 ends 28 in Error and v2.2 ends none.
-Five of them it now proves.  Nothing changes on the higher-order modal problems
-of the ontological-argument dataset: 217 of 294 at ten seconds on one core, the
-same problems as v2.1, and none of the 45 non-theorems.
+Reads the THF problems that v2.1 could not read, and counts its time budget in
+CPU seconds rather than on the wall clock.  Of the 3637 monomorphic TH0 problems
+of the TPTP library v7.5.0, v2.1 ends 28 in Error and v2.2 ends none; five of
+them it now proves.  On the higher-order modal problems of the
+ontological-argument dataset it proves 218 of 294 at ten seconds on one core
+where v2.1 proves 217, and none of the 45 non-theorems.
 
 * The type a quantifier combinator is used at.  THF lets a problem name the
   type at which a polymorphic combinator is applied -- "?? @ $o @ (P @ I)",
@@ -18,6 +19,14 @@ same problems as v2.1, and none of the 45 non-theorems.
   a candidate whose term carries a variable the clause does not have free, but
   it built the literal before the guard could speak, and building it is what
   raised.  3 of the 28.
+* The time budget is CPU seconds.  "-t 10" meant ten seconds of wall clock, so
+  what a run achieved depended on what else the machine was doing: the time
+  slices and the limit handed to the first-order prover are computed from the
+  time left, and under load that time runs out while the work done does not grow
+  with it.  The budget is now the CPU time of the process and of the children it
+  has waited for, which includes the first-order prover, and that prover is
+  itself given a CPU limit, so the whole budget is one kind of second.  A real
+  alarm remains as the backstop against a hang.
 
 Neither defect shows on any curated benchmark; both were found by running the
 whole TH0 part of the library.  Measured against the record of the TPTP:
