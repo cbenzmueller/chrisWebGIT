@@ -21,3 +21,12 @@ whole machine (E 3.2: 218 and 227).  Runs vary by two or three.
 * A stray debug print in directory mode is a warning on level 1.
 
 Details and the measurements are in CHANGES inside the archive.
+
+The 294 problems are the dataset of Benzmüller and Scott's "Notes on Gödel's
+and Scott's variants of the ontological argument" (Monatshefte für Mathematik
+208, 2025), rendered in TPTP THF.  They travel, with the results of six
+provers, as ancillary material of
+
+    C. Benzmüller, Gödel's and Scott's Variants of the Ontological Argument
+    in Lean 4 and TPTP THF, arXiv (forthcoming; the link goes here once the
+    paper is announced).
