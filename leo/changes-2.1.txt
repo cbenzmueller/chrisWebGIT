@@ -28,5 +28,4 @@ and Scott's variants of the ontological argument" (Monatshefte für Mathematik
 provers, as ancillary material of
 
     C. Benzmüller, Gödel's and Scott's Variants of the Ontological Argument
-    in Lean 4 and TPTP THF, arXiv (forthcoming; the link goes here once the
-    paper is announced).
+    in Lean 4, arXiv:2609.26806, https://arxiv.org/abs/2609.26806
