@@ -1,0 +1,35 @@
+LEO-II v2.2 -- what is new (September 2026)
+
+Reads the THF problems that v2.1 could not read.  Of the 3637 monomorphic TH0
+problems of the TPTP library v7.5.0, v2.1 ends 28 in Error and v2.2 ends none.
+Five of them it now proves.  Nothing changes on the higher-order modal problems
+of the ontological-argument dataset: 217 of 294 at ten seconds on one core, the
+same problems as v2.1, and none of the 45 non-theorems.
+
+* The type a quantifier combinator is used at.  THF lets a problem name the
+  type at which a polymorphic combinator is applied -- "?? @ $o @ (P @ I)",
+  "!! @ nat @ Q" -- and the grammar did not know that form.  With a defined
+  type the file was rejected outright; with a user type the type name parsed as
+  a constant and the term could not be built.  For the defined types the
+  grammar now accepts the argument and drops it, LEO-II inferring the type
+  itself; for a user type that is undone after parsing, where the signature
+  knows which names are types.  24 of the 28 problems.
+* The choice guard speaks before the literal is built.  The choice rule rejects
+  a candidate whose term carries a variable the clause does not have free, but
+  it built the literal before the guard could speak, and building it is what
+  raised.  3 of the 28.
+
+Neither defect shows on any curated benchmark; both were found by running the
+whole TH0 part of the library.  Measured against the record of the TPTP:
+nothing proved of the 470 TPTP non-theorems and no answer contradicting a
+Status field, in 14548 runs of four provers.
+
+Details and the measurements are in CHANGES inside the archive.
+
+The 294 problems are the dataset of Benzmüller and Scott's "Notes on Gödel's
+and Scott's variants of the ontological argument" (Monatshefte für Mathematik
+208, 2025), rendered in TPTP THF.  They travel, with the results of six
+provers, as ancillary material of
+
+    C. Benzmüller, Gödel's and Scott's Variants of the Ontological Argument
+    in Lean 4, arXiv:2609.26806, https://arxiv.org/abs/2609.26806
