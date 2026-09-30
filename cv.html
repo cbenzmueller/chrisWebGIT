@@ -213,13 +213,11 @@
     .hero-position { font-size: .85rem; display: block; }
     .hero-position::before { display: inline; }
     .contact-pill { font-size: .6rem; padding: .2rem .55rem; }
-    nav { padding: 0 .75rem; height: auto; }
     .hero { padding: 1.5rem .75rem 1.2rem; }
   }
 
   /* Narrow phone — compact nav + photo beside name */
   @media (max-width: 420px) {
-    nav { padding: 0 .6rem; }
     .hero { padding: 1rem .6rem .9rem; }
     .hero-inner { display: grid !important; grid-template-columns: 68px 1fr; gap: .75rem; align-items: start; }
     .hero-photo { width: 68px; height: 68px; font-size: 1.3rem; }
@@ -361,13 +359,11 @@
     .hero-position { font-size: .85rem; display: block; }
     .hero-position::before { display: inline; }
     .contact-pill { font-size: .6rem; padding: .2rem .55rem; }
-    nav { padding: 0 .75rem; height: auto; }
     .hero { padding: 1.5rem .75rem 1.2rem; }
   }
 
   /* Narrow phone — compact nav + photo beside name */
   @media (max-width: 420px) {
-    nav { padding: 0 .6rem; }
     .hero { padding: 1rem .6rem .9rem; }
     .hero-inner { display: grid !important; grid-template-columns: 68px 1fr; gap: .75rem; align-items: start; }
     .hero-photo { width: 68px; height: 68px; font-size: 1.3rem; }
@@ -415,10 +411,11 @@
   .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
   .nav-link.active { color: var(--accent); background: var(--accent-soft); }
   @media (max-width: 580px) {
+    nav { padding: 0 .75rem; height: auto; }
     .nav-inner { flex-direction: column; align-items: flex-start;
                  height: auto; padding: .4rem 0; gap: .25rem; }
     .nav-name { font-size: .9rem; }
-    .nav-links { justify-content: flex-start; }
+    .nav-links { justify-content: flex-start; width: 100%; }
     .nav-link { padding: .25rem .45rem; font-size: .6rem; }
   }
 </style>
