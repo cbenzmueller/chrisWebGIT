@@ -42,3 +42,9 @@ provers, as ancillary material of
 
     C. Benzmüller, Gödel's and Scott's Variants of the Ontological Argument
     in Lean 4, arXiv:2609.26806, https://arxiv.org/abs/2609.26806
+
+Re-issued 3 October 2026.  The Makefile made the dependency file depend on a
+phony target, so GNU make 4 rebuilt it and re-read the Makefile forever (make
+3.81 did not).  It now depends on general/build_config.ml.  The archives of
+v1.8.0 to v2.1 had the same rule and were re-issued with the same fix.  Nothing
+else in the archives changed.
