@@ -1,0 +1,26 @@
+LEO-II v2.3 -- what is new (October 2026)
+
+Instantiates, when it reads a problem, an axiom whose leading universal
+quantifier ranges over sets of properties at the problem's own constants of
+that type, and finds identical terms faster.  Measured against v2.2, the two
+run side by side on one core each: on the 294 problems of the
+ontological-argument dataset 225 against 217 at ten seconds and 235 against
+221 at sixty; on the 3637 monomorphic TH0 problems of the TPTP library v7.5.0
+1894 against 1883 at ten seconds.  None of the 45 non-theorems, no answer that
+contradicts the library's record, no Error.
+
+* Instances of axioms over sets of properties.  Ax1Gen of the Goedel variants
+  is needed once, at P, the set of the positive properties, to prove that being
+  God-like is positive.  Primitive substitution never offers P, and the general
+  axiom drowns the first-order prover.  v2.3 replaces such an axiom, in the
+  unfiltered slices, by its instances at the problem's constants of that type
+  and at the empty set, made from the formula before clause normal form.  A
+  proof from instances is a proof; a saturation of them is no countermodel, so
+  after a replacement LEO-II never answers CounterSatisfiable.  Turned off with
+  --notInstantiateSets (-nis).
+
+* Positions hashed whole.  The table indexing subterms by position used a hash
+  that reads only the first ten steps of a position; deep positions shared a
+  bucket.  Same answers, faster.
+
+* Builds with GNU make 4 (the dependency file depended on a phony target).
