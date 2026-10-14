@@ -1,0 +1,47 @@
+LEO-II v2.3.2 -- what is new (October 2026)
+
+Reads TPTP's distinct objects.  A distinct object is written in double quotes,
+"Apple", and two of them written differently denote different elements of the
+domain.  The lexer had no rule for them: a quote fell to the rule that drops a
+character the lexer does not know, so "Apple" was read as the variable Apple.
+The whole conjecture of SYO561+1 is "Apple" != "Microsoft", a theorem that
+v2.3.1 answered CounterSatisfiable, and p("Apple") |- p("Microsoft"), which no
+interpretation satisfies, it answered Theorem.  Reported by Geoff Sutcliffe.
+
+* A distinct object is now a constant of type $i, known by the name TPTP writes
+  it with, the quotes included: a constant of a problem is a word or a
+  single-quoted atom, so no distinct object can be taken for one.  A
+  first-order prover is given the object as TPTP writes it, which is what it
+  reads as a distinct object too.
+
+* That two of them are different is said by no formula of the problem, so the
+  disequations, one for each pair the problem mentions, are added when the
+  problem is read, and a proof says in their source that the problem does not
+  state them:
+
+    thf(3,axiom,("Apple" != "Microsoft"),introduced(tautology,[distinct_objects])).
+
+* They are quadratic in the number of objects, so they are made for at most
+  twenty.  The library is far on one side of that or the other: of the 26990
+  problems of TPTP v9.3.1 six name a distinct object at all, and none more than
+  three, while four axiom files -- SUMO and the BIO ontology -- write their
+  numerals as distinct objects, 617 of them in CSR003+2.ax.  Above the twenty
+  only the first-order prover reads them as distinct, so a saturation is
+  reported Unknown and not CounterSatisfiable.
+
+* The THF problems LEO-II writes for itself no longer declare a type for a
+  distinct object: $i is its type by the definition of the language, and
+  ("Apple": $i) is no declaration the language allows.
+
+Also: a problem in TFF, TCF or TPI now comes back "SZS status Inappropriate",
+which is what SZS has for logical data a system cannot take, and not "Error",
+which says that the problem is malformed.  SYO561_1 and SYO561_2, the TFF forms
+of the problem above, are such problems.  A problem that is in fact malformed is
+still an Error, and both now name the problem in their status line.
+
+A problem that names no distinct object is unchanged, down to the clause
+numbers, since no disequation is made.  Of 168 problems of TPTP v9.3.1, 120 THF
+and 48 FOF taken at a fixed stride through the library, v2.3.2 and v2.3.1
+answer 167 alike at eight seconds; the one that differs is CSR104+1, which
+includes 14792 formulas of SUMO: v2.3.1 could not read it at all, its distinct
+objects making a syntax error, and v2.3.2 reads it and reports Unknown.
