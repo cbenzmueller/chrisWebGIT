@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+._*
+
+# Editor- und Handarbeitssicherungen
+*~
+*_save
+*_save2
+*.bak
+*.bak-*
+.!*!*
+
+# lokale Werkzeuge
+git-filter-repo
+
+# persoenliche Arbeitsdateien, gehoeren nicht auf die oeffentliche Seite
+Carla.pages
+short-bio.docx
+slides-URANIA-2017-small.pdf
+
+# lokale Arbeitskopien und Hilfsdaten
+/talks.bib
+papers/lit.bib
+papers/talks.html
+papers/logikey-link-audit.csv
