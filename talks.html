@@ -375,6 +375,8 @@ const TILDE  = {n:'ñ',N:'Ñ',a:'ã',o:'õ',A:'Ã',O:'Õ'};
 function cleanLatex(s) {
   if (!s) return '';
   return s
+    // LaTeX-Anfuehrungszeichen in typografische umwandeln, vor allen weiteren Regeln
+    .replace(/``/g, '\u201C').replace(/''/g, '\u201D')
     .replace(/\{\\"\{?\s*([a-zA-Z])\s*\}?\}/g, (_,c) => UMLAUT[c]||c)
     .replace(/\\"\{([a-zA-Z])\}/g,              (_,c) => UMLAUT[c]||c)
     .replace(/\{"?\\"\s*([a-zA-Z])\}/g,         (_,c) => UMLAUT[c]||c)
