@@ -154,6 +154,13 @@
   [data-cat="workshop"] .type-badge { background: var(--workshop-bg); color: var(--workshop); }
   [data-cat="other"]    .type-badge { background: var(--other-bg);    color: var(--other); }
 
+  .upcoming-badge {
+    font-size: .6rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    padding: .08rem .4rem; border-radius: 3px; white-space: nowrap;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px solid currentColor;
+  }
+
   .talk-key { font-family: 'JetBrains Mono', monospace; font-size: .58rem; color: var(--text-dim); white-space: nowrap; }
 
   .talk-body { min-width: 0; }
@@ -596,6 +603,17 @@ function render() {
     </div>`).join('');
 }
 
+// A talk whose date lies in the future is marked as upcoming.
+// Month 0 means the bib entry gives no month; then only the year decides.
+function isUpcoming(t) {
+  const now = new Date();
+  const nowKey = now.getFullYear() * 100 + (now.getMonth() + 1);
+  const y = +t.year;
+  if (!y) return false;
+  if (!t._month) return y > now.getFullYear();
+  return (y * 100 + t._month) > nowKey;
+}
+
 function talkRow(t) {
   // Clean up title: strip (Invited) / (Invited ...) prefix tags since the badge already shows that
   const title = (t.title || 'Untitled').replace(/^\(Invited[^)]*\)\s*/i, '').replace(/^\(Keynote[^)]*\)\s*/i, '');
@@ -619,6 +637,7 @@ function talkRow(t) {
   <div class="talk-row" data-cat="${t.cat}">
     <div class="talk-left">
       <span class="type-badge">${catLabel(t.cat)}</span>
+      ${isUpcoming(t) ? '<span class="upcoming-badge">upcoming</span>' : ''}
       <span class="talk-key">${t.key}</span>
     </div>
     <div class="talk-body">
