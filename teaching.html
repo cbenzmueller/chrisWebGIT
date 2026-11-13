@@ -22,8 +22,8 @@
     --accent:      #2c5f8a;
     --accent-soft: rgba(44,95,138,.09);
     --text:        #1a1a1a;
-    --text-muted:  #5a5550;
-    --text-dim:    #9a948d;
+    --text-muted:  #4a443e;
+    --text-dim:    #6b645c;
     --lecture:     #b45309;
     --lecture-bg:  rgba(180,83,9,.09);
     --seminar:     #2c5f8a;
@@ -224,6 +224,11 @@
     .nav-links { justify-content: flex-start; width: 100%; }
     .nav-link { padding: .25rem .45rem; font-size: .6rem; }
   }
+
+  /* ── Legibility (keep last): larger base size, stronger micro-type ── */
+  html { font-size: 17px; }
+  .hero-kicker, .card-title, .nav-link, .contact-pill, .proj-funder,
+  .ath-dist, .stat-label, .talk-key, .year-count, .rtag, footer { font-weight: 500; }
 </style>
 </head>
 <body>
